@@ -17,8 +17,8 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 50;
-    int ny = 50;
+    int nx = 100;
+    int ny = 100;
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx/(nx-1);
@@ -26,7 +26,7 @@ int main()
 
     // == Temporal ==
     double tFinal = 2.0;
-    double dt = 0.005;
+    double dt = 0.0005;
     int nSteps = int(tFinal / dt);
     double time = 0.0;
 

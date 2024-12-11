@@ -42,7 +42,7 @@ for (int i = 0; i < nx * ny; ++i)
             Y_n[i][j] = Y[i][j];
         }
     }
-    //fillMatrixA(A,dx,dy,D,dt,nx,ny);
+    fillMatrixA(A,dx,dy,D,dt,nx,ny);
 
     for (int i = 0; i<nx*ny;i++){
         x[i]=0.0;
