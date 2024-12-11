@@ -34,7 +34,7 @@ bool isInsideCircle(const double x1, const double y1, const double radius, const
 }
 
 // Initialization of the temperature inside the domain
-void Initialization(double** T,double** u, double** v, const int nx, const int ny, const double dx, const double dy){
+void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy){
 
    
     // ISC LOGO
@@ -52,36 +52,36 @@ void Initialization(double** T,double** u, double** v, const int nx, const int n
             double y = j*dy - ycenter;
 
            if (isInsideCircle(0.0, 0.0, radius, x, y)){ // White
-                T[i][j] = 1.0;
+                Y[i][j] = 1.0;
             } 
             else if ( isInsideTriangle(0.0, -radius, 0.0, radius, size + radius, radius, x, y) or 
                       isInsideTriangle(0.0, -radius, size + radius, -radius, size + radius, radius, x, y) or 
                       isInsideCircle(size + radius, 0.0, radius, x, y) ){ // Green
-                T[i][j] = 15.0;
+                Y[i][j] = 15.0;
             }
             else if ( isInsideTriangle(size/2.0, -size/2.0, -size/2.0, size/2.0, radius, size + radius, x, y) or 
                       isInsideTriangle(size/2.0, -size/2.0, size + radius, radius, radius, size + radius, x, y) or 
                       isInsideCircle(size/2.0 + radius, size/2.0 + radius, radius, x, y) ){ // Pink
-                T[i][j] = -5.0;
+                Y[i][j] = -5.0;
             }
             else if ( isInsideTriangle(radius, 0.0, -radius, 0.0, -radius, size + radius, x, y) or 
                       isInsideTriangle(radius, 0.0, radius, size + radius, -radius, size + radius, x, y) or 
                       isInsideCircle(0.0, size + radius, radius, x, y) ){ // Purple
-                T[i][j] = 10.0;
+                Y[i][j] = 10.0;
             }
             else if ( isInsideTriangle(-size/2.0, -size/2.0, size/2.0, size/2.0, -radius, size + radius, x, y) or 
                       isInsideTriangle(-size/2.0, -size/2.0, -size - radius, radius, -radius, size + radius, x, y) or 
                       isInsideCircle(-size/2.0 - radius, size/2.0 + radius, radius, x, y) ){ // Blue
-                T[i][j] = 5.0;
+                Y[i][j] = 5.0;
             }
             else if ( isInsideTriangle(0.0, -radius, 0.0, radius, -size - radius, radius, x, y) or 
                       isInsideTriangle(0.0, -radius, -size - radius, -radius, -size - radius, radius, x, y) or 
                       isInsideCircle(-size - radius,0.0,radius, x, y) ){ // Yellow
-                T[i][j] = -10.0;
+                Y[i][j] = -10.0;
           
             }
             else { // Temperature is set at 0 and the cell must be computed
-                T[i][j] = 0.0;
+                Y[i][j] = 0.0;
             }
             
      u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);

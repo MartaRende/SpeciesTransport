@@ -23,7 +23,11 @@ void writeDataVTK(const string filename, double** Y, double** u, double** v, con
     // Setting open file using output file streaming 
     ofstream myfile;
     myfile.open(filename_all);
-
+    if (!myfile.is_open()) {
+    cerr << "Failed to open file: " << filename_all << endl;
+    // Handle the error appropriately
+    return;
+}
     // Write header of vtk file 
     myfile << "# vtk DataFile Version 3.0\nvtk output\nASCII\nDATASET RECTILINEAR_GRID\n";
 
@@ -37,7 +41,6 @@ void writeDataVTK(const string filename, double** Y, double** u, double** v, con
 
     myfile << "Z_COORDINATES 1 float\n";
     myfile << "0\n";
-
     // Write number of cells
     myfile << "POINT_DATA " << nx*ny << "\n";
 
