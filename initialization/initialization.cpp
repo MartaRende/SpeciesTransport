@@ -84,7 +84,7 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
                 Y[i][j] = 0.0;
             }
             
-     u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);
+            u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);
             v[i][j] = sin(2.0*M_PI*i*dx) * sin(M_PI*j*dy) * sin(M_PI*j*dy);
 
         }

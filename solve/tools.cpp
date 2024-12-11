@@ -1,9 +1,7 @@
 #include <cmath>
 #include <iostream>
 
-#include <Eigen/Dense>
 
-using namespace Eigen;
 using namespace std;
 
 
@@ -72,64 +70,5 @@ double** invertMatrix(double** A, int n) {
 
     return I;
 }
-double determinant(double** A, int n) {
-    double det = 1.0;
-    double** matrix = new double*[n]; // Create a copy of the matrix
-    for (int i = 0; i < n; i++) {
-        matrix[i] = new double[n];
-        for (int j = 0; j < n; j++) {
-            matrix[i][j] = A[i][j]; // Copy elements of A to matrix
-        }
-    }
 
-    // Perform Gaussian Elimination
-    for (int i = 0; i < n; ++i) {
-        // Find the pivot element
-        double pivot = matrix[i][i];
-        if (pivot == 0) {
-            // If pivot is zero, determinant is zero (matrix is singular)
-            for (int i = 0; i < n; i++) {
-                delete[] matrix[i]; // Free memory
-            }
-            delete[] matrix;
-            return 0;
-        }
 
-        // Scale the matrix so that the pivot is 1
-        for (int j = i + 1; j < n; ++j) {
-            double scale = matrix[j][i] / pivot;
-            for (int k = i; k < n; ++k) {
-                matrix[j][k] -= scale * matrix[i][k];
-            }
-        }
-
-        // Multiply the pivot element into the determinant
-        det *= pivot;
-    }
-
-    // The determinant is the product of the diagonal elements
-    for (int i = 0; i < n; ++i) {
-        delete[] matrix[i]; // Free memory
-    }
-    delete[] matrix;
-    return det;
-}
-
-MatrixXd computePseudoinverse(MatrixXd& A) {
-    // Perform SVD
-    JacobiSVD<MatrixXd> svd(A, ComputeFullU | ComputeFullV);
-    MatrixXd U = svd.matrixU();
-    MatrixXd V = svd.matrixV();
-    VectorXd S = svd.singularValues();
-
-    // Compute Sigma^+
-    MatrixXd Sigma_pseudo = MatrixXd::Zero(A.cols(), A.rows());
-    for (int i = 0; i < S.size(); ++i) {
-        if (S(i) > 1e-10) { // Avoid division by zero
-            Sigma_pseudo(i, i) = 1.0 / S(i);
-        }
-    }
-
-    // Compute pseudoinverse: A^+ = V * Sigma^+ * U^T
-    return V * Sigma_pseudo * U.transpose();
-}
