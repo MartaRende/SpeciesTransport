@@ -17,8 +17,8 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 200; // in parallel 800
-    int ny = 200; // in parallel 800
+    int nx = 50; // in parallel 800
+    int ny = 50; // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx/(nx-1); // in final version 0.0077
@@ -40,6 +40,7 @@ int main()
         v[i] = new double[ny];
     }
     Initialization(Y, u, v, nx, ny, dx, dy); 
+    computeBoundaries(Y, nx, ny);
 
     auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Initialization took: %ld us\n", end_init);

@@ -90,7 +90,6 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
         }
 
     }
-    computeBoundaries(Y, nx, ny);
 
 
 }

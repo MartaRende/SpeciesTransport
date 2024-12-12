@@ -23,7 +23,7 @@ void computeBoundaries(double **Y, const int nx, const int ny)
 }
 
 void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, const double dy, double D, const int nx, const int ny, const double dt)
-{   //array initialization
+{   //arrays needed
     auto start_total_solve = high_resolution_clock::now();
     double **Y_n = new double *[nx]; // Previous Y
     double *x = new double[nx * ny];
@@ -96,7 +96,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     //Compute x with an iterative method 
 
     auto start_computex = high_resolution_clock::now();
-    conjugateGradient(A, b_flatten, x, nx * ny);
+    jacobiSolver(A, b_flatten, x, nx * ny,1000,1e-2);
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
 
@@ -131,3 +131,56 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 }
 
 
+void fillMatrixA(double **A, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
+{
+    // Loop through all grid points
+    for (int i = 0; i < nx * ny; ++i)
+    {
+        for (int j = 0; j < nx * ny; ++j)
+        {
+            A[i][j] = 0.0; // Initialize with zero
+        }
+    }
+
+    // Populate internal nodes
+    for (int i = 1; i < nx - 1; ++i)
+    {
+        for (int j = 1; j < ny - 1; ++j)
+        {
+            int idx = i * ny + j;
+
+            // Diagonal (central node)
+            A[idx][idx] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
+
+            // Left neighbor
+            A[idx][idx - 1] = -dt * D / (dx * dx);
+
+            // Right neighbor
+            A[idx][idx + 1] = -dt * D / (dx * dx);
+
+            // Top neighbor
+            A[idx][(i - 1) * ny + j] = -dt * D / (dy * dy);
+
+            // Bottom neighbor
+            A[idx][(i + 1) * ny + j] = -dt * D / (dy * dy);
+        }
+    }
+
+    // Handle boundary conditions (Dirichlet: Y = 0)
+    for (int i = 0; i < nx; ++i)
+    {
+        // Bottom boundary
+        A[i * ny][i * ny] = 1.0;
+
+        // Top boundary
+        A[i * ny + (ny - 1)][i * ny + (ny - 1)] = 1.0;
+    }
+    for (int j = 0; j < ny; ++j)
+    {
+        // Left boundary
+        A[j][j] = 1.0;
+
+        // Right boundary
+        A[(nx - 1) * ny + j][(nx - 1) * ny + j] = 1.0;
+    }
+}
