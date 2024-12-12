@@ -5,70 +5,65 @@
 using namespace std;
 
 
-double** invertMatrix(double** A, int n) {
-  
-    // Create an identity matrix
-    double** I = new double*[n];
+
+void conjugateGradient(double **A, double *b, double *x, int n, double tol = 1e-6, int maxIter = 1000) {
+    double *r = new double[n];
+    double *p = new double[n];
+    double *Ap = new double[n];
+
+    // Initial residual r_0 = b - A*x_0
     for (int i = 0; i < n; i++) {
-        I[i] = new double[n];
-        for (int j = 0; j < n; j++) {
-            I[i][j] = (i == j) ? 1.0 : 0.0;
-        }
+        x[i] = 0.0; // Initial guess
+        r[i] = b[i];
+        p[i] = r[i];
     }
 
-    // Create a copy of A
-    double** A_copy = new double*[n];
+    double rsOld = 0.0;
     for (int i = 0; i < n; i++) {
-        A_copy[i] = new double[n];
-        for (int j = 0; j < n; j++) {
-            A_copy[i][j] = A[i][j];
-        }
+        rsOld += r[i] * r[i];
     }
 
-
-    // Perform Gauss-Jordan elimination
-    for (int i = 0; i < n; i++) {
-        // Find pivot
-        int pivot = i;
-        for (int j = i + 1; j < n; j++) {
-            if (std::abs(A_copy[j][i]) > std::abs(A_copy[pivot][i])) {
-                pivot = j;
+    for (int iter = 0; iter < maxIter; iter++) {
+        // Compute Ap
+        for (int i = 0; i < n; i++) {
+            Ap[i] = 0.0;
+            for (int j = 0; j < n; j++) {
+                Ap[i] += A[i][j] * p[j];
             }
         }
 
-        // Swap rows
-        if (pivot != i) {
-            std::swap(A_copy[i], A_copy[pivot]);
-            std::swap(I[i], I[pivot]);
+        // Compute alpha = rsOld / (p^T Ap)
+        double pAp = 0.0;
+        for (int i = 0; i < n; i++) {
+            pAp += p[i] * Ap[i];
         }
-         
-        // Scale row
-        double scale = A_copy[i][i];
-        for (int j = 0; j < n; j++) {
-            A_copy[i][j] /= scale;
-            I[i][j] /= scale;
+        double alpha = rsOld / pAp;
+
+        // Update x and r
+        for (int i = 0; i < n; i++) {
+            x[i] += alpha * p[i];
+            r[i] -= alpha * Ap[i];
         }
 
-
-        // Eliminate
-        for (int j = 0; j < n; j++) {
-            if (j != i) {
-                double factor = A_copy[j][i];
-                for (int k = 0; k < n; k++) {
-                    A_copy[j][k] -= factor * A_copy[i][k];
-                    I[j][k] -= factor * I[i][k];
-                }
-            }
+        // Check for convergence
+        double rsNew = 0.0;
+        for (int i = 0; i < n; i++) {
+            rsNew += r[i] * r[i];
         }
+        if (sqrt(rsNew) < tol) {
+            break;
+        }
+
+        // Update p
+        double beta = rsNew / rsOld;
+        for (int i = 0; i < n; i++) {
+            p[i] = r[i] + beta * p[i];
+        }
+
+        rsOld = rsNew;
     }
 
-    // Clean up A_copy
-    for (int i = 0; i < n; i++) {
-        delete[] A_copy[i];
-    }
-    delete[] A_copy;
-
-    return I;
+    delete[] r;
+    delete[] p;
+    delete[] Ap;
 }
-
-

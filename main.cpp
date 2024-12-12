@@ -17,8 +17,8 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 100;
-    int ny = 100;
+    int nx = 50;
+    int ny = 50;
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx/(nx-1);
@@ -43,9 +43,10 @@ int main()
     Initialization(Y, u, v, nx, ny, dx, dy); // Initialize the temperature field inside the domain
 
     computeBoundaries(Y, nx, ny);
-    auto end_init = duration_cast<nanoseconds>(high_resolution_clock::now() - start_total).count();
-    printf("Initialization took: %ld ns\n", end_init);
+    auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
+    printf("[MAIN] Initialization took: %ld us\n", end_init);
 
+  
     // == Output ==
     string outputName = "output/speciesTransport_";
     int count = 0;
@@ -55,24 +56,24 @@ int main()
     writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++);
 
     // Loop over time
-    auto end_write_first_file = duration_cast<nanoseconds>(high_resolution_clock::now() - start_total).count();
-    printf("Writing first file took: %ld ns\n", end_write_first_file);
+    auto end_write_first_file = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
+    printf("[MAIN] Writing first file took: %ld us\n", end_write_first_file);
 
     for (int step = 1; step <= nSteps; step++)
     {
         auto start_eq = high_resolution_clock::now();
         // Solve the thermal equation (energy) to compute the temperature at the next time
         solveSpeciesEquation(Y, u, v, dx, dy, D, nx, ny, dt);
-        auto end_eq = duration_cast<nanoseconds>(high_resolution_clock::now() - start_eq).count();
-        printf("Compute species eq took: %ld ns\n", end_eq);
+        auto end_eq = duration_cast<microseconds>(high_resolution_clock::now() - start_eq).count();
+        printf("[MAIN] Compute species eq took: %ld us\n", end_eq);
         fflush(stdout);
         // Write output every 100 iterations
         if (step % 100 == 0)
         {
             auto start_write = high_resolution_clock::now();
             writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++);
-            auto end_write = duration_cast<nanoseconds>(high_resolution_clock::now() - start_write).count();
-            printf("Write file %d took: %ld ns\n", count, end_write);
+            auto end_write = duration_cast<microseconds>(high_resolution_clock::now() - start_write).count();
+            printf("[MAIN] Write file %d took: %ld us\n", count, end_write);
         }
     }
 
@@ -86,8 +87,8 @@ int main()
     delete[] u;
     delete[] v;
 
-    auto end_total = duration_cast<nanoseconds>(high_resolution_clock::now() - start_total).count();
-    printf("Total time taken: %ld ns\n", end_total);
+    auto end_total = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
+    printf("[MAIN] Total time taken: %ld us\n", end_total);
 
     return 0;
 }
