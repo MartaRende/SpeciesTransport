@@ -80,15 +80,17 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
                 Y[i][j] = -10.0;
           
             }
-            else { // Temperature is set at 0 and the cell must be computed
+            else { 
                 Y[i][j] = 0.0;
             }
-            
+            // init of speeds
             u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);
             v[i][j] = sin(2.0*M_PI*i*dx) * sin(M_PI*j*dy) * sin(M_PI*j*dy);
 
         }
 
     }
+    computeBoundaries(Y, nx, ny);
+
 
 }

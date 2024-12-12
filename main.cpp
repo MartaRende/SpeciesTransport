@@ -17,18 +17,17 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 50;
-    int ny = 50;
+    int nx = 200; // in parallel 800
+    int ny = 200; // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
-    double dx = Lx/(nx-1);
-    double dy =Ly/(ny-1);
+    double dx = Lx/(nx-1); // in final version 0.0077
+    double dy =Ly/(ny-1);// in final version 0.0077
 
     // == Temporal ==
     double tFinal = 2.0;
     double dt = 0.0005;
     int nSteps = int(tFinal / dt);
-    double time = 0.0;
 
     // array initialization
     double **Y = new double *[nx];
@@ -40,9 +39,8 @@ int main()
         u[i] = new double[ny];
         v[i] = new double[ny];
     }
-    Initialization(Y, u, v, nx, ny, dx, dy); // Initialize the temperature field inside the domain
+    Initialization(Y, u, v, nx, ny, dx, dy); 
 
-    computeBoundaries(Y, nx, ny);
     auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Initialization took: %ld us\n", end_init);
 
@@ -52,21 +50,18 @@ int main()
     int count = 0;
 
     // == First output ==
-    // Write data in VTK format
     writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++);
 
-    // Loop over time
     auto end_write_first_file = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Writing first file took: %ld us\n", end_write_first_file);
 
     for (int step = 1; step <= nSteps; step++)
     {
         auto start_eq = high_resolution_clock::now();
-        // Solve the thermal equation (energy) to compute the temperature at the next time
+        // Solve species equation
         solveSpeciesEquation(Y, u, v, dx, dy, D, nx, ny, dt);
         auto end_eq = duration_cast<microseconds>(high_resolution_clock::now() - start_eq).count();
         printf("[MAIN] Compute species eq took: %ld us\n", end_eq);
-        fflush(stdout);
         // Write output every 100 iterations
         if (step % 100 == 0)
         {
@@ -76,7 +71,7 @@ int main()
             printf("[MAIN] Write file %d took: %ld us\n", count, end_write);
         }
     }
-
+    // Free memory
     for (int i = 0; i < nx; i++)
     {
         delete[] Y[i];
