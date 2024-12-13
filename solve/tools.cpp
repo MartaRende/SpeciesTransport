@@ -5,7 +5,7 @@
 using namespace std;
 
 
-void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations, double tolerance) {
+void jacobiSolver(double* A, double* b, double* x, int size, int maxIterations, double tolerance) {
     double* x_new = (double*)malloc(size * sizeof(double));  // Allocate memory for the updated solution
 
     for (int i = 0; i < size; i++) {
@@ -17,10 +17,10 @@ void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations,
             double sum = 0.0;
             for (int j = 0; j < size; j++) {
                 if (j != i) {
-                    sum += A[i][j] * x[j];
+                    sum += A[i* size + j] * x[j];
                 }
             }
-            x_new[i] = (b[i] - sum) / A[i][i];
+            x_new[i] = (b[i] - sum) / A[i * size + i];
         }
 
         // Check for convergence
@@ -31,7 +31,6 @@ void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations,
         }
 
         if (maxDiff < tolerance) {
-            //printf("[JACOBI] Converged in %d iterations with tolerance: %.6e\n", iter + 1, tolerance);
             break;
         }
     }
