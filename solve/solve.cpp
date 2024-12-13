@@ -1,11 +1,15 @@
 #include "solve.h"
 #include <stdio.h>
 #include <iostream>
-
+#include <unordered_map>
 
 #include <chrono>
 using namespace std;
 using namespace chrono;
+#include <vector>
+
+
+
 
 void computeBoundaries(double **Y, const int nx, const int ny)
 {
@@ -27,18 +31,13 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     auto start_total_solve = high_resolution_clock::now();
     double **Y_n = new double *[nx]; // Previous Y
     double *x = new double[nx * ny];
-    double **A = new double *[nx * ny];
+    SparseMatrix A;
     double *b_flatten = new double[nx * ny];
 
     for (int i = 0; i < nx * ny; ++i)
     {
-        A[i] = new double[nx * ny];
         x[i] = 0.0;
-         for (int j = 0; j < nx * ny; ++j)
-        {
-            A[i][j] = 0.0; // Initialize with zero
-        }
-    
+     
     }
 
     for (int i = 0; i < nx; i++)
@@ -112,10 +111,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
     computeBoundaries(Y, nx, ny);
     // Free memory
-    for (int i = 0; i < nx * ny; i++) {
-    delete[] A[i];
-    }
-    delete[] A;
+
 
     for (int i = 0; i < nx; ++i) {
     delete[] Y_n[i];
@@ -130,10 +126,9 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 }
 
 
-void fillMatrixA(double **A, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
+void fillMatrixA(SparseMatrix &A_sparse, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
 {
-
-    // Populate internal nodes
+    // Internal nodes
     for (int i = 1; i < nx - 1; ++i)
     {
         for (int j = 1; j < ny - 1; ++j)
@@ -141,37 +136,59 @@ void fillMatrixA(double **A, const double dx, const double dy, const double D, c
             int idx = i * ny + j;
 
             // Diagonal (central node)
-            A[idx][idx] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
+            A_sparse.row.push_back(idx);
+            A_sparse.col.push_back(idx);
+            A_sparse.value.push_back(1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy)));
 
             // Left neighbor
-            A[idx][idx - 1] = -dt * D / (dx * dx);
+            A_sparse.row.push_back(idx);
+            A_sparse.col.push_back(idx - 1);
+            A_sparse.value.push_back(-dt * D / (dx * dx));
 
             // Right neighbor
-            A[idx][idx + 1] = -dt * D / (dx * dx);
+            A_sparse.row.push_back(idx);
+            A_sparse.col.push_back(idx + 1);
+            A_sparse.value.push_back(-dt * D / (dx * dx));
 
             // Top neighbor
-            A[idx][(i - 1) * ny + j] = -dt * D / (dy * dy);
+            A_sparse.row.push_back(idx);
+            A_sparse.col.push_back((i - 1) * ny + j);
+            A_sparse.value.push_back(-dt * D / (dy * dy));
 
             // Bottom neighbor
-            A[idx][(i + 1) * ny + j] = -dt * D / (dy * dy);
+            A_sparse.row.push_back(idx);
+            A_sparse.col.push_back((i + 1) * ny + j);
+            A_sparse.value.push_back(-dt * D / (dy * dy));
         }
     }
 
-    // Handle boundary conditions (Dirichlet: Y = 0)
+    // Boundary conditions (Dirichlet: Y = 0)
     for (int i = 0; i < nx; ++i)
     {
         // Bottom boundary
-        A[i * ny][i * ny] = 1.0;
+        int idx = i * ny;
+        A_sparse.row.push_back(idx);
+        A_sparse.col.push_back(idx);
+        A_sparse.value.push_back(1.0);
 
         // Top boundary
-        A[i * ny + (ny - 1)][i * ny + (ny - 1)] = 1.0;
+        idx = i * ny + (ny - 1);
+        A_sparse.row.push_back(idx);
+        A_sparse.col.push_back(idx);
+        A_sparse.value.push_back(1.0);
     }
     for (int j = 0; j < ny; ++j)
     {
         // Left boundary
-        A[j][j] = 1.0;
+        int idx = j;
+        A_sparse.row.push_back(idx);
+        A_sparse.col.push_back(idx);
+        A_sparse.value.push_back(1.0);
 
         // Right boundary
-        A[(nx - 1) * ny + j][(nx - 1) * ny + j] = 1.0;
+        idx = (nx - 1) * ny + j;
+        A_sparse.row.push_back(idx);
+        A_sparse.col.push_back(idx);
+        A_sparse.value.push_back(1.0);
     }
 }

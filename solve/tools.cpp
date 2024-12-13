@@ -1,41 +1,42 @@
 #include <cmath>
 #include <iostream>
-
-
+#include "solve.h"
 using namespace std;
 
 
-void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations, double tolerance) {
-    double* x_new = new double[size]; // Allocate memory for the updated solution
+void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_iter, double tol)
+{
+    double *x_new = new double[n];
+    for (int iter = 0; iter < max_iter; ++iter)
+    {
+        // Initialize x_new with b
+        for (int i = 0; i < n; ++i)
+            x_new[i] = b[i];
 
-    for (int i = 0; i < size; i++) {
-        x_new[i] = 0.0; // Initialize new solution array
-    }
+        // Apply sparse matrix entries
+        for (size_t k = 0; k < A_sparse.value.size(); ++k)
+        {
+            int i = A_sparse.row[k];
+            int j = A_sparse.col[k];
 
-    for (int iter = 0; iter < maxIterations; iter++) {
-        for (int i = 0; i < size; i++) {
-            double sum = 0.0;
-            for (int j = 0; j < size; j++) {
-                if (j != i) {
-                    sum += A[i][j] * x[j];
-                }
-            }
-            x_new[i] = (b[i] - sum) / A[i][i];
+            if (i == j) // Diagonal element
+                x_new[i] /= A_sparse.value[k];
+            else
+                x_new[i] -= A_sparse.value[k] * x[j];
         }
 
         // Check for convergence
-        double maxDiff = 0.0;
-        for (int i = 0; i < size; i++) {
-            maxDiff = std::max(maxDiff, std::abs(x_new[i] - x[i]));
-            x[i] = x_new[i]; // Update x with x_new
-        }
+        double diff = 0.0;
+        for (int i = 0; i < n; ++i)
+            diff += abs(x_new[i] - x[i]);
 
-        if (maxDiff < tolerance) {
-            //printf("[JACOBI] Converged in %d iterations with tolerance: %.6e\n", iter + 1, tolerance);
+        if (diff < tol)
             break;
-        }
-    }
 
-    delete[] x_new; // Free memory for the temporary solution
+        // Update x
+        for (int i = 0; i < n; ++i)
+            x[i] = x_new[i];
+    }
+    delete[] x_new;
 }
 
