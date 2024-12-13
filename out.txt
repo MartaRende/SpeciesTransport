@@ -1,14 +1,3558 @@
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
-g++  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cpp solve/tools.cpp -o run_speciesTransport
+nvcc  main.cpp solve/solve.cpp write/write.cpp initialization/initialization.cu solve/tools.cpp -o run_speciesTransport
+[MAIN] Initialization took: 436319 us
+Writing data into output/speciesTransport_0000000.vtk
+[MAIN] Writing first file took: 442967 us
+[SOLVE] Initialization took: 6782 us
+[SOLVE] Fill Matrix A took: 43456 us
+[SOLVE] Fill b took: 61 us
+[SOLVE] Fill x took: 75353 us
+[SOLVE] Total time taken: 129559 us
+[MAIN] Compute species eq took: 129561 us
+[SOLVE] Initialization took: 5350 us
+[SOLVE] Fill Matrix A took: 40691 us
+[SOLVE] Fill b took: 63 us
+[SOLVE] Fill x took: 75360 us
+[SOLVE] Total time taken: 125357 us
+[MAIN] Compute species eq took: 125360 us
+[SOLVE] Initialization took: 5434 us
+[SOLVE] Fill Matrix A took: 40454 us
+[SOLVE] Fill b took: 70 us
+[SOLVE] Fill x took: 75374 us
+[SOLVE] Total time taken: 125217 us
+[MAIN] Compute species eq took: 125219 us
+[SOLVE] Initialization took: 5467 us
+[SOLVE] Fill Matrix A took: 40755 us
+[SOLVE] Fill b took: 82 us
+[SOLVE] Fill x took: 70149 us
+[SOLVE] Total time taken: 120102 us
+[MAIN] Compute species eq took: 120104 us
+[SOLVE] Initialization took: 5003 us
+[SOLVE] Fill Matrix A took: 37358 us
+[SOLVE] Fill b took: 67 us
+[SOLVE] Fill x took: 66752 us
+[SOLVE] Total time taken: 112856 us
+[MAIN] Compute species eq took: 112858 us
+[SOLVE] Initialization took: 5020 us
+[SOLVE] Fill Matrix A took: 37431 us
+[SOLVE] Fill b took: 68 us
+[SOLVE] Fill x took: 66694 us
+[SOLVE] Total time taken: 112888 us
+[MAIN] Compute species eq took: 112890 us
+[SOLVE] Initialization took: 4926 us
+[SOLVE] Fill Matrix A took: 36855 us
+[SOLVE] Fill b took: 70 us
+[SOLVE] Fill x took: 66706 us
+[SOLVE] Total time taken: 112208 us
+[MAIN] Compute species eq took: 112210 us
+[SOLVE] Initialization took: 4914 us
+[SOLVE] Fill Matrix A took: 36686 us
+[SOLVE] Fill b took: 70 us
+[SOLVE] Fill x took: 67748 us
+[SOLVE] Total time taken: 112966 us
+[MAIN] Compute species eq took: 112968 us
+[SOLVE] Initialization took: 4545 us
+[SOLVE] Fill Matrix A took: 33630 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 59943 us
+[SOLVE] Total time taken: 101676 us
+[MAIN] Compute species eq took: 101677 us
+[SOLVE] Initialization took: 4542 us
+[SOLVE] Fill Matrix A took: 34563 us
+[SOLVE] Fill b took: 66 us
+[SOLVE] Fill x took: 60048 us
+[SOLVE] Total time taken: 102843 us
+[MAIN] Compute species eq took: 102844 us
+[SOLVE] Initialization took: 4530 us
+[SOLVE] Fill Matrix A took: 33572 us
+[SOLVE] Fill b took: 66 us
+[SOLVE] Fill x took: 59911 us
+[SOLVE] Total time taken: 101576 us
+[MAIN] Compute species eq took: 101578 us
+[SOLVE] Initialization took: 4539 us
+[SOLVE] Fill Matrix A took: 33531 us
+[SOLVE] Fill b took: 67 us
+[SOLVE] Fill x took: 59919 us
+[SOLVE] Total time taken: 101681 us
+[MAIN] Compute species eq took: 101683 us
+[SOLVE] Initialization took: 4491 us
+[SOLVE] Fill Matrix A took: 33563 us
+[SOLVE] Fill b took: 68 us
+[SOLVE] Fill x took: 60182 us
+[SOLVE] Total time taken: 101686 us
+[MAIN] Compute species eq took: 101687 us
+[SOLVE] Initialization took: 4205 us
+[SOLVE] Fill Matrix A took: 31069 us
+[SOLVE] Fill b took: 63 us
+[SOLVE] Fill x took: 54326 us
+[SOLVE] Total time taken: 93143 us
+[MAIN] Compute species eq took: 93144 us
+[SOLVE] Initialization took: 4175 us
+[SOLVE] Fill Matrix A took: 34176 us
+[SOLVE] Fill b took: 87 us
+[SOLVE] Fill x took: 61213 us
+[SOLVE] Total time taken: 103037 us
+[MAIN] Compute species eq took: 103039 us
+[SOLVE] Initialization took: 4184 us
+[SOLVE] Fill Matrix A took: 31001 us
+[SOLVE] Fill b took: 55 us
+[SOLVE] Fill x took: 54309 us
+[SOLVE] Total time taken: 93036 us
+[MAIN] Compute species eq took: 93037 us
+[SOLVE] Initialization took: 4182 us
+[SOLVE] Fill Matrix A took: 31065 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 54389 us
+[SOLVE] Total time taken: 93172 us
+[MAIN] Compute species eq took: 93173 us
+[SOLVE] Initialization took: 4175 us
+[SOLVE] Fill Matrix A took: 31380 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 54565 us
+[SOLVE] Total time taken: 93546 us
+[MAIN] Compute species eq took: 93547 us
+[SOLVE] Initialization took: 4205 us
+[SOLVE] Fill Matrix A took: 31530 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51449 us
+[SOLVE] Total time taken: 90638 us
+[MAIN] Compute species eq took: 90639 us
+[SOLVE] Initialization took: 4082 us
+[SOLVE] Fill Matrix A took: 29865 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 51085 us
+[SOLVE] Total time taken: 88328 us
+[MAIN] Compute species eq took: 88329 us
+[SOLVE] Initialization took: 4006 us
+[SOLVE] Fill Matrix A took: 29355 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50945 us
+[SOLVE] Total time taken: 87734 us
+[MAIN] Compute species eq took: 87735 us
+[SOLVE] Initialization took: 4013 us
+[SOLVE] Fill Matrix A took: 29748 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51389 us
+[SOLVE] Total time taken: 88446 us
+[MAIN] Compute species eq took: 88447 us
+[SOLVE] Initialization took: 3972 us
+[SOLVE] Fill Matrix A took: 29326 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 51717 us
+[SOLVE] Total time taken: 88395 us
+[MAIN] Compute species eq took: 88396 us
+[SOLVE] Initialization took: 4215 us
+[SOLVE] Fill Matrix A took: 31499 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 54478 us
+[SOLVE] Total time taken: 93683 us
+[MAIN] Compute species eq took: 93684 us
+[SOLVE] Initialization took: 4054 us
+[SOLVE] Fill Matrix A took: 29033 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49436 us
+[SOLVE] Total time taken: 85895 us
+[MAIN] Compute species eq took: 85896 us
+[SOLVE] Initialization took: 3918 us
+[SOLVE] Fill Matrix A took: 29181 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49600 us
+[SOLVE] Total time taken: 85998 us
+[MAIN] Compute species eq took: 85999 us
+[SOLVE] Initialization took: 3910 us
+[SOLVE] Fill Matrix A took: 29107 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49450 us
+[SOLVE] Total time taken: 86048 us
+[MAIN] Compute species eq took: 86049 us
+[SOLVE] Initialization took: 3912 us
+[SOLVE] Fill Matrix A took: 29009 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49776 us
+[SOLVE] Total time taken: 86128 us
+[MAIN] Compute species eq took: 86129 us
+[SOLVE] Initialization took: 3970 us
+[SOLVE] Fill Matrix A took: 29358 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49839 us
+[SOLVE] Total time taken: 86415 us
+[MAIN] Compute species eq took: 86416 us
+[SOLVE] Initialization took: 3898 us
+[SOLVE] Fill Matrix A took: 29208 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51327 us
+[SOLVE] Total time taken: 87914 us
+[MAIN] Compute species eq took: 87915 us
+[SOLVE] Initialization took: 4079 us
+[SOLVE] Fill Matrix A took: 29297 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49535 us
+[SOLVE] Total time taken: 86292 us
+[MAIN] Compute species eq took: 86293 us
+[SOLVE] Initialization took: 3902 us
+[SOLVE] Fill Matrix A took: 29459 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49410 us
+[SOLVE] Total time taken: 86172 us
+[MAIN] Compute species eq took: 86173 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 29190 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49733 us
+[SOLVE] Total time taken: 86350 us
+[MAIN] Compute species eq took: 86351 us
+[SOLVE] Initialization took: 3913 us
+[SOLVE] Fill Matrix A took: 28948 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49968 us
+[SOLVE] Total time taken: 86279 us
+[MAIN] Compute species eq took: 86280 us
+[SOLVE] Initialization took: 3952 us
+[SOLVE] Fill Matrix A took: 28911 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49854 us
+[SOLVE] Total time taken: 86003 us
+[MAIN] Compute species eq took: 86004 us
+[SOLVE] Initialization took: 4035 us
+[SOLVE] Fill Matrix A took: 31165 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 49888 us
+[SOLVE] Total time taken: 88552 us
+[MAIN] Compute species eq took: 88553 us
+[SOLVE] Initialization took: 3926 us
+[SOLVE] Fill Matrix A took: 31625 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 49990 us
+[SOLVE] Total time taken: 89044 us
+[MAIN] Compute species eq took: 89045 us
+[SOLVE] Initialization took: 3965 us
+[SOLVE] Fill Matrix A took: 29318 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49352 us
+[SOLVE] Total time taken: 86176 us
+[MAIN] Compute species eq took: 86177 us
+[SOLVE] Initialization took: 3917 us
+[SOLVE] Fill Matrix A took: 29187 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50928 us
+[SOLVE] Total time taken: 87406 us
+[MAIN] Compute species eq took: 87420 us
+[SOLVE] Initialization took: 4012 us
+[SOLVE] Fill Matrix A took: 29264 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50112 us
+[SOLVE] Total time taken: 86917 us
+[MAIN] Compute species eq took: 86918 us
+[SOLVE] Initialization took: 3925 us
+[SOLVE] Fill Matrix A took: 29902 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 55594 us
+[SOLVE] Total time taken: 92852 us
+[MAIN] Compute species eq took: 92853 us
+[SOLVE] Initialization took: 4010 us
+[SOLVE] Fill Matrix A took: 29744 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51140 us
+[SOLVE] Total time taken: 88208 us
+[MAIN] Compute species eq took: 88209 us
+[SOLVE] Initialization took: 3929 us
+[SOLVE] Fill Matrix A took: 28795 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49917 us
+[SOLVE] Total time taken: 86014 us
+[MAIN] Compute species eq took: 86015 us
+[SOLVE] Initialization took: 3927 us
+[SOLVE] Fill Matrix A took: 28785 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49367 us
+[SOLVE] Total time taken: 85527 us
+[MAIN] Compute species eq took: 85528 us
+[SOLVE] Initialization took: 3919 us
+[SOLVE] Fill Matrix A took: 29524 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51210 us
+[SOLVE] Total time taken: 88153 us
+[MAIN] Compute species eq took: 88154 us
+[SOLVE] Initialization took: 4378 us
+[SOLVE] Fill Matrix A took: 34986 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 55851 us
+[SOLVE] Total time taken: 98663 us
+[MAIN] Compute species eq took: 98664 us
+[SOLVE] Initialization took: 4308 us
+[SOLVE] Fill Matrix A took: 33242 us
+[SOLVE] Fill b took: 53 us
+[SOLVE] Fill x took: 53950 us
+[SOLVE] Total time taken: 94920 us
+[MAIN] Compute species eq took: 94921 us
+[SOLVE] Initialization took: 4009 us
+[SOLVE] Fill Matrix A took: 29498 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49764 us
+[SOLVE] Total time taken: 86743 us
+[MAIN] Compute species eq took: 86744 us
+[SOLVE] Initialization took: 3885 us
+[SOLVE] Fill Matrix A took: 28919 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50676 us
+[SOLVE] Total time taken: 86889 us
+[MAIN] Compute species eq took: 86890 us
+[SOLVE] Initialization took: 4024 us
+[SOLVE] Fill Matrix A took: 29418 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49923 us
+[SOLVE] Total time taken: 86827 us
+[MAIN] Compute species eq took: 86828 us
+[SOLVE] Initialization took: 3912 us
+[SOLVE] Fill Matrix A took: 28732 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50307 us
+[SOLVE] Total time taken: 86492 us
+[MAIN] Compute species eq took: 86493 us
+[SOLVE] Initialization took: 4559 us
+[SOLVE] Fill Matrix A took: 32025 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49444 us
+[SOLVE] Total time taken: 89532 us
+[MAIN] Compute species eq took: 89533 us
+[SOLVE] Initialization took: 3924 us
+[SOLVE] Fill Matrix A took: 30812 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50068 us
+[SOLVE] Total time taken: 88268 us
+[MAIN] Compute species eq took: 88269 us
+[SOLVE] Initialization took: 3981 us
+[SOLVE] Fill Matrix A took: 29416 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49238 us
+[SOLVE] Total time taken: 85995 us
+[MAIN] Compute species eq took: 85997 us
+[SOLVE] Initialization took: 3899 us
+[SOLVE] Fill Matrix A took: 28966 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49397 us
+[SOLVE] Total time taken: 85675 us
+[MAIN] Compute species eq took: 85676 us
+[SOLVE] Initialization took: 3906 us
+[SOLVE] Fill Matrix A took: 28829 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49560 us
+[SOLVE] Total time taken: 85615 us
+[MAIN] Compute species eq took: 85616 us
+[SOLVE] Initialization took: 3886 us
+[SOLVE] Fill Matrix A took: 29068 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50049 us
+[SOLVE] Total time taken: 86437 us
+[MAIN] Compute species eq took: 86438 us
+[SOLVE] Initialization took: 3911 us
+[SOLVE] Fill Matrix A took: 28784 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51873 us
+[SOLVE] Total time taken: 88080 us
+[MAIN] Compute species eq took: 88081 us
+[SOLVE] Initialization took: 4000 us
+[SOLVE] Fill Matrix A took: 29423 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49497 us
+[SOLVE] Total time taken: 86477 us
+[MAIN] Compute species eq took: 86479 us
+[SOLVE] Initialization took: 4032 us
+[SOLVE] Fill Matrix A took: 29188 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 62505 us
+[SOLVE] Total time taken: 99228 us
+[MAIN] Compute species eq took: 99229 us
+[SOLVE] Initialization took: 4146 us
+[SOLVE] Fill Matrix A took: 29242 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 49918 us
+[SOLVE] Total time taken: 86771 us
+[MAIN] Compute species eq took: 86773 us
+[SOLVE] Initialization took: 4023 us
+[SOLVE] Fill Matrix A took: 29817 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49187 us
+[SOLVE] Total time taken: 86493 us
+[MAIN] Compute species eq took: 86494 us
+[SOLVE] Initialization took: 3929 us
+[SOLVE] Fill Matrix A took: 29299 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50105 us
+[SOLVE] Total time taken: 86805 us
+[MAIN] Compute species eq took: 86806 us
+[SOLVE] Initialization took: 3870 us
+[SOLVE] Fill Matrix A took: 28979 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51634 us
+[SOLVE] Total time taken: 87767 us
+[MAIN] Compute species eq took: 87769 us
+[SOLVE] Initialization took: 3909 us
+[SOLVE] Fill Matrix A took: 29204 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50616 us
+[SOLVE] Total time taken: 87479 us
+[MAIN] Compute species eq took: 87480 us
+[SOLVE] Initialization took: 4401 us
+[SOLVE] Fill Matrix A took: 30714 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 50297 us
+[SOLVE] Total time taken: 88826 us
+[MAIN] Compute species eq took: 88827 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 29080 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49822 us
+[SOLVE] Total time taken: 86346 us
+[MAIN] Compute species eq took: 86348 us
+[SOLVE] Initialization took: 3989 us
+[SOLVE] Fill Matrix A took: 29317 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49282 us
+[SOLVE] Total time taken: 85888 us
+[MAIN] Compute species eq took: 85889 us
+[SOLVE] Initialization took: 4108 us
+[SOLVE] Fill Matrix A took: 29396 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50046 us
+[SOLVE] Total time taken: 86884 us
+[MAIN] Compute species eq took: 86885 us
+[SOLVE] Initialization took: 3868 us
+[SOLVE] Fill Matrix A took: 31039 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49764 us
+[SOLVE] Total time taken: 88144 us
+[MAIN] Compute species eq took: 88145 us
+[SOLVE] Initialization took: 3873 us
+[SOLVE] Fill Matrix A took: 28932 us
+[SOLVE] Fill b took: 66 us
+[SOLVE] Fill x took: 49950 us
+[SOLVE] Total time taken: 86212 us
+[MAIN] Compute species eq took: 86213 us
+[SOLVE] Initialization took: 3905 us
+[SOLVE] Fill Matrix A took: 29272 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49855 us
+[SOLVE] Total time taken: 86459 us
+[MAIN] Compute species eq took: 86460 us
+[SOLVE] Initialization took: 3993 us
+[SOLVE] Fill Matrix A took: 28791 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49657 us
+[SOLVE] Total time taken: 85900 us
+[MAIN] Compute species eq took: 85901 us
+[SOLVE] Initialization took: 3923 us
+[SOLVE] Fill Matrix A took: 28912 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49906 us
+[SOLVE] Total time taken: 86341 us
+[MAIN] Compute species eq took: 86342 us
+[SOLVE] Initialization took: 3974 us
+[SOLVE] Fill Matrix A took: 29953 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49000 us
+[SOLVE] Total time taken: 86261 us
+[MAIN] Compute species eq took: 86262 us
+[SOLVE] Initialization took: 5524 us
+[SOLVE] Fill Matrix A took: 29113 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49777 us
+[SOLVE] Total time taken: 87860 us
+[MAIN] Compute species eq took: 87861 us
+[SOLVE] Initialization took: 4009 us
+[SOLVE] Fill Matrix A took: 29278 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50037 us
+[SOLVE] Total time taken: 86726 us
+[MAIN] Compute species eq took: 86728 us
+[SOLVE] Initialization took: 3894 us
+[SOLVE] Fill Matrix A took: 28778 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50113 us
+[SOLVE] Total time taken: 86290 us
+[MAIN] Compute species eq took: 86291 us
+[SOLVE] Initialization took: 3864 us
+[SOLVE] Fill Matrix A took: 29044 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 50208 us
+[SOLVE] Total time taken: 86493 us
+[MAIN] Compute species eq took: 86494 us
+[SOLVE] Initialization took: 4002 us
+[SOLVE] Fill Matrix A took: 28778 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49389 us
+[SOLVE] Total time taken: 85664 us
+[MAIN] Compute species eq took: 85666 us
+[SOLVE] Initialization took: 3991 us
+[SOLVE] Fill Matrix A took: 29481 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51267 us
+[SOLVE] Total time taken: 88099 us
+[MAIN] Compute species eq took: 88100 us
+[SOLVE] Initialization took: 3838 us
+[SOLVE] Fill Matrix A took: 29277 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49366 us
+[SOLVE] Total time taken: 85933 us
+[MAIN] Compute species eq took: 85934 us
+[SOLVE] Initialization took: 3906 us
+[SOLVE] Fill Matrix A took: 28903 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49684 us
+[SOLVE] Total time taken: 86030 us
+[MAIN] Compute species eq took: 86031 us
+[SOLVE] Initialization took: 3901 us
+[SOLVE] Fill Matrix A took: 29185 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49778 us
+[SOLVE] Total time taken: 86289 us
+[MAIN] Compute species eq took: 86290 us
+[SOLVE] Initialization took: 3899 us
+[SOLVE] Fill Matrix A took: 28972 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49720 us
+[SOLVE] Total time taken: 86031 us
+[MAIN] Compute species eq took: 86033 us
+[SOLVE] Initialization took: 3915 us
+[SOLVE] Fill Matrix A took: 29088 us
+[SOLVE] Fill b took: 62 us
+[SOLVE] Fill x took: 50131 us
+[SOLVE] Total time taken: 86538 us
+[MAIN] Compute species eq took: 86539 us
+[SOLVE] Initialization took: 3997 us
+[SOLVE] Fill Matrix A took: 29477 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51886 us
+[SOLVE] Total time taken: 88877 us
+[MAIN] Compute species eq took: 88878 us
+[SOLVE] Initialization took: 3945 us
+[SOLVE] Fill Matrix A took: 30172 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49716 us
+[SOLVE] Total time taken: 87284 us
+[MAIN] Compute species eq took: 87285 us
+[SOLVE] Initialization took: 4022 us
+[SOLVE] Fill Matrix A took: 29412 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51856 us
+[SOLVE] Total time taken: 88834 us
+[MAIN] Compute species eq took: 88836 us
+[SOLVE] Initialization took: 5851 us
+[SOLVE] Fill Matrix A took: 37707 us
+[SOLVE] Fill b took: 73 us
+[SOLVE] Fill x took: 65273 us
+[SOLVE] Total time taken: 112349 us
+[MAIN] Compute species eq took: 112350 us
+[SOLVE] Initialization took: 4410 us
+[SOLVE] Fill Matrix A took: 33394 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 52249 us
+[SOLVE] Total time taken: 93504 us
+[MAIN] Compute species eq took: 93505 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29922 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51937 us
+[SOLVE] Total time taken: 89283 us
+[MAIN] Compute species eq took: 89284 us
+[SOLVE] Initialization took: 4156 us
+[SOLVE] Fill Matrix A took: 29013 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50063 us
+[SOLVE] Total time taken: 86676 us
+[MAIN] Compute species eq took: 86677 us
+[SOLVE] Initialization took: 3906 us
+[SOLVE] Fill Matrix A took: 28937 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49655 us
+[SOLVE] Total time taken: 85846 us
+[MAIN] Compute species eq took: 85847 us
+[SOLVE] Initialization took: 3951 us
+[SOLVE] Fill Matrix A took: 29195 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49637 us
+[SOLVE] Total time taken: 86115 us
+[MAIN] Compute species eq took: 86116 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29171 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49321 us
+[SOLVE] Total time taken: 85856 us
+[MAIN] Compute species eq took: 85857 us
+[SOLVE] Initialization took: 3943 us
+[SOLVE] Fill Matrix A took: 29293 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 49889 us
+[SOLVE] Total time taken: 86547 us
+[MAIN] Compute species eq took: 86548 us
+[SOLVE] Initialization took: 3923 us
+[SOLVE] Fill Matrix A took: 29124 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 56638 us
+[SOLVE] Total time taken: 93200 us
+[MAIN] Compute species eq took: 93201 us
+[SOLVE] Initialization took: 4019 us
+[SOLVE] Fill Matrix A took: 30137 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50708 us
+[SOLVE] Total time taken: 88401 us
+[MAIN] Compute species eq took: 88402 us
+[SOLVE] Initialization took: 3952 us
+[SOLVE] Fill Matrix A took: 28775 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51042 us
+[SOLVE] Total time taken: 87155 us
+[MAIN] Compute species eq took: 87156 us
+Writing data into output/speciesTransport_0000001.vtk
+[MAIN] Write file 2 took: 3071 us
+[SOLVE] Initialization took: 4132 us
+[SOLVE] Fill Matrix A took: 29553 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50459 us
+[SOLVE] Total time taken: 87471 us
+[MAIN] Compute species eq took: 87472 us
+[SOLVE] Initialization took: 4003 us
+[SOLVE] Fill Matrix A took: 28810 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49574 us
+[SOLVE] Total time taken: 85684 us
+[MAIN] Compute species eq took: 85685 us
+[SOLVE] Initialization took: 3961 us
+[SOLVE] Fill Matrix A took: 29185 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49486 us
+[SOLVE] Total time taken: 86048 us
+[MAIN] Compute species eq took: 86049 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 30870 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49544 us
+[SOLVE] Total time taken: 87717 us
+[MAIN] Compute species eq took: 87718 us
+[SOLVE] Initialization took: 3929 us
+[SOLVE] Fill Matrix A took: 28809 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49605 us
+[SOLVE] Total time taken: 85687 us
+[MAIN] Compute species eq took: 85688 us
+[SOLVE] Initialization took: 3920 us
+[SOLVE] Fill Matrix A took: 28825 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49799 us
+[SOLVE] Total time taken: 85869 us
+[MAIN] Compute species eq took: 85870 us
+[SOLVE] Initialization took: 3867 us
+[SOLVE] Fill Matrix A took: 28855 us
+[SOLVE] Fill b took: 58 us
+[SOLVE] Fill x took: 49486 us
+[SOLVE] Total time taken: 85520 us
+[MAIN] Compute species eq took: 85521 us
+[SOLVE] Initialization took: 3971 us
+[SOLVE] Fill Matrix A took: 29329 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49812 us
+[SOLVE] Total time taken: 86556 us
+[MAIN] Compute species eq took: 86557 us
+[SOLVE] Initialization took: 4024 us
+[SOLVE] Fill Matrix A took: 28863 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49488 us
+[SOLVE] Total time taken: 85859 us
+[MAIN] Compute species eq took: 85861 us
+[SOLVE] Initialization took: 4055 us
+[SOLVE] Fill Matrix A took: 31166 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49593 us
+[SOLVE] Total time taken: 88277 us
+[MAIN] Compute species eq took: 88278 us
+[SOLVE] Initialization took: 3917 us
+[SOLVE] Fill Matrix A took: 29244 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49536 us
+[SOLVE] Total time taken: 86130 us
+[MAIN] Compute species eq took: 86131 us
+[SOLVE] Initialization took: 3907 us
+[SOLVE] Fill Matrix A took: 28992 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50558 us
+[SOLVE] Total time taken: 86911 us
+[MAIN] Compute species eq took: 86912 us
+[SOLVE] Initialization took: 3859 us
+[SOLVE] Fill Matrix A took: 28797 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49888 us
+[SOLVE] Total time taken: 85959 us
+[MAIN] Compute species eq took: 85960 us
+[SOLVE] Initialization took: 3924 us
+[SOLVE] Fill Matrix A took: 28897 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 49995 us
+[SOLVE] Total time taken: 86334 us
+[MAIN] Compute species eq took: 86336 us
+[SOLVE] Initialization took: 3905 us
+[SOLVE] Fill Matrix A took: 29127 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51268 us
+[SOLVE] Total time taken: 87792 us
+[MAIN] Compute species eq took: 87793 us
+[SOLVE] Initialization took: 3940 us
+[SOLVE] Fill Matrix A took: 29198 us
+[SOLVE] Fill b took: 59 us
+[SOLVE] Fill x took: 49276 us
+[SOLVE] Total time taken: 85843 us
+[MAIN] Compute species eq took: 85844 us
+[SOLVE] Initialization took: 3920 us
+[SOLVE] Fill Matrix A took: 29286 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49238 us
+[SOLVE] Total time taken: 85743 us
+[MAIN] Compute species eq took: 85744 us
+[SOLVE] Initialization took: 3923 us
+[SOLVE] Fill Matrix A took: 29135 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49672 us
+[SOLVE] Total time taken: 86081 us
+[MAIN] Compute species eq took: 86082 us
+[SOLVE] Initialization took: 4020 us
+[SOLVE] Fill Matrix A took: 29180 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49767 us
+[SOLVE] Total time taken: 86439 us
+[MAIN] Compute species eq took: 86440 us
+[SOLVE] Initialization took: 3889 us
+[SOLVE] Fill Matrix A took: 28751 us
+[SOLVE] Fill b took: 63 us
+[SOLVE] Fill x took: 49935 us
+[SOLVE] Total time taken: 85973 us
+[MAIN] Compute species eq took: 85974 us
+[SOLVE] Initialization took: 3925 us
+[SOLVE] Fill Matrix A took: 28908 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51146 us
+[SOLVE] Total time taken: 87633 us
+[MAIN] Compute species eq took: 87634 us
+[SOLVE] Initialization took: 4028 us
+[SOLVE] Fill Matrix A took: 29875 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50842 us
+[SOLVE] Total time taken: 88262 us
+[MAIN] Compute species eq took: 88263 us
+[SOLVE] Initialization took: 4075 us
+[SOLVE] Fill Matrix A took: 30954 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 51207 us
+[SOLVE] Total time taken: 89748 us
+[MAIN] Compute species eq took: 89749 us
+[SOLVE] Initialization took: 4006 us
+[SOLVE] Fill Matrix A took: 29617 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49197 us
+[SOLVE] Total time taken: 86276 us
+[MAIN] Compute species eq took: 86277 us
+[SOLVE] Initialization took: 3998 us
+[SOLVE] Fill Matrix A took: 29181 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 49577 us
+[SOLVE] Total time taken: 86239 us
+[MAIN] Compute species eq took: 86240 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 28844 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 49829 us
+[SOLVE] Total time taken: 86058 us
+[MAIN] Compute species eq took: 86059 us
+[SOLVE] Initialization took: 3906 us
+[SOLVE] Fill Matrix A took: 29079 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51499 us
+[SOLVE] Total time taken: 87903 us
+[MAIN] Compute species eq took: 87904 us
+[SOLVE] Initialization took: 3914 us
+[SOLVE] Fill Matrix A took: 28970 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 53610 us
+[SOLVE] Total time taken: 89965 us
+[MAIN] Compute species eq took: 89966 us
+[SOLVE] Initialization took: 4608 us
+[SOLVE] Fill Matrix A took: 34432 us
+[SOLVE] Fill b took: 66 us
+[SOLVE] Fill x took: 55897 us
+[SOLVE] Total time taken: 98551 us
+[MAIN] Compute species eq took: 98552 us
+[SOLVE] Initialization took: 4131 us
+[SOLVE] Fill Matrix A took: 29241 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50214 us
+[SOLVE] Total time taken: 86975 us
+[MAIN] Compute species eq took: 86976 us
+[SOLVE] Initialization took: 4004 us
+[SOLVE] Fill Matrix A took: 29643 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 50765 us
+[SOLVE] Total time taken: 87832 us
+[MAIN] Compute species eq took: 87834 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 29544 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 53427 us
+[SOLVE] Total time taken: 90395 us
+[MAIN] Compute species eq took: 90396 us
+[SOLVE] Initialization took: 4051 us
+[SOLVE] Fill Matrix A took: 35974 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 62163 us
+[SOLVE] Total time taken: 105916 us
+[MAIN] Compute species eq took: 105917 us
+[SOLVE] Initialization took: 4676 us
+[SOLVE] Fill Matrix A took: 33358 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 55366 us
+[SOLVE] Total time taken: 97115 us
+[MAIN] Compute species eq took: 97116 us
+[SOLVE] Initialization took: 4659 us
+[SOLVE] Fill Matrix A took: 32530 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 51493 us
+[SOLVE] Total time taken: 92366 us
+[MAIN] Compute species eq took: 92367 us
+[SOLVE] Initialization took: 4027 us
+[SOLVE] Fill Matrix A took: 29775 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50280 us
+[SOLVE] Total time taken: 87669 us
+[MAIN] Compute species eq took: 87670 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 29491 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51017 us
+[SOLVE] Total time taken: 87821 us
+[MAIN] Compute species eq took: 87822 us
+[SOLVE] Initialization took: 4013 us
+[SOLVE] Fill Matrix A took: 31272 us
+[SOLVE] Fill b took: 59 us
+[SOLVE] Fill x took: 50127 us
+[SOLVE] Total time taken: 88974 us
+[MAIN] Compute species eq took: 88975 us
+[SOLVE] Initialization took: 4132 us
+[SOLVE] Fill Matrix A took: 29382 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 50854 us
+[SOLVE] Total time taken: 87715 us
+[MAIN] Compute species eq took: 87716 us
+[SOLVE] Initialization took: 4072 us
+[SOLVE] Fill Matrix A took: 30838 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50083 us
+[SOLVE] Total time taken: 88491 us
+[MAIN] Compute species eq took: 88492 us
+[SOLVE] Initialization took: 3961 us
+[SOLVE] Fill Matrix A took: 29233 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49427 us
+[SOLVE] Total time taken: 86075 us
+[MAIN] Compute species eq took: 86076 us
+[SOLVE] Initialization took: 4005 us
+[SOLVE] Fill Matrix A took: 28908 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50374 us
+[SOLVE] Total time taken: 86749 us
+[MAIN] Compute species eq took: 86750 us
+[SOLVE] Initialization took: 3916 us
+[SOLVE] Fill Matrix A took: 30040 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 51743 us
+[SOLVE] Total time taken: 89060 us
+[MAIN] Compute species eq took: 89062 us
+[SOLVE] Initialization took: 3964 us
+[SOLVE] Fill Matrix A took: 29180 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 50046 us
+[SOLVE] Total time taken: 86630 us
+[MAIN] Compute species eq took: 86631 us
+[SOLVE] Initialization took: 3981 us
+[SOLVE] Fill Matrix A took: 29082 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51306 us
+[SOLVE] Total time taken: 87839 us
+[MAIN] Compute species eq took: 87840 us
+[SOLVE] Initialization took: 3941 us
+[SOLVE] Fill Matrix A took: 30893 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 55845 us
+[SOLVE] Total time taken: 94157 us
+[MAIN] Compute species eq took: 94158 us
+[SOLVE] Initialization took: 4339 us
+[SOLVE] Fill Matrix A took: 34461 us
+[SOLVE] Fill b took: 54 us
+[SOLVE] Fill x took: 57085 us
+[SOLVE] Total time taken: 99398 us
+[MAIN] Compute species eq took: 99399 us
+[SOLVE] Initialization took: 4501 us
+[SOLVE] Fill Matrix A took: 32061 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 57942 us
+[SOLVE] Total time taken: 98183 us
+[MAIN] Compute species eq took: 98184 us
+[SOLVE] Initialization took: 4271 us
+[SOLVE] Fill Matrix A took: 33686 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50536 us
+[SOLVE] Total time taken: 91868 us
+[MAIN] Compute species eq took: 91869 us
+[SOLVE] Initialization took: 4145 us
+[SOLVE] Fill Matrix A took: 29957 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50074 us
+[SOLVE] Total time taken: 87590 us
+[MAIN] Compute species eq took: 87591 us
+[SOLVE] Initialization took: 4010 us
+[SOLVE] Fill Matrix A took: 29221 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 49935 us
+[SOLVE] Total time taken: 86459 us
+[MAIN] Compute species eq took: 86460 us
+[SOLVE] Initialization took: 3934 us
+[SOLVE] Fill Matrix A took: 29447 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 49893 us
+[SOLVE] Total time taken: 86723 us
+[MAIN] Compute species eq took: 86724 us
+[SOLVE] Initialization took: 3892 us
+[SOLVE] Fill Matrix A took: 29526 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50948 us
+[SOLVE] Total time taken: 87859 us
+[MAIN] Compute species eq took: 87860 us
+[SOLVE] Initialization took: 4070 us
+[SOLVE] Fill Matrix A took: 29565 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50103 us
+[SOLVE] Total time taken: 87275 us
+[MAIN] Compute species eq took: 87276 us
+[SOLVE] Initialization took: 5736 us
+[SOLVE] Fill Matrix A took: 31917 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 53991 us
+[SOLVE] Total time taken: 95052 us
+[MAIN] Compute species eq took: 95053 us
+[SOLVE] Initialization took: 4106 us
+[SOLVE] Fill Matrix A took: 29813 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 50569 us
+[SOLVE] Total time taken: 87925 us
+[MAIN] Compute species eq took: 87926 us
+[SOLVE] Initialization took: 4031 us
+[SOLVE] Fill Matrix A took: 29832 us
+[SOLVE] Fill b took: 65 us
+[SOLVE] Fill x took: 49461 us
+[SOLVE] Total time taken: 86775 us
+[MAIN] Compute species eq took: 86776 us
+[SOLVE] Initialization took: 3951 us
+[SOLVE] Fill Matrix A took: 29853 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50022 us
+[SOLVE] Total time taken: 87173 us
+[MAIN] Compute species eq took: 87174 us
+[SOLVE] Initialization took: 4007 us
+[SOLVE] Fill Matrix A took: 29704 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50040 us
+[SOLVE] Total time taken: 87271 us
+[MAIN] Compute species eq took: 87272 us
+[SOLVE] Initialization took: 4424 us
+[SOLVE] Fill Matrix A took: 29555 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 54190 us
+[SOLVE] Total time taken: 91653 us
+[MAIN] Compute species eq took: 91654 us
+[SOLVE] Initialization took: 4144 us
+[SOLVE] Fill Matrix A took: 29593 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 53389 us
+[SOLVE] Total time taken: 90736 us
+[MAIN] Compute species eq took: 90737 us
+[SOLVE] Initialization took: 4386 us
+[SOLVE] Fill Matrix A took: 31508 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51076 us
+[SOLVE] Total time taken: 90332 us
+[MAIN] Compute species eq took: 90333 us
+[SOLVE] Initialization took: 4082 us
+[SOLVE] Fill Matrix A took: 30070 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 51471 us
+[SOLVE] Total time taken: 89106 us
+[MAIN] Compute species eq took: 89107 us
+[SOLVE] Initialization took: 4000 us
+[SOLVE] Fill Matrix A took: 31476 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 56610 us
+[SOLVE] Total time taken: 95822 us
+[MAIN] Compute species eq took: 95823 us
+[SOLVE] Initialization took: 4453 us
+[SOLVE] Fill Matrix A took: 33433 us
+[SOLVE] Fill b took: 51 us
+[SOLVE] Fill x took: 51454 us
+[SOLVE] Total time taken: 92904 us
+[MAIN] Compute species eq took: 92906 us
+[SOLVE] Initialization took: 4062 us
+[SOLVE] Fill Matrix A took: 31243 us
+[SOLVE] Fill b took: 62 us
+[SOLVE] Fill x took: 49777 us
+[SOLVE] Total time taken: 88691 us
+[MAIN] Compute species eq took: 88692 us
+[SOLVE] Initialization took: 4003 us
+[SOLVE] Fill Matrix A took: 29760 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50003 us
+[SOLVE] Total time taken: 87199 us
+[MAIN] Compute species eq took: 87200 us
+[SOLVE] Initialization took: 4150 us
+[SOLVE] Fill Matrix A took: 28979 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 50045 us
+[SOLVE] Total time taken: 86593 us
+[MAIN] Compute species eq took: 86594 us
+[SOLVE] Initialization took: 3960 us
+[SOLVE] Fill Matrix A took: 28762 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50419 us
+[SOLVE] Total time taken: 86601 us
+[MAIN] Compute species eq took: 86602 us
+[SOLVE] Initialization took: 4143 us
+[SOLVE] Fill Matrix A took: 29316 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 50024 us
+[SOLVE] Total time taken: 86842 us
+[MAIN] Compute species eq took: 86843 us
+[SOLVE] Initialization took: 4160 us
+[SOLVE] Fill Matrix A took: 29542 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 58160 us
+[SOLVE] Total time taken: 95817 us
+[MAIN] Compute species eq took: 95818 us
+[SOLVE] Initialization took: 5482 us
+[SOLVE] Fill Matrix A took: 40770 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 75337 us
+[SOLVE] Total time taken: 125574 us
+[MAIN] Compute species eq took: 125576 us
+[SOLVE] Initialization took: 5477 us
+[SOLVE] Fill Matrix A took: 40644 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 75370 us
+[SOLVE] Total time taken: 125471 us
+[MAIN] Compute species eq took: 125472 us
+[SOLVE] Initialization took: 5471 us
+[SOLVE] Fill Matrix A took: 40579 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 75360 us
+[SOLVE] Total time taken: 125400 us
+[MAIN] Compute species eq took: 125401 us
+[SOLVE] Initialization took: 5763 us
+[SOLVE] Fill Matrix A took: 42432 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 73866 us
+[SOLVE] Total time taken: 125806 us
+[MAIN] Compute species eq took: 125807 us
+[SOLVE] Initialization took: 5123 us
+[SOLVE] Fill Matrix A took: 41599 us
+[SOLVE] Fill b took: 88 us
+[SOLVE] Fill x took: 70548 us
+[SOLVE] Total time taken: 121086 us
+[MAIN] Compute species eq took: 121087 us
+[SOLVE] Initialization took: 4982 us
+[SOLVE] Fill Matrix A took: 37732 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 66723 us
+[SOLVE] Total time taken: 113179 us
+[MAIN] Compute species eq took: 113181 us
+[SOLVE] Initialization took: 4941 us
+[SOLVE] Fill Matrix A took: 36682 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 66736 us
+[SOLVE] Total time taken: 112129 us
+[MAIN] Compute species eq took: 112131 us
+[SOLVE] Initialization took: 4940 us
+[SOLVE] Fill Matrix A took: 36755 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 66707 us
+[SOLVE] Total time taken: 112168 us
+[MAIN] Compute species eq took: 112170 us
+[SOLVE] Initialization took: 4946 us
+[SOLVE] Fill Matrix A took: 36258 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 59955 us
+[SOLVE] Total time taken: 104755 us
+[MAIN] Compute species eq took: 104756 us
+[SOLVE] Initialization took: 4568 us
+[SOLVE] Fill Matrix A took: 33503 us
+[SOLVE] Fill b took: 53 us
+[SOLVE] Fill x took: 59945 us
+[SOLVE] Total time taken: 101623 us
+[MAIN] Compute species eq took: 101624 us
+[SOLVE] Initialization took: 4564 us
+[SOLVE] Fill Matrix A took: 33710 us
+[SOLVE] Fill b took: 51 us
+[SOLVE] Fill x took: 59950 us
+[SOLVE] Total time taken: 101829 us
+[MAIN] Compute species eq took: 101830 us
+[SOLVE] Initialization took: 4598 us
+[SOLVE] Fill Matrix A took: 33638 us
+[SOLVE] Fill b took: 51 us
+[SOLVE] Fill x took: 39938 us
+[SOLVE] Total time taken: 81763 us
+[MAIN] Compute species eq took: 81764 us
+[SOLVE] Initialization took: 4566 us
+[SOLVE] Fill Matrix A took: 33632 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 39952 us
+[SOLVE] Total time taken: 81694 us
+[MAIN] Compute species eq took: 81696 us
+[SOLVE] Initialization took: 4579 us
+[SOLVE] Fill Matrix A took: 33846 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 38251 us
+[SOLVE] Total time taken: 80102 us
+[MAIN] Compute species eq took: 80103 us
+[SOLVE] Initialization took: 4267 us
+[SOLVE] Fill Matrix A took: 31504 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 36419 us
+[SOLVE] Total time taken: 75747 us
+[MAIN] Compute species eq took: 75748 us
+[SOLVE] Initialization took: 4245 us
+[SOLVE] Fill Matrix A took: 31450 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 36445 us
+[SOLVE] Total time taken: 75607 us
+[MAIN] Compute species eq took: 75608 us
+[SOLVE] Initialization took: 4243 us
+[SOLVE] Fill Matrix A took: 31563 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 36566 us
+[SOLVE] Total time taken: 75792 us
+[MAIN] Compute species eq took: 75793 us
+[SOLVE] Initialization took: 4297 us
+[SOLVE] Fill Matrix A took: 31592 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 36355 us
+[SOLVE] Total time taken: 75793 us
+[MAIN] Compute species eq took: 75794 us
+[SOLVE] Initialization took: 4241 us
+[SOLVE] Fill Matrix A took: 31358 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 36372 us
+[SOLVE] Total time taken: 75392 us
+[MAIN] Compute species eq took: 75393 us
+[SOLVE] Initialization took: 4256 us
+[SOLVE] Fill Matrix A took: 31443 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 36329 us
+[SOLVE] Total time taken: 75555 us
+[MAIN] Compute species eq took: 75556 us
+[SOLVE] Initialization took: 4303 us
+[SOLVE] Fill Matrix A took: 32209 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34346 us
+[SOLVE] Total time taken: 74488 us
+[MAIN] Compute species eq took: 74489 us
+[SOLVE] Initialization took: 4113 us
+[SOLVE] Fill Matrix A took: 29608 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33834 us
+[SOLVE] Total time taken: 70966 us
+[MAIN] Compute species eq took: 70967 us
+[SOLVE] Initialization took: 4076 us
+[SOLVE] Fill Matrix A took: 29991 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34658 us
+[SOLVE] Total time taken: 72059 us
+[MAIN] Compute species eq took: 72060 us
+[SOLVE] Initialization took: 4228 us
+[SOLVE] Fill Matrix A took: 29863 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34184 us
+[SOLVE] Total time taken: 71589 us
+[MAIN] Compute species eq took: 71590 us
+[SOLVE] Initialization took: 4146 us
+[SOLVE] Fill Matrix A took: 29391 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33830 us
+[SOLVE] Total time taken: 70680 us
+[MAIN] Compute species eq took: 70681 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 31122 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35024 us
+[SOLVE] Total time taken: 73540 us
+[MAIN] Compute species eq took: 73541 us
+[SOLVE] Initialization took: 4132 us
+[SOLVE] Fill Matrix A took: 30948 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34730 us
+[SOLVE] Total time taken: 73243 us
+[MAIN] Compute species eq took: 73244 us
+[SOLVE] Initialization took: 5500 us
+[SOLVE] Fill Matrix A took: 33046 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33123 us
+[SOLVE] Total time taken: 75182 us
+[MAIN] Compute species eq took: 75183 us
+[SOLVE] Initialization took: 4040 us
+[SOLVE] Fill Matrix A took: 28927 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34057 us
+[SOLVE] Total time taken: 70356 us
+[MAIN] Compute species eq took: 70358 us
+Writing data into output/speciesTransport_0000002.vtk
+[MAIN] Write file 3 took: 2709 us
+[SOLVE] Initialization took: 4349 us
+[SOLVE] Fill Matrix A took: 30733 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33403 us
+[SOLVE] Total time taken: 72158 us
+[MAIN] Compute species eq took: 72159 us
+[SOLVE] Initialization took: 4064 us
+[SOLVE] Fill Matrix A took: 29798 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33281 us
+[SOLVE] Total time taken: 70690 us
+[MAIN] Compute species eq took: 70690 us
+[SOLVE] Initialization took: 3934 us
+[SOLVE] Fill Matrix A took: 30139 us
+[SOLVE] Fill b took: 65 us
+[SOLVE] Fill x took: 34331 us
+[SOLVE] Total time taken: 71903 us
+[MAIN] Compute species eq took: 71904 us
+[SOLVE] Initialization took: 4028 us
+[SOLVE] Fill Matrix A took: 29854 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33077 us
+[SOLVE] Total time taken: 70433 us
+[MAIN] Compute species eq took: 70434 us
+[SOLVE] Initialization took: 4089 us
+[SOLVE] Fill Matrix A took: 29407 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33053 us
+[SOLVE] Total time taken: 71404 us
+[MAIN] Compute species eq took: 71405 us
+[SOLVE] Initialization took: 4057 us
+[SOLVE] Fill Matrix A took: 29824 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33235 us
+[SOLVE] Total time taken: 70592 us
+[MAIN] Compute species eq took: 70593 us
+[SOLVE] Initialization took: 4219 us
+[SOLVE] Fill Matrix A took: 29469 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33018 us
+[SOLVE] Total time taken: 70162 us
+[MAIN] Compute species eq took: 70163 us
+[SOLVE] Initialization took: 3912 us
+[SOLVE] Fill Matrix A took: 28705 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33367 us
+[SOLVE] Total time taken: 69275 us
+[MAIN] Compute species eq took: 69276 us
+[SOLVE] Initialization took: 4017 us
+[SOLVE] Fill Matrix A took: 28899 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32942 us
+[SOLVE] Total time taken: 69165 us
+[MAIN] Compute species eq took: 69166 us
+[SOLVE] Initialization took: 3967 us
+[SOLVE] Fill Matrix A took: 29365 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 32924 us
+[SOLVE] Total time taken: 69672 us
+[MAIN] Compute species eq took: 69674 us
+[SOLVE] Initialization took: 3979 us
+[SOLVE] Fill Matrix A took: 28814 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33584 us
+[SOLVE] Total time taken: 69774 us
+[MAIN] Compute species eq took: 69775 us
+[SOLVE] Initialization took: 4059 us
+[SOLVE] Fill Matrix A took: 28674 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32918 us
+[SOLVE] Total time taken: 69041 us
+[MAIN] Compute species eq took: 69042 us
+[SOLVE] Initialization took: 3909 us
+[SOLVE] Fill Matrix A took: 30619 us
+[SOLVE] Fill b took: 59 us
+[SOLVE] Fill x took: 34045 us
+[SOLVE] Total time taken: 72324 us
+[MAIN] Compute species eq took: 72326 us
+[SOLVE] Initialization took: 4680 us
+[SOLVE] Fill Matrix A took: 33675 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 34184 us
+[SOLVE] Total time taken: 76035 us
+[MAIN] Compute species eq took: 76036 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 29673 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33339 us
+[SOLVE] Total time taken: 70452 us
+[MAIN] Compute species eq took: 70453 us
+[SOLVE] Initialization took: 3948 us
+[SOLVE] Fill Matrix A took: 29960 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 32793 us
+[SOLVE] Total time taken: 69982 us
+[MAIN] Compute species eq took: 69983 us
+[SOLVE] Initialization took: 3975 us
+[SOLVE] Fill Matrix A took: 29616 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33083 us
+[SOLVE] Total time taken: 70153 us
+[MAIN] Compute species eq took: 70154 us
+[SOLVE] Initialization took: 3959 us
+[SOLVE] Fill Matrix A took: 28702 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33493 us
+[SOLVE] Total time taken: 69562 us
+[MAIN] Compute species eq took: 69563 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 28976 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32915 us
+[SOLVE] Total time taken: 69234 us
+[MAIN] Compute species eq took: 69236 us
+[SOLVE] Initialization took: 3966 us
+[SOLVE] Fill Matrix A took: 33169 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 35455 us
+[SOLVE] Total time taken: 76240 us
+[MAIN] Compute species eq took: 76241 us
+[SOLVE] Initialization took: 4028 us
+[SOLVE] Fill Matrix A took: 29202 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33533 us
+[SOLVE] Total time taken: 70196 us
+[MAIN] Compute species eq took: 70197 us
+[SOLVE] Initialization took: 3979 us
+[SOLVE] Fill Matrix A took: 28636 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32947 us
+[SOLVE] Total time taken: 69033 us
+[MAIN] Compute species eq took: 69034 us
+[SOLVE] Initialization took: 3979 us
+[SOLVE] Fill Matrix A took: 30191 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 36942 us
+[SOLVE] Total time taken: 74508 us
+[MAIN] Compute species eq took: 74509 us
+[SOLVE] Initialization took: 4409 us
+[SOLVE] Fill Matrix A took: 32860 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 37384 us
+[SOLVE] Total time taken: 78076 us
+[MAIN] Compute species eq took: 78077 us
+[SOLVE] Initialization took: 4391 us
+[SOLVE] Fill Matrix A took: 34400 us
+[SOLVE] Fill b took: 71 us
+[SOLVE] Fill x took: 36464 us
+[SOLVE] Total time taken: 78773 us
+[MAIN] Compute species eq took: 78775 us
+[SOLVE] Initialization took: 4170 us
+[SOLVE] Fill Matrix A took: 30370 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35227 us
+[SOLVE] Total time taken: 73084 us
+[MAIN] Compute species eq took: 73085 us
+[SOLVE] Initialization took: 4173 us
+[SOLVE] Fill Matrix A took: 29670 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33395 us
+[SOLVE] Total time taken: 70709 us
+[MAIN] Compute species eq took: 70710 us
+[SOLVE] Initialization took: 3963 us
+[SOLVE] Fill Matrix A took: 29962 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33855 us
+[SOLVE] Total time taken: 71264 us
+[MAIN] Compute species eq took: 71265 us
+[SOLVE] Initialization took: 3997 us
+[SOLVE] Fill Matrix A took: 29378 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35101 us
+[SOLVE] Total time taken: 71948 us
+[MAIN] Compute species eq took: 71949 us
+[SOLVE] Initialization took: 4129 us
+[SOLVE] Fill Matrix A took: 29935 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33056 us
+[SOLVE] Total time taken: 70474 us
+[MAIN] Compute species eq took: 70475 us
+[SOLVE] Initialization took: 4018 us
+[SOLVE] Fill Matrix A took: 29680 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33700 us
+[SOLVE] Total time taken: 71024 us
+[MAIN] Compute species eq took: 71025 us
+[SOLVE] Initialization took: 3998 us
+[SOLVE] Fill Matrix A took: 29036 us
+[SOLVE] Fill b took: 58 us
+[SOLVE] Fill x took: 33594 us
+[SOLVE] Total time taken: 69907 us
+[MAIN] Compute species eq took: 69908 us
+[SOLVE] Initialization took: 4153 us
+[SOLVE] Fill Matrix A took: 29614 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34861 us
+[SOLVE] Total time taken: 72232 us
+[MAIN] Compute species eq took: 72233 us
+[SOLVE] Initialization took: 4054 us
+[SOLVE] Fill Matrix A took: 29917 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33681 us
+[SOLVE] Total time taken: 70910 us
+[MAIN] Compute species eq took: 70911 us
+[SOLVE] Initialization took: 4160 us
+[SOLVE] Fill Matrix A took: 29351 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34601 us
+[SOLVE] Total time taken: 71854 us
+[MAIN] Compute species eq took: 71855 us
+[SOLVE] Initialization took: 4367 us
+[SOLVE] Fill Matrix A took: 30189 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33717 us
+[SOLVE] Total time taken: 71706 us
+[MAIN] Compute species eq took: 71716 us
+[SOLVE] Initialization took: 4220 us
+[SOLVE] Fill Matrix A took: 30108 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33367 us
+[SOLVE] Total time taken: 71141 us
+[MAIN] Compute species eq took: 71141 us
+[SOLVE] Initialization took: 4345 us
+[SOLVE] Fill Matrix A took: 29535 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33587 us
+[SOLVE] Total time taken: 70953 us
+[MAIN] Compute species eq took: 70954 us
+[SOLVE] Initialization took: 3922 us
+[SOLVE] Fill Matrix A took: 28774 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33578 us
+[SOLVE] Total time taken: 69750 us
+[MAIN] Compute species eq took: 69751 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29445 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 35140 us
+[SOLVE] Total time taken: 72008 us
+[MAIN] Compute species eq took: 72009 us
+[SOLVE] Initialization took: 4043 us
+[SOLVE] Fill Matrix A took: 29373 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33463 us
+[SOLVE] Total time taken: 70233 us
+[MAIN] Compute species eq took: 70234 us
+[SOLVE] Initialization took: 4015 us
+[SOLVE] Fill Matrix A took: 28867 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 33343 us
+[SOLVE] Total time taken: 69726 us
+[MAIN] Compute species eq took: 69727 us
+[SOLVE] Initialization took: 4025 us
+[SOLVE] Fill Matrix A took: 32540 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33640 us
+[SOLVE] Total time taken: 73595 us
+[MAIN] Compute species eq took: 73596 us
+[SOLVE] Initialization took: 4082 us
+[SOLVE] Fill Matrix A took: 29652 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33020 us
+[SOLVE] Total time taken: 70209 us
+[MAIN] Compute species eq took: 70210 us
+[SOLVE] Initialization took: 3954 us
+[SOLVE] Fill Matrix A took: 30272 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35160 us
+[SOLVE] Total time taken: 72763 us
+[MAIN] Compute species eq took: 72764 us
+[SOLVE] Initialization took: 4104 us
+[SOLVE] Fill Matrix A took: 28934 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33055 us
+[SOLVE] Total time taken: 69634 us
+[MAIN] Compute species eq took: 69635 us
+[SOLVE] Initialization took: 3992 us
+[SOLVE] Fill Matrix A took: 29331 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32888 us
+[SOLVE] Total time taken: 70964 us
+[MAIN] Compute species eq took: 70965 us
+[SOLVE] Initialization took: 4105 us
+[SOLVE] Fill Matrix A took: 29737 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34139 us
+[SOLVE] Total time taken: 71444 us
+[MAIN] Compute species eq took: 71445 us
+[SOLVE] Initialization took: 4183 us
+[SOLVE] Fill Matrix A took: 29016 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33082 us
+[SOLVE] Total time taken: 69742 us
+[MAIN] Compute species eq took: 69743 us
+[SOLVE] Initialization took: 3916 us
+[SOLVE] Fill Matrix A took: 29683 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32967 us
+[SOLVE] Total time taken: 69983 us
+[MAIN] Compute species eq took: 69984 us
+[SOLVE] Initialization took: 3999 us
+[SOLVE] Fill Matrix A took: 29040 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 42119 us
+[SOLVE] Total time taken: 78496 us
+[MAIN] Compute species eq took: 78497 us
+[SOLVE] Initialization took: 3990 us
+[SOLVE] Fill Matrix A took: 29699 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 33363 us
+[SOLVE] Total time taken: 70561 us
+[MAIN] Compute species eq took: 70562 us
+[SOLVE] Initialization took: 4041 us
+[SOLVE] Fill Matrix A took: 29711 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33662 us
+[SOLVE] Total time taken: 70736 us
+[MAIN] Compute species eq took: 70737 us
+[SOLVE] Initialization took: 4045 us
+[SOLVE] Fill Matrix A took: 30036 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34530 us
+[SOLVE] Total time taken: 71979 us
+[MAIN] Compute species eq took: 71980 us
+[SOLVE] Initialization took: 4000 us
+[SOLVE] Fill Matrix A took: 29723 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33401 us
+[SOLVE] Total time taken: 70569 us
+[MAIN] Compute species eq took: 70571 us
+[SOLVE] Initialization took: 4135 us
+[SOLVE] Fill Matrix A took: 29208 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33402 us
+[SOLVE] Total time taken: 70231 us
+[MAIN] Compute species eq took: 70232 us
+[SOLVE] Initialization took: 4118 us
+[SOLVE] Fill Matrix A took: 29298 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33334 us
+[SOLVE] Total time taken: 70177 us
+[MAIN] Compute species eq took: 70178 us
+[SOLVE] Initialization took: 3920 us
+[SOLVE] Fill Matrix A took: 29424 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33938 us
+[SOLVE] Total time taken: 70631 us
+[MAIN] Compute species eq took: 70632 us
+[SOLVE] Initialization took: 3990 us
+[SOLVE] Fill Matrix A took: 29250 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32960 us
+[SOLVE] Total time taken: 69711 us
+[MAIN] Compute species eq took: 69712 us
+[SOLVE] Initialization took: 4021 us
+[SOLVE] Fill Matrix A took: 30132 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33330 us
+[SOLVE] Total time taken: 71002 us
+[MAIN] Compute species eq took: 71003 us
+[SOLVE] Initialization took: 4042 us
+[SOLVE] Fill Matrix A took: 29591 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33334 us
+[SOLVE] Total time taken: 70376 us
+[MAIN] Compute species eq took: 70378 us
+[SOLVE] Initialization took: 5428 us
+[SOLVE] Fill Matrix A took: 31468 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33550 us
+[SOLVE] Total time taken: 73742 us
+[MAIN] Compute species eq took: 73743 us
+[SOLVE] Initialization took: 4009 us
+[SOLVE] Fill Matrix A took: 29288 us
+[SOLVE] Fill b took: 59 us
+[SOLVE] Fill x took: 33141 us
+[SOLVE] Total time taken: 69890 us
+[MAIN] Compute species eq took: 69891 us
+[SOLVE] Initialization took: 4002 us
+[SOLVE] Fill Matrix A took: 29406 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33946 us
+[SOLVE] Total time taken: 70782 us
+[MAIN] Compute species eq took: 70783 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29312 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33227 us
+[SOLVE] Total time taken: 70047 us
+[MAIN] Compute species eq took: 70048 us
+[SOLVE] Initialization took: 4020 us
+[SOLVE] Fill Matrix A took: 29475 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33089 us
+[SOLVE] Total time taken: 70073 us
+[MAIN] Compute species eq took: 70073 us
+[SOLVE] Initialization took: 3977 us
+[SOLVE] Fill Matrix A took: 29026 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33474 us
+[SOLVE] Total time taken: 69840 us
+[MAIN] Compute species eq took: 69841 us
+[SOLVE] Initialization took: 3964 us
+[SOLVE] Fill Matrix A took: 28738 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34779 us
+[SOLVE] Total time taken: 70853 us
+[MAIN] Compute species eq took: 70855 us
+[SOLVE] Initialization took: 4075 us
+[SOLVE] Fill Matrix A took: 30674 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33107 us
+[SOLVE] Total time taken: 71209 us
+[MAIN] Compute species eq took: 71210 us
+[SOLVE] Initialization took: 4025 us
+[SOLVE] Fill Matrix A took: 28998 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33678 us
+[SOLVE] Total time taken: 70055 us
+[MAIN] Compute species eq took: 70056 us
+[SOLVE] Initialization took: 3957 us
+[SOLVE] Fill Matrix A took: 29205 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33343 us
+[SOLVE] Total time taken: 69944 us
+[MAIN] Compute species eq took: 69945 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 29427 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33197 us
+[SOLVE] Total time taken: 70209 us
+[MAIN] Compute species eq took: 70210 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 29385 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33566 us
+[SOLVE] Total time taken: 70373 us
+[MAIN] Compute species eq took: 70374 us
+[SOLVE] Initialization took: 4099 us
+[SOLVE] Fill Matrix A took: 29682 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33803 us
+[SOLVE] Total time taken: 70914 us
+[MAIN] Compute species eq took: 70915 us
+[SOLVE] Initialization took: 3933 us
+[SOLVE] Fill Matrix A took: 29498 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33237 us
+[SOLVE] Total time taken: 70137 us
+[MAIN] Compute species eq took: 70138 us
+[SOLVE] Initialization took: 4004 us
+[SOLVE] Fill Matrix A took: 32555 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 33721 us
+[SOLVE] Total time taken: 73674 us
+[MAIN] Compute species eq took: 73675 us
+[SOLVE] Initialization took: 4134 us
+[SOLVE] Fill Matrix A took: 31610 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 37666 us
+[SOLVE] Total time taken: 77138 us
+[MAIN] Compute species eq took: 77140 us
+[SOLVE] Initialization took: 4445 us
+[SOLVE] Fill Matrix A took: 33091 us
+[SOLVE] Fill b took: 54 us
+[SOLVE] Fill x took: 36515 us
+[SOLVE] Total time taken: 77696 us
+[MAIN] Compute species eq took: 77697 us
+[SOLVE] Initialization took: 4561 us
+[SOLVE] Fill Matrix A took: 34636 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33622 us
+[SOLVE] Total time taken: 76424 us
+[MAIN] Compute species eq took: 76425 us
+[SOLVE] Initialization took: 4151 us
+[SOLVE] Fill Matrix A took: 31904 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 35469 us
+[SOLVE] Total time taken: 75159 us
+[MAIN] Compute species eq took: 75160 us
+[SOLVE] Initialization took: 4066 us
+[SOLVE] Fill Matrix A took: 32279 us
+[SOLVE] Fill b took: 54 us
+[SOLVE] Fill x took: 36702 us
+[SOLVE] Total time taken: 76856 us
+[MAIN] Compute species eq took: 76857 us
+[SOLVE] Initialization took: 4732 us
+[SOLVE] Fill Matrix A took: 34489 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 37662 us
+[SOLVE] Total time taken: 80330 us
+[MAIN] Compute species eq took: 80331 us
+[SOLVE] Initialization took: 4397 us
+[SOLVE] Fill Matrix A took: 30170 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 36562 us
+[SOLVE] Total time taken: 74790 us
+[MAIN] Compute species eq took: 74791 us
+[SOLVE] Initialization took: 4732 us
+[SOLVE] Fill Matrix A took: 36890 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 37173 us
+[SOLVE] Total time taken: 82369 us
+[MAIN] Compute species eq took: 82370 us
+[SOLVE] Initialization took: 4422 us
+[SOLVE] Fill Matrix A took: 30659 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33506 us
+[SOLVE] Total time taken: 71873 us
+[MAIN] Compute species eq took: 71874 us
+[SOLVE] Initialization took: 4111 us
+[SOLVE] Fill Matrix A took: 29246 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33821 us
+[SOLVE] Total time taken: 70604 us
+[MAIN] Compute species eq took: 70605 us
+[SOLVE] Initialization took: 4061 us
+[SOLVE] Fill Matrix A took: 29076 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32933 us
+[SOLVE] Total time taken: 69510 us
+[MAIN] Compute species eq took: 69512 us
+[SOLVE] Initialization took: 4063 us
+[SOLVE] Fill Matrix A took: 28956 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33406 us
+[SOLVE] Total time taken: 69866 us
+[MAIN] Compute species eq took: 69867 us
+[SOLVE] Initialization took: 4071 us
+[SOLVE] Fill Matrix A took: 29312 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35729 us
+[SOLVE] Total time taken: 72570 us
+[MAIN] Compute species eq took: 72571 us
+[SOLVE] Initialization took: 4160 us
+[SOLVE] Fill Matrix A took: 30096 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34070 us
+[SOLVE] Total time taken: 71699 us
+[MAIN] Compute species eq took: 71700 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 29735 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 33351 us
+[SOLVE] Total time taken: 70637 us
+[MAIN] Compute species eq took: 70638 us
+[SOLVE] Initialization took: 4086 us
+[SOLVE] Fill Matrix A took: 28938 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 34469 us
+[SOLVE] Total time taken: 70916 us
+[MAIN] Compute species eq took: 70917 us
+[SOLVE] Initialization took: 3957 us
+[SOLVE] Fill Matrix A took: 29456 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32998 us
+[SOLVE] Total time taken: 69819 us
+[MAIN] Compute species eq took: 69820 us
+[SOLVE] Initialization took: 4122 us
+[SOLVE] Fill Matrix A took: 29443 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33199 us
+[SOLVE] Total time taken: 70064 us
+[MAIN] Compute species eq took: 70065 us
+[SOLVE] Initialization took: 3915 us
+[SOLVE] Fill Matrix A took: 29715 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34112 us
+[SOLVE] Total time taken: 71075 us
+[MAIN] Compute species eq took: 71076 us
+[SOLVE] Initialization took: 4332 us
+[SOLVE] Fill Matrix A took: 32114 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 34865 us
+[SOLVE] Total time taken: 74851 us
+[MAIN] Compute species eq took: 74852 us
+[SOLVE] Initialization took: 4049 us
+[SOLVE] Fill Matrix A took: 28916 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34024 us
+[SOLVE] Total time taken: 70276 us
+[MAIN] Compute species eq took: 70277 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 30380 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33996 us
+[SOLVE] Total time taken: 71920 us
+[MAIN] Compute species eq took: 71921 us
+[SOLVE] Initialization took: 4084 us
+[SOLVE] Fill Matrix A took: 30639 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34020 us
+[SOLVE] Total time taken: 72221 us
+[MAIN] Compute species eq took: 72222 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 29083 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33299 us
+[SOLVE] Total time taken: 69862 us
+[MAIN] Compute species eq took: 69863 us
+Writing data into output/speciesTransport_0000003.vtk
+[MAIN] Write file 4 took: 2789 us
+[SOLVE] Initialization took: 4024 us
+[SOLVE] Fill Matrix A took: 29918 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33191 us
+[SOLVE] Total time taken: 70422 us
+[MAIN] Compute species eq took: 70423 us
+[SOLVE] Initialization took: 4225 us
+[SOLVE] Fill Matrix A took: 29352 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34015 us
+[SOLVE] Total time taken: 70988 us
+[MAIN] Compute species eq took: 70989 us
+[SOLVE] Initialization took: 4052 us
+[SOLVE] Fill Matrix A took: 29788 us
+[SOLVE] Fill b took: 50 us
+[SOLVE] Fill x took: 35697 us
+[SOLVE] Total time taken: 73083 us
+[MAIN] Compute species eq took: 73084 us
+[SOLVE] Initialization took: 4171 us
+[SOLVE] Fill Matrix A took: 29550 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32830 us
+[SOLVE] Total time taken: 69985 us
+[MAIN] Compute species eq took: 69986 us
+[SOLVE] Initialization took: 4089 us
+[SOLVE] Fill Matrix A took: 30057 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34346 us
+[SOLVE] Total time taken: 72023 us
+[MAIN] Compute species eq took: 72024 us
+[SOLVE] Initialization took: 4087 us
+[SOLVE] Fill Matrix A took: 29845 us
+[SOLVE] Fill b took: 73 us
+[SOLVE] Fill x took: 34045 us
+[SOLVE] Total time taken: 71335 us
+[MAIN] Compute species eq took: 71336 us
+[SOLVE] Initialization took: 4124 us
+[SOLVE] Fill Matrix A took: 29735 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33148 us
+[SOLVE] Total time taken: 70484 us
+[MAIN] Compute species eq took: 70485 us
+[SOLVE] Initialization took: 3931 us
+[SOLVE] Fill Matrix A took: 29002 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33032 us
+[SOLVE] Total time taken: 69440 us
+[MAIN] Compute species eq took: 69441 us
+[SOLVE] Initialization took: 3952 us
+[SOLVE] Fill Matrix A took: 28865 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 34306 us
+[SOLVE] Total time taken: 70656 us
+[MAIN] Compute species eq took: 70657 us
+[SOLVE] Initialization took: 4037 us
+[SOLVE] Fill Matrix A took: 30105 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34559 us
+[SOLVE] Total time taken: 72197 us
+[MAIN] Compute species eq took: 72198 us
+[SOLVE] Initialization took: 3971 us
+[SOLVE] Fill Matrix A took: 29875 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33713 us
+[SOLVE] Total time taken: 71154 us
+[MAIN] Compute species eq took: 71155 us
+[SOLVE] Initialization took: 4195 us
+[SOLVE] Fill Matrix A took: 30181 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34780 us
+[SOLVE] Total time taken: 72580 us
+[MAIN] Compute species eq took: 72581 us
+[SOLVE] Initialization took: 4045 us
+[SOLVE] Fill Matrix A took: 31507 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34191 us
+[SOLVE] Total time taken: 73089 us
+[MAIN] Compute species eq took: 73090 us
+[SOLVE] Initialization took: 4063 us
+[SOLVE] Fill Matrix A took: 30289 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33340 us
+[SOLVE] Total time taken: 71088 us
+[MAIN] Compute species eq took: 71089 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 29030 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33387 us
+[SOLVE] Total time taken: 69812 us
+[MAIN] Compute species eq took: 69813 us
+[SOLVE] Initialization took: 4148 us
+[SOLVE] Fill Matrix A took: 29492 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33667 us
+[SOLVE] Total time taken: 70705 us
+[MAIN] Compute species eq took: 70706 us
+[SOLVE] Initialization took: 3981 us
+[SOLVE] Fill Matrix A took: 29820 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35417 us
+[SOLVE] Total time taken: 72507 us
+[MAIN] Compute species eq took: 72508 us
+[SOLVE] Initialization took: 3992 us
+[SOLVE] Fill Matrix A took: 31823 us
+[SOLVE] Fill b took: 62 us
+[SOLVE] Fill x took: 33403 us
+[SOLVE] Total time taken: 72665 us
+[MAIN] Compute species eq took: 72667 us
+[SOLVE] Initialization took: 3968 us
+[SOLVE] Fill Matrix A took: 28753 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33535 us
+[SOLVE] Total time taken: 69611 us
+[MAIN] Compute species eq took: 69612 us
+[SOLVE] Initialization took: 4051 us
+[SOLVE] Fill Matrix A took: 28897 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33808 us
+[SOLVE] Total time taken: 70085 us
+[MAIN] Compute species eq took: 70086 us
+[SOLVE] Initialization took: 4077 us
+[SOLVE] Fill Matrix A took: 29958 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33832 us
+[SOLVE] Total time taken: 71363 us
+[MAIN] Compute species eq took: 71364 us
+[SOLVE] Initialization took: 4277 us
+[SOLVE] Fill Matrix A took: 29603 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33657 us
+[SOLVE] Total time taken: 71074 us
+[MAIN] Compute species eq took: 71075 us
+[SOLVE] Initialization took: 4006 us
+[SOLVE] Fill Matrix A took: 29721 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 33671 us
+[SOLVE] Total time taken: 70726 us
+[MAIN] Compute species eq took: 70727 us
+[SOLVE] Initialization took: 4207 us
+[SOLVE] Fill Matrix A took: 29807 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 34779 us
+[SOLVE] Total time taken: 72141 us
+[MAIN] Compute species eq took: 72142 us
+[SOLVE] Initialization took: 4074 us
+[SOLVE] Fill Matrix A took: 29000 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33325 us
+[SOLVE] Total time taken: 69863 us
+[MAIN] Compute species eq took: 69864 us
+[SOLVE] Initialization took: 3927 us
+[SOLVE] Fill Matrix A took: 29023 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33055 us
+[SOLVE] Total time taken: 69453 us
+[MAIN] Compute species eq took: 69454 us
+[SOLVE] Initialization took: 4037 us
+[SOLVE] Fill Matrix A took: 29245 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32954 us
+[SOLVE] Total time taken: 69746 us
+[MAIN] Compute species eq took: 69747 us
+[SOLVE] Initialization took: 3988 us
+[SOLVE] Fill Matrix A took: 29466 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33443 us
+[SOLVE] Total time taken: 70194 us
+[MAIN] Compute species eq took: 70195 us
+[SOLVE] Initialization took: 4019 us
+[SOLVE] Fill Matrix A took: 29362 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33234 us
+[SOLVE] Total time taken: 69905 us
+[MAIN] Compute species eq took: 69906 us
+[SOLVE] Initialization took: 4181 us
+[SOLVE] Fill Matrix A took: 30129 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 37152 us
+[SOLVE] Total time taken: 75125 us
+[MAIN] Compute species eq took: 75127 us
+[SOLVE] Initialization took: 4707 us
+[SOLVE] Fill Matrix A took: 37619 us
+[SOLVE] Fill b took: 51 us
+[SOLVE] Fill x took: 41362 us
+[SOLVE] Total time taken: 87178 us
+[MAIN] Compute species eq took: 87179 us
+[SOLVE] Initialization took: 4692 us
+[SOLVE] Fill Matrix A took: 35671 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 37031 us
+[SOLVE] Total time taken: 80879 us
+[MAIN] Compute species eq took: 80880 us
+[SOLVE] Initialization took: 4167 us
+[SOLVE] Fill Matrix A took: 30289 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33696 us
+[SOLVE] Total time taken: 71612 us
+[MAIN] Compute species eq took: 71613 us
+[SOLVE] Initialization took: 4111 us
+[SOLVE] Fill Matrix A took: 29352 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33269 us
+[SOLVE] Total time taken: 70217 us
+[MAIN] Compute species eq took: 70218 us
+[SOLVE] Initialization took: 4000 us
+[SOLVE] Fill Matrix A took: 28965 us
+[SOLVE] Fill b took: 61 us
+[SOLVE] Fill x took: 33153 us
+[SOLVE] Total time taken: 69441 us
+[MAIN] Compute species eq took: 69443 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 28847 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33237 us
+[SOLVE] Total time taken: 69430 us
+[MAIN] Compute species eq took: 69431 us
+[SOLVE] Initialization took: 3970 us
+[SOLVE] Fill Matrix A took: 29670 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33613 us
+[SOLVE] Total time taken: 70709 us
+[MAIN] Compute species eq took: 70710 us
+[SOLVE] Initialization took: 4003 us
+[SOLVE] Fill Matrix A took: 30787 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35742 us
+[SOLVE] Total time taken: 74014 us
+[MAIN] Compute species eq took: 74015 us
+[SOLVE] Initialization took: 4524 us
+[SOLVE] Fill Matrix A took: 32787 us
+[SOLVE] Fill b took: 62 us
+[SOLVE] Fill x took: 36755 us
+[SOLVE] Total time taken: 77790 us
+[MAIN] Compute species eq took: 77791 us
+[SOLVE] Initialization took: 4365 us
+[SOLVE] Fill Matrix A took: 33140 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 35500 us
+[SOLVE] Total time taken: 76475 us
+[MAIN] Compute species eq took: 76476 us
+[SOLVE] Initialization took: 4912 us
+[SOLVE] Fill Matrix A took: 35790 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 36414 us
+[SOLVE] Total time taken: 80739 us
+[MAIN] Compute species eq took: 80740 us
+[SOLVE] Initialization took: 4278 us
+[SOLVE] Fill Matrix A took: 30409 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33256 us
+[SOLVE] Total time taken: 71488 us
+[MAIN] Compute species eq took: 71489 us
+[SOLVE] Initialization took: 3975 us
+[SOLVE] Fill Matrix A took: 30060 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33472 us
+[SOLVE] Total time taken: 70977 us
+[MAIN] Compute species eq took: 70978 us
+[SOLVE] Initialization took: 3985 us
+[SOLVE] Fill Matrix A took: 28943 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32811 us
+[SOLVE] Total time taken: 69039 us
+[MAIN] Compute species eq took: 69040 us
+[SOLVE] Initialization took: 3993 us
+[SOLVE] Fill Matrix A took: 31519 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33019 us
+[SOLVE] Total time taken: 72002 us
+[MAIN] Compute species eq took: 72003 us
+[SOLVE] Initialization took: 4027 us
+[SOLVE] Fill Matrix A took: 28671 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33391 us
+[SOLVE] Total time taken: 69543 us
+[MAIN] Compute species eq took: 69544 us
+[SOLVE] Initialization took: 3936 us
+[SOLVE] Fill Matrix A took: 28831 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32912 us
+[SOLVE] Total time taken: 69068 us
+[MAIN] Compute species eq took: 69069 us
+[SOLVE] Initialization took: 3991 us
+[SOLVE] Fill Matrix A took: 29097 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33154 us
+[SOLVE] Total time taken: 69689 us
+[MAIN] Compute species eq took: 69690 us
+[SOLVE] Initialization took: 3991 us
+[SOLVE] Fill Matrix A took: 28873 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33334 us
+[SOLVE] Total time taken: 69639 us
+[MAIN] Compute species eq took: 69640 us
+[SOLVE] Initialization took: 3999 us
+[SOLVE] Fill Matrix A took: 28563 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32910 us
+[SOLVE] Total time taken: 68914 us
+[MAIN] Compute species eq took: 68915 us
+[SOLVE] Initialization took: 3953 us
+[SOLVE] Fill Matrix A took: 29476 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32792 us
+[SOLVE] Total time taken: 69589 us
+[MAIN] Compute species eq took: 69590 us
+[SOLVE] Initialization took: 3923 us
+[SOLVE] Fill Matrix A took: 30280 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33553 us
+[SOLVE] Total time taken: 71050 us
+[MAIN] Compute species eq took: 71051 us
+[SOLVE] Initialization took: 3992 us
+[SOLVE] Fill Matrix A took: 28767 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33812 us
+[SOLVE] Total time taken: 70380 us
+[MAIN] Compute species eq took: 70381 us
+[SOLVE] Initialization took: 4460 us
+[SOLVE] Fill Matrix A took: 31617 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33469 us
+[SOLVE] Total time taken: 72914 us
+[MAIN] Compute species eq took: 72915 us
+[SOLVE] Initialization took: 4192 us
+[SOLVE] Fill Matrix A took: 32696 us
+[SOLVE] Fill b took: 68 us
+[SOLVE] Fill x took: 35355 us
+[SOLVE] Total time taken: 75747 us
+[MAIN] Compute species eq took: 75749 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 29207 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33783 us
+[SOLVE] Total time taken: 70346 us
+[MAIN] Compute species eq took: 70348 us
+[SOLVE] Initialization took: 4058 us
+[SOLVE] Fill Matrix A took: 29234 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32924 us
+[SOLVE] Total time taken: 69565 us
+[MAIN] Compute species eq took: 69566 us
+[SOLVE] Initialization took: 4005 us
+[SOLVE] Fill Matrix A took: 29196 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32815 us
+[SOLVE] Total time taken: 69510 us
+[MAIN] Compute species eq took: 69511 us
+[SOLVE] Initialization took: 3954 us
+[SOLVE] Fill Matrix A took: 31139 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33809 us
+[SOLVE] Total time taken: 72398 us
+[MAIN] Compute species eq took: 72399 us
+[SOLVE] Initialization took: 3983 us
+[SOLVE] Fill Matrix A took: 29299 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33317 us
+[SOLVE] Total time taken: 70023 us
+[MAIN] Compute species eq took: 70024 us
+[SOLVE] Initialization took: 4152 us
+[SOLVE] Fill Matrix A took: 29389 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32790 us
+[SOLVE] Total time taken: 69667 us
+[MAIN] Compute species eq took: 69668 us
+[SOLVE] Initialization took: 3950 us
+[SOLVE] Fill Matrix A took: 28870 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34096 us
+[SOLVE] Total time taken: 70279 us
+[MAIN] Compute species eq took: 70280 us
+[SOLVE] Initialization took: 3975 us
+[SOLVE] Fill Matrix A took: 29420 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33429 us
+[SOLVE] Total time taken: 70316 us
+[MAIN] Compute species eq took: 70317 us
+[SOLVE] Initialization took: 3975 us
+[SOLVE] Fill Matrix A took: 29378 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32808 us
+[SOLVE] Total time taken: 69631 us
+[MAIN] Compute species eq took: 69633 us
+[SOLVE] Initialization took: 4134 us
+[SOLVE] Fill Matrix A took: 29171 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34049 us
+[SOLVE] Total time taken: 70662 us
+[MAIN] Compute species eq took: 70663 us
+[SOLVE] Initialization took: 4057 us
+[SOLVE] Fill Matrix A took: 30614 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33496 us
+[SOLVE] Total time taken: 71503 us
+[MAIN] Compute species eq took: 71504 us
+[SOLVE] Initialization took: 3981 us
+[SOLVE] Fill Matrix A took: 29671 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33490 us
+[SOLVE] Total time taken: 70605 us
+[MAIN] Compute species eq took: 70606 us
+[SOLVE] Initialization took: 4177 us
+[SOLVE] Fill Matrix A took: 29339 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33367 us
+[SOLVE] Total time taken: 70315 us
+[MAIN] Compute species eq took: 70316 us
+[SOLVE] Initialization took: 3953 us
+[SOLVE] Fill Matrix A took: 28910 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33251 us
+[SOLVE] Total time taken: 69409 us
+[MAIN] Compute species eq took: 69410 us
+[SOLVE] Initialization took: 4051 us
+[SOLVE] Fill Matrix A took: 29782 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35281 us
+[SOLVE] Total time taken: 72695 us
+[MAIN] Compute species eq took: 72696 us
+[SOLVE] Initialization took: 4433 us
+[SOLVE] Fill Matrix A took: 33680 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 36529 us
+[SOLVE] Total time taken: 78307 us
+[MAIN] Compute species eq took: 78308 us
+[SOLVE] Initialization took: 4386 us
+[SOLVE] Fill Matrix A took: 33737 us
+[SOLVE] Fill b took: 54 us
+[SOLVE] Fill x took: 35844 us
+[SOLVE] Total time taken: 77726 us
+[MAIN] Compute species eq took: 77727 us
+[SOLVE] Initialization took: 4761 us
+[SOLVE] Fill Matrix A took: 36996 us
+[SOLVE] Fill b took: 61 us
+[SOLVE] Fill x took: 37043 us
+[SOLVE] Total time taken: 82429 us
+[MAIN] Compute species eq took: 82430 us
+[SOLVE] Initialization took: 4302 us
+[SOLVE] Fill Matrix A took: 29807 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32969 us
+[SOLVE] Total time taken: 70527 us
+[MAIN] Compute species eq took: 70539 us
+[SOLVE] Initialization took: 3966 us
+[SOLVE] Fill Matrix A took: 29322 us
+[SOLVE] Fill b took: 58 us
+[SOLVE] Fill x took: 32884 us
+[SOLVE] Total time taken: 69659 us
+[MAIN] Compute species eq took: 69660 us
+[SOLVE] Initialization took: 3996 us
+[SOLVE] Fill Matrix A took: 28926 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33479 us
+[SOLVE] Total time taken: 69825 us
+[MAIN] Compute species eq took: 69826 us
+[SOLVE] Initialization took: 3956 us
+[SOLVE] Fill Matrix A took: 29004 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32876 us
+[SOLVE] Total time taken: 69173 us
+[MAIN] Compute species eq took: 69174 us
+[SOLVE] Initialization took: 3931 us
+[SOLVE] Fill Matrix A took: 29429 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33049 us
+[SOLVE] Total time taken: 69745 us
+[MAIN] Compute species eq took: 69746 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 28923 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33511 us
+[SOLVE] Total time taken: 69970 us
+[MAIN] Compute species eq took: 69971 us
+[SOLVE] Initialization took: 3948 us
+[SOLVE] Fill Matrix A took: 30824 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32862 us
+[SOLVE] Total time taken: 71116 us
+[MAIN] Compute species eq took: 71117 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29535 us
+[SOLVE] Fill b took: 62 us
+[SOLVE] Fill x took: 35451 us
+[SOLVE] Total time taken: 72613 us
+[MAIN] Compute species eq took: 72615 us
+[SOLVE] Initialization took: 4497 us
+[SOLVE] Fill Matrix A took: 34128 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 37631 us
+[SOLVE] Total time taken: 79883 us
+[MAIN] Compute species eq took: 79884 us
+[SOLVE] Initialization took: 4606 us
+[SOLVE] Fill Matrix A took: 35810 us
+[SOLVE] Fill b took: 55 us
+[SOLVE] Fill x took: 35439 us
+[SOLVE] Total time taken: 79574 us
+[MAIN] Compute species eq took: 79575 us
+[SOLVE] Initialization took: 5187 us
+[SOLVE] Fill Matrix A took: 39167 us
+[SOLVE] Fill b took: 65 us
+[SOLVE] Fill x took: 40380 us
+[SOLVE] Total time taken: 88416 us
+[MAIN] Compute species eq took: 88417 us
+[SOLVE] Initialization took: 4627 us
+[SOLVE] Fill Matrix A took: 33906 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 36837 us
+[SOLVE] Total time taken: 78882 us
+[MAIN] Compute species eq took: 78883 us
+[SOLVE] Initialization took: 4145 us
+[SOLVE] Fill Matrix A took: 30036 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 35221 us
+[SOLVE] Total time taken: 72741 us
+[MAIN] Compute species eq took: 72743 us
+[SOLVE] Initialization took: 4007 us
+[SOLVE] Fill Matrix A took: 29093 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33702 us
+[SOLVE] Total time taken: 70143 us
+[MAIN] Compute species eq took: 70144 us
+[SOLVE] Initialization took: 3988 us
+[SOLVE] Fill Matrix A took: 28702 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32838 us
+[SOLVE] Total time taken: 68854 us
+[MAIN] Compute species eq took: 68855 us
+[SOLVE] Initialization took: 4071 us
+[SOLVE] Fill Matrix A took: 29421 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33223 us
+[SOLVE] Total time taken: 69997 us
+[MAIN] Compute species eq took: 69998 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 29695 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33422 us
+[SOLVE] Total time taken: 70583 us
+[MAIN] Compute species eq took: 70584 us
+[SOLVE] Initialization took: 3988 us
+[SOLVE] Fill Matrix A took: 28816 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33178 us
+[SOLVE] Total time taken: 69497 us
+[MAIN] Compute species eq took: 69498 us
+[SOLVE] Initialization took: 3936 us
+[SOLVE] Fill Matrix A took: 29342 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33225 us
+[SOLVE] Total time taken: 69971 us
+[MAIN] Compute species eq took: 69972 us
+[SOLVE] Initialization took: 3985 us
+[SOLVE] Fill Matrix A took: 29274 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35152 us
+[SOLVE] Total time taken: 71871 us
+[MAIN] Compute species eq took: 71872 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 29080 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33161 us
+[SOLVE] Total time taken: 69894 us
+[MAIN] Compute species eq took: 69895 us
+[SOLVE] Initialization took: 4059 us
+[SOLVE] Fill Matrix A took: 29383 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33066 us
+[SOLVE] Total time taken: 69958 us
+[MAIN] Compute species eq took: 69959 us
+[SOLVE] Initialization took: 3953 us
+[SOLVE] Fill Matrix A took: 28984 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32869 us
+[SOLVE] Total time taken: 69333 us
+[MAIN] Compute species eq took: 69334 us
+[SOLVE] Initialization took: 3959 us
+[SOLVE] Fill Matrix A took: 28692 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35304 us
+[SOLVE] Total time taken: 71447 us
+[MAIN] Compute species eq took: 71448 us
+[SOLVE] Initialization took: 4048 us
+[SOLVE] Fill Matrix A took: 29818 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33064 us
+[SOLVE] Total time taken: 70529 us
+[MAIN] Compute species eq took: 70530 us
+[SOLVE] Initialization took: 4078 us
+[SOLVE] Fill Matrix A took: 29335 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 34082 us
+[SOLVE] Total time taken: 70993 us
+[MAIN] Compute species eq took: 70994 us
+[SOLVE] Initialization took: 4170 us
+[SOLVE] Fill Matrix A took: 29341 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34554 us
+[SOLVE] Total time taken: 71447 us
+[MAIN] Compute species eq took: 71448 us
+Writing data into output/speciesTransport_0000004.vtk
+[MAIN] Write file 5 took: 2754 us
+[SOLVE] Initialization took: 4031 us
+[SOLVE] Fill Matrix A took: 29515 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32992 us
+[SOLVE] Total time taken: 69965 us
+[MAIN] Compute species eq took: 69967 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 29131 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32977 us
+[SOLVE] Total time taken: 69513 us
+[MAIN] Compute species eq took: 69514 us
+[SOLVE] Initialization took: 3996 us
+[SOLVE] Fill Matrix A took: 28812 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33194 us
+[SOLVE] Total time taken: 69455 us
+[MAIN] Compute species eq took: 69456 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 28794 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33060 us
+[SOLVE] Total time taken: 69265 us
+[MAIN] Compute species eq took: 69266 us
+[SOLVE] Initialization took: 3958 us
+[SOLVE] Fill Matrix A took: 29172 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32850 us
+[SOLVE] Total time taken: 69271 us
+[MAIN] Compute species eq took: 69272 us
+[SOLVE] Initialization took: 3986 us
+[SOLVE] Fill Matrix A took: 28799 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33508 us
+[SOLVE] Total time taken: 69763 us
+[MAIN] Compute species eq took: 69764 us
+[SOLVE] Initialization took: 3995 us
+[SOLVE] Fill Matrix A took: 28813 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34760 us
+[SOLVE] Total time taken: 71027 us
+[MAIN] Compute species eq took: 71028 us
+[SOLVE] Initialization took: 3982 us
+[SOLVE] Fill Matrix A took: 29458 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32814 us
+[SOLVE] Total time taken: 69646 us
+[MAIN] Compute species eq took: 69647 us
+[SOLVE] Initialization took: 3940 us
+[SOLVE] Fill Matrix A took: 29232 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33532 us
+[SOLVE] Total time taken: 70175 us
+[MAIN] Compute species eq took: 70176 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 28786 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33054 us
+[SOLVE] Total time taken: 69167 us
+[MAIN] Compute species eq took: 69169 us
+[SOLVE] Initialization took: 3992 us
+[SOLVE] Fill Matrix A took: 29326 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32918 us
+[SOLVE] Total time taken: 69673 us
+[MAIN] Compute species eq took: 69674 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 29014 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33543 us
+[SOLVE] Total time taken: 70156 us
+[MAIN] Compute species eq took: 70157 us
+[SOLVE] Initialization took: 3962 us
+[SOLVE] Fill Matrix A took: 29845 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33645 us
+[SOLVE] Total time taken: 70924 us
+[MAIN] Compute species eq took: 70925 us
+[SOLVE] Initialization took: 4099 us
+[SOLVE] Fill Matrix A took: 29808 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33405 us
+[SOLVE] Total time taken: 70771 us
+[MAIN] Compute species eq took: 70772 us
+[SOLVE] Initialization took: 5452 us
+[SOLVE] Fill Matrix A took: 29924 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 33024 us
+[SOLVE] Total time taken: 71716 us
+[MAIN] Compute species eq took: 71717 us
+[SOLVE] Initialization took: 3967 us
+[SOLVE] Fill Matrix A took: 29052 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 35250 us
+[SOLVE] Total time taken: 71799 us
+[MAIN] Compute species eq took: 71800 us
+[SOLVE] Initialization took: 4050 us
+[SOLVE] Fill Matrix A took: 29345 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33288 us
+[SOLVE] Total time taken: 70144 us
+[MAIN] Compute species eq took: 70145 us
+[SOLVE] Initialization took: 3987 us
+[SOLVE] Fill Matrix A took: 29324 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 32902 us
+[SOLVE] Total time taken: 69630 us
+[MAIN] Compute species eq took: 69631 us
+[SOLVE] Initialization took: 3913 us
+[SOLVE] Fill Matrix A took: 29266 us
+[SOLVE] Fill b took: 117 us
+[SOLVE] Fill x took: 35266 us
+[SOLVE] Total time taken: 71926 us
+[MAIN] Compute species eq took: 71927 us
+[SOLVE] Initialization took: 3951 us
+[SOLVE] Fill Matrix A took: 29862 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33151 us
+[SOLVE] Total time taken: 70368 us
+[MAIN] Compute species eq took: 70369 us
+[SOLVE] Initialization took: 4046 us
+[SOLVE] Fill Matrix A took: 30179 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33279 us
+[SOLVE] Total time taken: 71026 us
+[MAIN] Compute species eq took: 71027 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 30413 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33199 us
+[SOLVE] Total time taken: 71000 us
+[MAIN] Compute species eq took: 71001 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 30424 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 34510 us
+[SOLVE] Total time taken: 72429 us
+[MAIN] Compute species eq took: 72430 us
+[SOLVE] Initialization took: 4070 us
+[SOLVE] Fill Matrix A took: 31451 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 35545 us
+[SOLVE] Total time taken: 74400 us
+[MAIN] Compute species eq took: 74401 us
+[SOLVE] Initialization took: 4050 us
+[SOLVE] Fill Matrix A took: 29361 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33449 us
+[SOLVE] Total time taken: 70225 us
+[MAIN] Compute species eq took: 70226 us
+[SOLVE] Initialization took: 4050 us
+[SOLVE] Fill Matrix A took: 29378 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 34025 us
+[SOLVE] Total time taken: 70727 us
+[MAIN] Compute species eq took: 70728 us
+[SOLVE] Initialization took: 4037 us
+[SOLVE] Fill Matrix A took: 31243 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34357 us
+[SOLVE] Total time taken: 73105 us
+[MAIN] Compute species eq took: 73106 us
+[SOLVE] Initialization took: 4047 us
+[SOLVE] Fill Matrix A took: 29937 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33024 us
+[SOLVE] Total time taken: 70426 us
+[MAIN] Compute species eq took: 70427 us
+[SOLVE] Initialization took: 3945 us
+[SOLVE] Fill Matrix A took: 30890 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33872 us
+[SOLVE] Total time taken: 72133 us
+[MAIN] Compute species eq took: 72134 us
+[SOLVE] Initialization took: 3991 us
+[SOLVE] Fill Matrix A took: 29869 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32885 us
+[SOLVE] Total time taken: 70274 us
+[MAIN] Compute species eq took: 70275 us
+[SOLVE] Initialization took: 4065 us
+[SOLVE] Fill Matrix A took: 29555 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33711 us
+[SOLVE] Total time taken: 70652 us
+[MAIN] Compute species eq took: 70652 us
+[SOLVE] Initialization took: 3970 us
+[SOLVE] Fill Matrix A took: 29013 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33696 us
+[SOLVE] Total time taken: 70198 us
+[MAIN] Compute species eq took: 70199 us
+[SOLVE] Initialization took: 4155 us
+[SOLVE] Fill Matrix A took: 29798 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33306 us
+[SOLVE] Total time taken: 70695 us
+[MAIN] Compute species eq took: 70705 us
+[SOLVE] Initialization took: 4073 us
+[SOLVE] Fill Matrix A took: 31294 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35812 us
+[SOLVE] Total time taken: 74720 us
+[MAIN] Compute species eq took: 74721 us
+[SOLVE] Initialization took: 4307 us
+[SOLVE] Fill Matrix A took: 33631 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 37343 us
+[SOLVE] Total time taken: 80374 us
+[MAIN] Compute species eq took: 80376 us
+[SOLVE] Initialization took: 4192 us
+[SOLVE] Fill Matrix A took: 29604 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33800 us
+[SOLVE] Total time taken: 71125 us
+[MAIN] Compute species eq took: 71126 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 29436 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35841 us
+[SOLVE] Total time taken: 72835 us
+[MAIN] Compute species eq took: 72837 us
+[SOLVE] Initialization took: 4523 us
+[SOLVE] Fill Matrix A took: 33224 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 37086 us
+[SOLVE] Total time taken: 78466 us
+[MAIN] Compute species eq took: 78467 us
+[SOLVE] Initialization took: 4374 us
+[SOLVE] Fill Matrix A took: 32661 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 37725 us
+[SOLVE] Total time taken: 78132 us
+[MAIN] Compute species eq took: 78134 us
+[SOLVE] Initialization took: 4162 us
+[SOLVE] Fill Matrix A took: 29692 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34025 us
+[SOLVE] Total time taken: 71348 us
+[MAIN] Compute species eq took: 71349 us
+[SOLVE] Initialization took: 4077 us
+[SOLVE] Fill Matrix A took: 29279 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32854 us
+[SOLVE] Total time taken: 69598 us
+[MAIN] Compute species eq took: 69599 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 29036 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34767 us
+[SOLVE] Total time taken: 71073 us
+[MAIN] Compute species eq took: 71074 us
+[SOLVE] Initialization took: 4047 us
+[SOLVE] Fill Matrix A took: 29523 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33473 us
+[SOLVE] Total time taken: 70486 us
+[MAIN] Compute species eq took: 70487 us
+[SOLVE] Initialization took: 3960 us
+[SOLVE] Fill Matrix A took: 28869 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32974 us
+[SOLVE] Total time taken: 69240 us
+[MAIN] Compute species eq took: 69241 us
+[SOLVE] Initialization took: 3968 us
+[SOLVE] Fill Matrix A took: 29818 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33411 us
+[SOLVE] Total time taken: 70470 us
+[MAIN] Compute species eq took: 70471 us
+[SOLVE] Initialization took: 4058 us
+[SOLVE] Fill Matrix A took: 29327 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 34106 us
+[SOLVE] Total time taken: 70987 us
+[MAIN] Compute species eq took: 70988 us
+[SOLVE] Initialization took: 3972 us
+[SOLVE] Fill Matrix A took: 28748 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33144 us
+[SOLVE] Total time taken: 69122 us
+[MAIN] Compute species eq took: 69123 us
+[SOLVE] Initialization took: 3993 us
+[SOLVE] Fill Matrix A took: 30007 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33148 us
+[SOLVE] Total time taken: 70518 us
+[MAIN] Compute species eq took: 70519 us
+[SOLVE] Initialization took: 4009 us
+[SOLVE] Fill Matrix A took: 29595 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35684 us
+[SOLVE] Total time taken: 72628 us
+[MAIN] Compute species eq took: 72629 us
+[SOLVE] Initialization took: 4034 us
+[SOLVE] Fill Matrix A took: 29783 us
+[SOLVE] Fill b took: 61 us
+[SOLVE] Fill x took: 33665 us
+[SOLVE] Total time taken: 70892 us
+[MAIN] Compute species eq took: 70893 us
+[SOLVE] Initialization took: 4114 us
+[SOLVE] Fill Matrix A took: 29733 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33321 us
+[SOLVE] Total time taken: 70662 us
+[MAIN] Compute species eq took: 70663 us
+[SOLVE] Initialization took: 4021 us
+[SOLVE] Fill Matrix A took: 29314 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34789 us
+[SOLVE] Total time taken: 71788 us
+[MAIN] Compute species eq took: 71789 us
+[SOLVE] Initialization took: 4057 us
+[SOLVE] Fill Matrix A took: 29271 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33404 us
+[SOLVE] Total time taken: 70176 us
+[MAIN] Compute species eq took: 70178 us
+[SOLVE] Initialization took: 4039 us
+[SOLVE] Fill Matrix A took: 29194 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33290 us
+[SOLVE] Total time taken: 69812 us
+[MAIN] Compute species eq took: 69813 us
+[SOLVE] Initialization took: 3955 us
+[SOLVE] Fill Matrix A took: 29254 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33025 us
+[SOLVE] Total time taken: 69704 us
+[MAIN] Compute species eq took: 69705 us
+[SOLVE] Initialization took: 4284 us
+[SOLVE] Fill Matrix A took: 29673 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 35142 us
+[SOLVE] Total time taken: 72506 us
+[MAIN] Compute species eq took: 72507 us
+[SOLVE] Initialization took: 4038 us
+[SOLVE] Fill Matrix A took: 29500 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 33399 us
+[SOLVE] Total time taken: 70401 us
+[MAIN] Compute species eq took: 70402 us
+[SOLVE] Initialization took: 4019 us
+[SOLVE] Fill Matrix A took: 29147 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32883 us
+[SOLVE] Total time taken: 69507 us
+[MAIN] Compute species eq took: 69508 us
+[SOLVE] Initialization took: 3975 us
+[SOLVE] Fill Matrix A took: 29195 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33502 us
+[SOLVE] Total time taken: 70125 us
+[MAIN] Compute species eq took: 70126 us
+[SOLVE] Initialization took: 3985 us
+[SOLVE] Fill Matrix A took: 28998 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33033 us
+[SOLVE] Total time taken: 69503 us
+[MAIN] Compute species eq took: 69504 us
+[SOLVE] Initialization took: 4048 us
+[SOLVE] Fill Matrix A took: 29202 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32686 us
+[SOLVE] Total time taken: 69441 us
+[MAIN] Compute species eq took: 69442 us
+[SOLVE] Initialization took: 3936 us
+[SOLVE] Fill Matrix A took: 28881 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33212 us
+[SOLVE] Total time taken: 69308 us
+[MAIN] Compute species eq took: 69309 us
+[SOLVE] Initialization took: 3980 us
+[SOLVE] Fill Matrix A took: 29024 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32910 us
+[SOLVE] Total time taken: 69254 us
+[MAIN] Compute species eq took: 69255 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 30916 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32786 us
+[SOLVE] Total time taken: 70962 us
+[MAIN] Compute species eq took: 70963 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 28895 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33903 us
+[SOLVE] Total time taken: 70177 us
+[MAIN] Compute species eq took: 70178 us
+[SOLVE] Initialization took: 4076 us
+[SOLVE] Fill Matrix A took: 29077 us
+[SOLVE] Fill b took: 59 us
+[SOLVE] Fill x took: 32952 us
+[SOLVE] Total time taken: 69693 us
+[MAIN] Compute species eq took: 69694 us
+[SOLVE] Initialization took: 4106 us
+[SOLVE] Fill Matrix A took: 29203 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32853 us
+[SOLVE] Total time taken: 69566 us
+[MAIN] Compute species eq took: 69567 us
+[SOLVE] Initialization took: 4008 us
+[SOLVE] Fill Matrix A took: 28968 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33216 us
+[SOLVE] Total time taken: 69631 us
+[MAIN] Compute species eq took: 69632 us
+[SOLVE] Initialization took: 3962 us
+[SOLVE] Fill Matrix A took: 28842 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33273 us
+[SOLVE] Total time taken: 69512 us
+[MAIN] Compute species eq took: 69513 us
+[SOLVE] Initialization took: 4073 us
+[SOLVE] Fill Matrix A took: 29370 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33158 us
+[SOLVE] Total time taken: 70080 us
+[MAIN] Compute species eq took: 70081 us
+[SOLVE] Initialization took: 3963 us
+[SOLVE] Fill Matrix A took: 30661 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33257 us
+[SOLVE] Total time taken: 71240 us
+[MAIN] Compute species eq took: 71241 us
+[SOLVE] Initialization took: 4018 us
+[SOLVE] Fill Matrix A took: 28909 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33385 us
+[SOLVE] Total time taken: 69623 us
+[MAIN] Compute species eq took: 69624 us
+[SOLVE] Initialization took: 4039 us
+[SOLVE] Fill Matrix A took: 28857 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 32949 us
+[SOLVE] Total time taken: 69334 us
+[MAIN] Compute species eq took: 69335 us
+[SOLVE] Initialization took: 4002 us
+[SOLVE] Fill Matrix A took: 28984 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33127 us
+[SOLVE] Total time taken: 69504 us
+[MAIN] Compute species eq took: 69505 us
+[SOLVE] Initialization took: 3951 us
+[SOLVE] Fill Matrix A took: 28673 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 33499 us
+[SOLVE] Total time taken: 69502 us
+[MAIN] Compute species eq took: 69503 us
+[SOLVE] Initialization took: 4061 us
+[SOLVE] Fill Matrix A took: 28772 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32826 us
+[SOLVE] Total time taken: 69028 us
+[MAIN] Compute species eq took: 69029 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 28956 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33397 us
+[SOLVE] Total time taken: 69806 us
+[MAIN] Compute species eq took: 69807 us
+[SOLVE] Initialization took: 3968 us
+[SOLVE] Fill Matrix A took: 30653 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33793 us
+[SOLVE] Total time taken: 71909 us
+[MAIN] Compute species eq took: 71910 us
+[SOLVE] Initialization took: 4037 us
+[SOLVE] Fill Matrix A took: 29109 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32841 us
+[SOLVE] Total time taken: 69480 us
+[MAIN] Compute species eq took: 69481 us
+[SOLVE] Initialization took: 4081 us
+[SOLVE] Fill Matrix A took: 29367 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33181 us
+[SOLVE] Total time taken: 69975 us
+[MAIN] Compute species eq took: 69976 us
+[SOLVE] Initialization took: 3998 us
+[SOLVE] Fill Matrix A took: 28902 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33461 us
+[SOLVE] Total time taken: 69805 us
+[MAIN] Compute species eq took: 69806 us
+[SOLVE] Initialization took: 3972 us
+[SOLVE] Fill Matrix A took: 28895 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32883 us
+[SOLVE] Total time taken: 69126 us
+[MAIN] Compute species eq took: 69127 us
+[SOLVE] Initialization took: 4017 us
+[SOLVE] Fill Matrix A took: 29252 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33296 us
+[SOLVE] Total time taken: 69866 us
+[MAIN] Compute species eq took: 69867 us
+[SOLVE] Initialization took: 3987 us
+[SOLVE] Fill Matrix A took: 28893 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33780 us
+[SOLVE] Total time taken: 70102 us
+[MAIN] Compute species eq took: 70103 us
+[SOLVE] Initialization took: 4061 us
+[SOLVE] Fill Matrix A took: 28776 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 35028 us
+[SOLVE] Total time taken: 71377 us
+[MAIN] Compute species eq took: 71378 us
+[SOLVE] Initialization took: 4105 us
+[SOLVE] Fill Matrix A took: 29868 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33083 us
+[SOLVE] Total time taken: 70495 us
+[MAIN] Compute species eq took: 70496 us
+[SOLVE] Initialization took: 3908 us
+[SOLVE] Fill Matrix A took: 28973 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33517 us
+[SOLVE] Total time taken: 69833 us
+[MAIN] Compute species eq took: 69834 us
+[SOLVE] Initialization took: 4095 us
+[SOLVE] Fill Matrix A took: 28831 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33116 us
+[SOLVE] Total time taken: 69454 us
+[MAIN] Compute species eq took: 69455 us
+[SOLVE] Initialization took: 3970 us
+[SOLVE] Fill Matrix A took: 29120 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 32999 us
+[SOLVE] Total time taken: 69374 us
+[MAIN] Compute species eq took: 69375 us
+[SOLVE] Initialization took: 3928 us
+[SOLVE] Fill Matrix A took: 29000 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33233 us
+[SOLVE] Total time taken: 69731 us
+[MAIN] Compute species eq took: 69734 us
+[SOLVE] Initialization took: 3984 us
+[SOLVE] Fill Matrix A took: 28806 us
+[SOLVE] Fill b took: 61 us
+[SOLVE] Fill x took: 33346 us
+[SOLVE] Total time taken: 69451 us
+[MAIN] Compute species eq took: 69453 us
+[SOLVE] Initialization took: 4017 us
+[SOLVE] Fill Matrix A took: 32182 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 38493 us
+[SOLVE] Total time taken: 78135 us
+[MAIN] Compute species eq took: 78136 us
+[SOLVE] Initialization took: 4448 us
+[SOLVE] Fill Matrix A took: 33175 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 38013 us
+[SOLVE] Total time taken: 79210 us
+[MAIN] Compute species eq took: 79211 us
+[SOLVE] Initialization took: 4566 us
+[SOLVE] Fill Matrix A took: 33739 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34191 us
+[SOLVE] Total time taken: 76023 us
+[MAIN] Compute species eq took: 76024 us
+[SOLVE] Initialization took: 4635 us
+[SOLVE] Fill Matrix A took: 32311 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33453 us
+[SOLVE] Total time taken: 73917 us
+[MAIN] Compute species eq took: 73918 us
+[SOLVE] Initialization took: 4029 us
+[SOLVE] Fill Matrix A took: 29308 us
+[SOLVE] Fill b took: 58 us
+[SOLVE] Fill x took: 32835 us
+[SOLVE] Total time taken: 69518 us
+[MAIN] Compute species eq took: 69519 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 29162 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33264 us
+[SOLVE] Total time taken: 69998 us
+[MAIN] Compute species eq took: 69999 us
+[SOLVE] Initialization took: 4105 us
+[SOLVE] Fill Matrix A took: 29332 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33856 us
+[SOLVE] Total time taken: 70665 us
+[MAIN] Compute species eq took: 70666 us
+[SOLVE] Initialization took: 4079 us
+[SOLVE] Fill Matrix A took: 30192 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33881 us
+[SOLVE] Total time taken: 71649 us
+[MAIN] Compute species eq took: 71650 us
+[SOLVE] Initialization took: 4032 us
+[SOLVE] Fill Matrix A took: 29217 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32748 us
+[SOLVE] Total time taken: 69455 us
+[MAIN] Compute species eq took: 69456 us
+Writing data into output/speciesTransport_0000005.vtk
+[MAIN] Write file 6 took: 2764 us
+[SOLVE] Initialization took: 4038 us
+[SOLVE] Fill Matrix A took: 29097 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33514 us
+[SOLVE] Total time taken: 70117 us
+[MAIN] Compute species eq took: 70118 us
+[SOLVE] Initialization took: 3943 us
+[SOLVE] Fill Matrix A took: 28653 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33174 us
+[SOLVE] Total time taken: 69226 us
+[MAIN] Compute species eq took: 69227 us
+[SOLVE] Initialization took: 4111 us
+[SOLVE] Fill Matrix A took: 29067 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32774 us
+[SOLVE] Total time taken: 69340 us
+[MAIN] Compute species eq took: 69341 us
+[SOLVE] Initialization took: 3973 us
+[SOLVE] Fill Matrix A took: 28782 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33613 us
+[SOLVE] Total time taken: 69749 us
+[MAIN] Compute species eq took: 69751 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 28955 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33473 us
+[SOLVE] Total time taken: 69942 us
+[MAIN] Compute species eq took: 69943 us
+[SOLVE] Initialization took: 4047 us
+[SOLVE] Fill Matrix A took: 29330 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34590 us
+[SOLVE] Total time taken: 71461 us
+[MAIN] Compute species eq took: 71462 us
+[SOLVE] Initialization took: 4018 us
+[SOLVE] Fill Matrix A took: 29102 us
+[SOLVE] Fill b took: 60 us
+[SOLVE] Fill x took: 33618 us
+[SOLVE] Total time taken: 70068 us
+[MAIN] Compute species eq took: 70069 us
+[SOLVE] Initialization took: 3959 us
+[SOLVE] Fill Matrix A took: 29223 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 33639 us
+[SOLVE] Total time taken: 70254 us
+[MAIN] Compute species eq took: 70255 us
+[SOLVE] Initialization took: 4130 us
+[SOLVE] Fill Matrix A took: 29227 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32738 us
+[SOLVE] Total time taken: 69466 us
+[MAIN] Compute species eq took: 69467 us
+[SOLVE] Initialization took: 3976 us
+[SOLVE] Fill Matrix A took: 28836 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33355 us
+[SOLVE] Total time taken: 69466 us
+[MAIN] Compute species eq took: 69467 us
+[SOLVE] Initialization took: 3968 us
+[SOLVE] Fill Matrix A took: 28885 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33104 us
+[SOLVE] Total time taken: 69427 us
+[MAIN] Compute species eq took: 69428 us
+[SOLVE] Initialization took: 3978 us
+[SOLVE] Fill Matrix A took: 28956 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33316 us
+[SOLVE] Total time taken: 69609 us
+[MAIN] Compute species eq took: 69610 us
+[SOLVE] Initialization took: 4005 us
+[SOLVE] Fill Matrix A took: 29214 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 34684 us
+[SOLVE] Total time taken: 71337 us
+[MAIN] Compute species eq took: 71338 us
+[SOLVE] Initialization took: 4038 us
+[SOLVE] Fill Matrix A took: 29079 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33538 us
+[SOLVE] Total time taken: 70044 us
+[MAIN] Compute species eq took: 70045 us
+[SOLVE] Initialization took: 4054 us
+[SOLVE] Fill Matrix A took: 28866 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32805 us
+[SOLVE] Total time taken: 69197 us
+[MAIN] Compute species eq took: 69198 us
+[SOLVE] Initialization took: 3999 us
+[SOLVE] Fill Matrix A took: 29121 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32957 us
+[SOLVE] Total time taken: 69539 us
+[MAIN] Compute species eq took: 69540 us
+[SOLVE] Initialization took: 4037 us
+[SOLVE] Fill Matrix A took: 28995 us
+[SOLVE] Fill b took: 74 us
+[SOLVE] Fill x took: 33263 us
+[SOLVE] Total time taken: 69628 us
+[MAIN] Compute species eq took: 69629 us
+[SOLVE] Initialization took: 4018 us
+[SOLVE] Fill Matrix A took: 28629 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32814 us
+[SOLVE] Total time taken: 68916 us
+[MAIN] Compute species eq took: 68917 us
+[SOLVE] Initialization took: 3971 us
+[SOLVE] Fill Matrix A took: 29092 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32953 us
+[SOLVE] Total time taken: 69539 us
+[MAIN] Compute species eq took: 69540 us
+[SOLVE] Initialization took: 3981 us
+[SOLVE] Fill Matrix A took: 29077 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34513 us
+[SOLVE] Total time taken: 71029 us
+[MAIN] Compute species eq took: 71030 us
+[SOLVE] Initialization took: 4214 us
+[SOLVE] Fill Matrix A took: 29659 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 32966 us
+[SOLVE] Total time taken: 70205 us
+[MAIN] Compute species eq took: 70206 us
+[SOLVE] Initialization took: 4040 us
+[SOLVE] Fill Matrix A took: 29301 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33652 us
+[SOLVE] Total time taken: 70419 us
+[MAIN] Compute species eq took: 70420 us
+[SOLVE] Initialization took: 4056 us
+[SOLVE] Fill Matrix A took: 29170 us
+[SOLVE] Fill b took: 75 us
+[SOLVE] Fill x took: 33682 us
+[SOLVE] Total time taken: 70264 us
+[MAIN] Compute species eq took: 70265 us
+[SOLVE] Initialization took: 4593 us
+[SOLVE] Fill Matrix A took: 31732 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33431 us
+[SOLVE] Total time taken: 73280 us
+[MAIN] Compute species eq took: 73281 us
+[SOLVE] Initialization took: 4099 us
+[SOLVE] Fill Matrix A took: 29383 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33228 us
+[SOLVE] Total time taken: 70202 us
+[MAIN] Compute species eq took: 70203 us
+[SOLVE] Initialization took: 4018 us
+[SOLVE] Fill Matrix A took: 29027 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33009 us
+[SOLVE] Total time taken: 69355 us
+[MAIN] Compute species eq took: 69356 us
+[SOLVE] Initialization took: 4088 us
+[SOLVE] Fill Matrix A took: 28926 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 34895 us
+[SOLVE] Total time taken: 71881 us
+[MAIN] Compute species eq took: 71882 us
+[SOLVE] Initialization took: 5503 us
+[SOLVE] Fill Matrix A took: 40610 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 50246 us
+[SOLVE] Total time taken: 100345 us
+[MAIN] Compute species eq took: 100347 us
+[SOLVE] Initialization took: 5518 us
+[SOLVE] Fill Matrix A took: 40649 us
+[SOLVE] Fill b took: 64 us
+[SOLVE] Fill x took: 50254 us
+[SOLVE] Total time taken: 100415 us
+[MAIN] Compute species eq took: 100417 us
+[SOLVE] Initialization took: 5537 us
+[SOLVE] Fill Matrix A took: 40703 us
+[SOLVE] Fill b took: 63 us
+[SOLVE] Fill x took: 50259 us
+[SOLVE] Total time taken: 100495 us
+[MAIN] Compute species eq took: 100496 us
+[SOLVE] Initialization took: 5526 us
+[SOLVE] Fill Matrix A took: 40650 us
+[SOLVE] Fill b took: 65 us
+[SOLVE] Fill x took: 50241 us
+[SOLVE] Total time taken: 100418 us
+[MAIN] Compute species eq took: 100420 us
+[SOLVE] Initialization took: 5544 us
+[SOLVE] Fill Matrix A took: 40680 us
+[SOLVE] Fill b took: 65 us
+[SOLVE] Fill x took: 51213 us
+[SOLVE] Total time taken: 101244 us
+[MAIN] Compute species eq took: 101245 us
+[SOLVE] Initialization took: 5022 us
+[SOLVE] Fill Matrix A took: 36843 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 44472 us
+[SOLVE] Total time taken: 90102 us
+[MAIN] Compute species eq took: 90104 us
+[SOLVE] Initialization took: 4987 us
+[SOLVE] Fill Matrix A took: 36767 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 44467 us
+[SOLVE] Total time taken: 90011 us
+[MAIN] Compute species eq took: 90013 us
+[SOLVE] Initialization took: 4987 us
+[SOLVE] Fill Matrix A took: 36658 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 44467 us
+[SOLVE] Total time taken: 89907 us
+[MAIN] Compute species eq took: 89908 us
+[SOLVE] Initialization took: 5002 us
+[SOLVE] Fill Matrix A took: 36704 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 44484 us
+[SOLVE] Total time taken: 89975 us
+[MAIN] Compute species eq took: 89976 us
+[SOLVE] Initialization took: 4982 us
+[SOLVE] Fill Matrix A took: 36617 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 44465 us
+[SOLVE] Total time taken: 89814 us
+[MAIN] Compute species eq took: 89816 us
+[SOLVE] Initialization took: 4987 us
+[SOLVE] Fill Matrix A took: 38069 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 39946 us
+[SOLVE] Total time taken: 86607 us
+[MAIN] Compute species eq took: 86609 us
+[SOLVE] Initialization took: 4574 us
+[SOLVE] Fill Matrix A took: 33533 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 39942 us
+[SOLVE] Total time taken: 81721 us
+[MAIN] Compute species eq took: 81723 us
+[SOLVE] Initialization took: 4610 us
+[SOLVE] Fill Matrix A took: 33658 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 39938 us
+[SOLVE] Total time taken: 81820 us
+[MAIN] Compute species eq took: 81822 us
+[SOLVE] Initialization took: 4598 us
+[SOLVE] Fill Matrix A took: 33494 us
+[SOLVE] Fill b took: 51 us
+[SOLVE] Fill x took: 39943 us
+[SOLVE] Total time taken: 81624 us
+[MAIN] Compute species eq took: 81625 us
+[SOLVE] Initialization took: 4561 us
+[SOLVE] Fill Matrix A took: 33929 us
+[SOLVE] Fill b took: 55 us
+[SOLVE] Fill x took: 40269 us
+[SOLVE] Total time taken: 82335 us
+[MAIN] Compute species eq took: 82336 us
+[SOLVE] Initialization took: 4694 us
+[SOLVE] Fill Matrix A took: 34339 us
+[SOLVE] Fill b took: 74 us
+[SOLVE] Fill x took: 40285 us
+[SOLVE] Total time taken: 82996 us
+[MAIN] Compute species eq took: 82997 us
+[SOLVE] Initialization took: 5299 us
+[SOLVE] Fill Matrix A took: 37800 us
+[SOLVE] Fill b took: 52 us
+[SOLVE] Fill x took: 38424 us
+[SOLVE] Total time taken: 84934 us
+[MAIN] Compute species eq took: 84935 us
+[SOLVE] Initialization took: 4437 us
+[SOLVE] Fill Matrix A took: 31932 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 36614 us
+[SOLVE] Total time taken: 76557 us
+[MAIN] Compute species eq took: 76558 us
+[SOLVE] Initialization took: 4300 us
+[SOLVE] Fill Matrix A took: 31325 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 36290 us
+[SOLVE] Total time taken: 75501 us
+[MAIN] Compute species eq took: 75502 us
+[SOLVE] Initialization took: 4302 us
+[SOLVE] Fill Matrix A took: 31474 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 36301 us
+[SOLVE] Total time taken: 75624 us
+[MAIN] Compute species eq took: 75626 us
+[SOLVE] Initialization took: 4290 us
+[SOLVE] Fill Matrix A took: 31036 us
+[SOLVE] Fill b took: 57 us
+[SOLVE] Fill x took: 36258 us
+[SOLVE] Total time taken: 75072 us
+[MAIN] Compute species eq took: 75073 us
+[SOLVE] Initialization took: 4302 us
+[SOLVE] Fill Matrix A took: 31235 us
+[SOLVE] Fill b took: 49 us
+[SOLVE] Fill x took: 36292 us
+[SOLVE] Total time taken: 75309 us
+[MAIN] Compute species eq took: 75311 us
+[SOLVE] Initialization took: 4279 us
+[SOLVE] Fill Matrix A took: 31020 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 36290 us
+[SOLVE] Total time taken: 75167 us
+[MAIN] Compute species eq took: 75169 us
+[SOLVE] Initialization took: 4276 us
+[SOLVE] Fill Matrix A took: 31422 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34498 us
+[SOLVE] Total time taken: 73678 us
+[MAIN] Compute species eq took: 73679 us
+[SOLVE] Initialization took: 4123 us
+[SOLVE] Fill Matrix A took: 29749 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33846 us
+[SOLVE] Total time taken: 71262 us
+[MAIN] Compute species eq took: 71263 us
+[SOLVE] Initialization took: 4106 us
+[SOLVE] Fill Matrix A took: 30006 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33740 us
+[SOLVE] Total time taken: 71253 us
+[MAIN] Compute species eq took: 71254 us
+[SOLVE] Initialization took: 4044 us
+[SOLVE] Fill Matrix A took: 29358 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34234 us
+[SOLVE] Total time taken: 71107 us
+[MAIN] Compute species eq took: 71108 us
+[SOLVE] Initialization took: 4070 us
+[SOLVE] Fill Matrix A took: 29746 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33742 us
+[SOLVE] Total time taken: 71056 us
+[MAIN] Compute species eq took: 71057 us
+[SOLVE] Initialization took: 4245 us
+[SOLVE] Fill Matrix A took: 29534 us
+[SOLVE] Fill b took: 46 us
+[SOLVE] Fill x took: 33946 us
+[SOLVE] Total time taken: 71040 us
+[MAIN] Compute species eq took: 71041 us
+[SOLVE] Initialization took: 4064 us
+[SOLVE] Fill Matrix A took: 29856 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 34472 us
+[SOLVE] Total time taken: 71875 us
+[MAIN] Compute species eq took: 71876 us
+[SOLVE] Initialization took: 4074 us
+[SOLVE] Fill Matrix A took: 30697 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33568 us
+[SOLVE] Total time taken: 71903 us
+[MAIN] Compute species eq took: 71905 us
+[SOLVE] Initialization took: 4126 us
+[SOLVE] Fill Matrix A took: 30017 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33181 us
+[SOLVE] Total time taken: 70682 us
+[MAIN] Compute species eq took: 70683 us
+[SOLVE] Initialization took: 4124 us
+[SOLVE] Fill Matrix A took: 29434 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33256 us
+[SOLVE] Total time taken: 70280 us
+[MAIN] Compute species eq took: 70281 us
+[SOLVE] Initialization took: 3971 us
+[SOLVE] Fill Matrix A took: 31936 us
+[SOLVE] Fill b took: 54 us
+[SOLVE] Fill x took: 35515 us
+[SOLVE] Total time taken: 74971 us
+[MAIN] Compute species eq took: 74973 us
+[SOLVE] Initialization took: 4139 us
+[SOLVE] Fill Matrix A took: 30042 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33494 us
+[SOLVE] Total time taken: 71125 us
+[MAIN] Compute species eq took: 71126 us
+[SOLVE] Initialization took: 4116 us
+[SOLVE] Fill Matrix A took: 29584 us
+[SOLVE] Fill b took: 48 us
+[SOLVE] Fill x took: 33055 us
+[SOLVE] Total time taken: 70180 us
+[MAIN] Compute species eq took: 70181 us
+[SOLVE] Initialization took: 3967 us
+[SOLVE] Fill Matrix A took: 29274 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33993 us
+[SOLVE] Total time taken: 70568 us
+[MAIN] Compute species eq took: 70569 us
+[SOLVE] Initialization took: 3932 us
+[SOLVE] Fill Matrix A took: 30638 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33372 us
+[SOLVE] Total time taken: 71297 us
+[MAIN] Compute species eq took: 71298 us
+[SOLVE] Initialization took: 4015 us
+[SOLVE] Fill Matrix A took: 29241 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32868 us
+[SOLVE] Total time taken: 69573 us
+[MAIN] Compute species eq took: 69574 us
+[SOLVE] Initialization took: 3916 us
+[SOLVE] Fill Matrix A took: 28863 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33544 us
+[SOLVE] Total time taken: 69779 us
+[MAIN] Compute species eq took: 69780 us
+[SOLVE] Initialization took: 3972 us
+[SOLVE] Fill Matrix A took: 28811 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33155 us
+[SOLVE] Total time taken: 69472 us
+[MAIN] Compute species eq took: 69474 us
+[SOLVE] Initialization took: 3997 us
+[SOLVE] Fill Matrix A took: 29424 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 32785 us
+[SOLVE] Total time taken: 69626 us
+[MAIN] Compute species eq took: 69627 us
+[SOLVE] Initialization took: 3963 us
+[SOLVE] Fill Matrix A took: 28852 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33524 us
+[SOLVE] Total time taken: 69691 us
+[MAIN] Compute species eq took: 69692 us
+[SOLVE] Initialization took: 4036 us
+[SOLVE] Fill Matrix A took: 28720 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33169 us
+[SOLVE] Total time taken: 69383 us
+[MAIN] Compute species eq took: 69395 us
+[SOLVE] Initialization took: 4101 us
+[SOLVE] Fill Matrix A took: 30572 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 36541 us
+[SOLVE] Total time taken: 74756 us
+[MAIN] Compute species eq took: 74757 us
+[SOLVE] Initialization took: 4069 us
+[SOLVE] Fill Matrix A took: 29321 us
+[SOLVE] Fill b took: 47 us
+[SOLVE] Fill x took: 33177 us
+[SOLVE] Total time taken: 70093 us
+[MAIN] Compute species eq took: 70094 us
+[SOLVE] Initialization took: 4014 us
+[SOLVE] Fill Matrix A took: 29188 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33275 us
+[SOLVE] Total time taken: 70029 us
+[MAIN] Compute species eq took: 70030 us
+[SOLVE] Initialization took: 4039 us
+[SOLVE] Fill Matrix A took: 29027 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32825 us
+[SOLVE] Total time taken: 69283 us
+[MAIN] Compute species eq took: 69284 us
+[SOLVE] Initialization took: 3987 us
+[SOLVE] Fill Matrix A took: 29161 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33038 us
+[SOLVE] Total time taken: 69636 us
+[MAIN] Compute species eq took: 69637 us
+[SOLVE] Initialization took: 4007 us
+[SOLVE] Fill Matrix A took: 29117 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33109 us
+[SOLVE] Total time taken: 69717 us
+[MAIN] Compute species eq took: 69718 us
+[SOLVE] Initialization took: 4178 us
+[SOLVE] Fill Matrix A took: 28877 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32969 us
+[SOLVE] Total time taken: 69508 us
+[MAIN] Compute species eq took: 69509 us
+[SOLVE] Initialization took: 4054 us
+[SOLVE] Fill Matrix A took: 30732 us
+[SOLVE] Fill b took: 43 us
+[SOLVE] Fill x took: 33302 us
+[SOLVE] Total time taken: 71519 us
+[MAIN] Compute species eq took: 71520 us
+[SOLVE] Initialization took: 4026 us
+[SOLVE] Fill Matrix A took: 29087 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33197 us
+[SOLVE] Total time taken: 69646 us
+[MAIN] Compute species eq took: 69647 us
+[SOLVE] Initialization took: 4092 us
+[SOLVE] Fill Matrix A took: 28577 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33004 us
+[SOLVE] Total time taken: 69200 us
+[MAIN] Compute species eq took: 69201 us
+[SOLVE] Initialization took: 3946 us
+[SOLVE] Fill Matrix A took: 29307 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 32993 us
+[SOLVE] Total time taken: 69670 us
+[MAIN] Compute species eq took: 69671 us
+[SOLVE] Initialization took: 4086 us
+[SOLVE] Fill Matrix A took: 29033 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33281 us
+[SOLVE] Total time taken: 69850 us
+[MAIN] Compute species eq took: 69851 us
+[SOLVE] Initialization took: 3940 us
+[SOLVE] Fill Matrix A took: 28556 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33034 us
+[SOLVE] Total time taken: 68953 us
+[MAIN] Compute species eq took: 68954 us
+[SOLVE] Initialization took: 4057 us
+[SOLVE] Fill Matrix A took: 29894 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33187 us
+[SOLVE] Total time taken: 70670 us
+[MAIN] Compute species eq took: 70671 us
+[SOLVE] Initialization took: 4008 us
+[SOLVE] Fill Matrix A took: 28917 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 35394 us
+[SOLVE] Total time taken: 71750 us
+[MAIN] Compute species eq took: 71751 us
+[SOLVE] Initialization took: 4099 us
+[SOLVE] Fill Matrix A took: 28822 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33320 us
+[SOLVE] Total time taken: 69581 us
+[MAIN] Compute species eq took: 69582 us
+[SOLVE] Initialization took: 4054 us
+[SOLVE] Fill Matrix A took: 29695 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33433 us
+[SOLVE] Total time taken: 70648 us
+[MAIN] Compute species eq took: 70649 us
+[SOLVE] Initialization took: 4052 us
+[SOLVE] Fill Matrix A took: 28975 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fill x took: 33510 us
+[SOLVE] Total time taken: 70149 us
+[MAIN] Compute species eq took: 70150 us
+[SOLVE] Initialization took: 4450 us
+[SOLVE] Fill Matrix A took: 30770 us
+[SOLVE] Fill b took: 45 us
+[SOLVE] Fill x took: 33608 us
+[SOLVE] Total time taken: 72305 us
+[MAIN] Compute species eq took: 72306 us
+[SOLVE] Initialization took: 4104 us
+[SOLVE] Fill Matrix A took: 29026 us
+[SOLVE] Fill b took: 44 us
+[SOLVE] Fi

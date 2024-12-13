@@ -17,8 +17,8 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 300; // in parallel 800
-    int ny = 300; // in parallel 800
+    int nx = 50; // in parallel 800
+    int ny = 50; // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx / (nx - 1); // in final version 0.0077
