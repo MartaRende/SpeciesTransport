@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cuda.h>
 #include "../common_includes.c"
-
+#include "tools.cu"
 // #include "tools.h"
 
 #include <chrono>
@@ -26,15 +26,19 @@ void computeBoundaries(double **Y, const int nx, const int ny)
 }
 __global__ void fillMatrixAKernel(double *A, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
 {
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
+   int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
 
-     int totSize = nx * ny;
+    int totSize = nx * ny;
 
-    A[i] = 0.0; // Initialize with zero
+    // Initialize all elements to zero
+    if (i < nx && j < ny) {
+        int idx = i * ny + j;
+        A[idx] = 0.0; // Initialize with zero
+    }
+
 
     // Populate internal nodes
-
     if (i > 0 && i < (nx - 1) && j > 0 && j < (ny - 1))
     {
         int idx = i * ny + j;
@@ -43,18 +47,17 @@ __global__ void fillMatrixAKernel(double *A, const double dx, const double dy, c
         A[idx * totSize + idx] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
 
         // Left neighbor
-        A[idx * totSize + (idx - 1)] = -dt * D / (dx * dx);
+        A[idx * totSize + (idx - ny)] = -dt * D / (dx * dx);
 
         // Right neighbor
-        A[idx * totSize + (idx + 1)] = -dt * D / (dx * dx);
+        A[idx * totSize + (idx + ny)] = -dt * D / (dx * dx);
 
         // Top neighbor
-        A[idx * totSize + ((i - 1) * ny + j)] = -dt * D / (dy * dy);
+        A[idx * totSize + (idx - 1)] = -dt * D / (dy * dy);
 
         // Bottom neighbor
-        A[idx * totSize + ((i + 1) * ny + j)] = -dt * D / (dy * dy);
+        A[idx * totSize + (idx + 1)] = -dt * D / (dy * dy);
     }
-
     // Handle boundary conditions
 
     // Bottom boundary
@@ -90,8 +93,8 @@ __global__ void computeB(double *b, double* Y_n,double *u, double *v, const doub
     }
 
     int idx = i * ny + j;
-    int right = i * ny + (j - 1);
-    int left = i * ny + (j + 1);
+    int right = i * ny + (j + 1);
+    int left = i * ny + (j - 1);
     int top = (i - 1) * ny + j;
     int down = (i + 1) * ny + j;
 
@@ -134,6 +137,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     double *d_b_flatten;
     double *d_u;
     double *d_v;
+    double* d_maxDiff;
 
     CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_bytes));
@@ -141,6 +145,10 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_u, unidimensional_size_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_v, unidimensional_size_bytes));
+    cudaMalloc((void **)&d_maxDiff,unidimensional_size_bytes);
+
+// Initialize maxDiff to a large value (or 0 initially)
+    cudaMemset(d_maxDiff, 0, unidimensional_size_bytes);
 
     for (int i = 0; i < nx * ny; ++i)
     {   
@@ -149,12 +157,11 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
     for (int i = 0; i < nx; i++)
     {
-
         for (int j = 0; j < ny; j++)
         {
             Y_n[i * ny + j] = Y[i][j];
-            u_flatten[j * ny + i] = u[i][j];
-            v_flatten[j * ny + i] = v[i][j];
+            u_flatten[i * ny + j] = u[i][j];
+            v_flatten[i * ny + j] = v[i][j];
         }
     }
     CHECK_ERROR(cudaMemcpy(d_u, u_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
@@ -177,19 +184,17 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     // Compute b part
     auto start_fillb = high_resolution_clock::now();
     computeB<<<gridDim, blockDim>>>(d_b_flatten, d_Yn,d_u, d_v, dx, dy, nx, ny, dt);
-    cudaDeviceSynchronize();
-    CHECK_ERROR(cudaMemcpy(A, d_A, unidimensional_size_bytes*nx*ny, cudaMemcpyDeviceToHost));
-    CHECK_ERROR(cudaMemcpy(b_flatten, d_b_flatten, unidimensional_size_bytes, cudaMemcpyDeviceToHost));
-    
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
+    cudaDeviceSynchronize();
+    
 
     // Compute x with an iterative method
     auto start_computex = high_resolution_clock::now();
-    jacobiSolver(A, b_flatten, x, nx * ny, 1000, 1e-2);
+    jacobiSolverKernel<<<gridDim, blockDim>>>(d_A, d_b_flatten, d_x, nx * ny, 1000, 1e-2,d_maxDiff);
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
-
+    CHECK_ERROR(cudaMemcpy(x, d_x, unidimensional_size_bytes, cudaMemcpyDeviceToHost));
     // Update Yi
     for (int i = 1; i < nx - 1; i++)
     {
