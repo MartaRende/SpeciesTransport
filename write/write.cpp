@@ -8,7 +8,7 @@
 using namespace std;
 
 // Write data to VTK file  
-void writeDataVTK(const string filename, double** Y, double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int step){
+void writeDataVTK(const string filename, double*** Y, double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int step, const int nSpecies){
 
     // Create the filename 
     string filename_all = "0000000"+to_string(step);
@@ -44,16 +44,17 @@ void writeDataVTK(const string filename, double** Y, double** u, double** v, con
     // Write number of cells
     myfile << "POINT_DATA " << nx*ny << "\n";
 
-    // Write the phi values (loop over ny then nx)
-    myfile << "SCALARS Y float 1\n";
+    // Write the Y values (loop over ny then nx)
+    for( int s = 0; s < nSpecies ; s++){
+    myfile << "SCALARS Y"<< s <<" float 1\n";
     myfile << "LOOKUP_TABLE default\n";
 
     for (int j = 0; j < ny; j++){
         for (int i = 0; i < nx; i++){
-            myfile << Y[i][j] << "\n";
+            myfile << Y[s][i][j] << "\n";
         }
     }
-
+}
     // Write the x velocity values (loop over ny then nx)
     myfile << "\nSCALARS u float 1\n";
     myfile << "LOOKUP_TABLE default\n";

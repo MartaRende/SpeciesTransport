@@ -17,8 +17,8 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 50; // in parallel 800
-    int ny = 50; // in parallel 800
+    int nx =70; // in parallel 800
+    int ny = 70; // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx/(nx-1); // in final version 0.0077
@@ -29,18 +29,37 @@ int main()
     double dt = 0.0005;
     int nSteps = int(tFinal / dt);
 
-    // array initialization
-    double **Y = new double *[nx];
+
+    int nSpecies = 1; // Number of species
+
+    // Array of pointers to 2D arrays for each species
+    double ***Y = new double **[nSpecies];
+
+    // Allocate memory for each species' 2D array
+    for (int s = 0; s < nSpecies; s++)
+    {
+        Y[s] = new double *[nx];
+        for (int i = 0; i < nx; i++)
+        {
+            Y[s][i] = new double[ny];
+        }
+    }
+     // Velocity fields
     double **u = new double *[nx];
     double **v = new double *[nx];
     for (int i = 0; i < nx; i++)
     {
-        Y[i] = new double[ny];
         u[i] = new double[ny];
         v[i] = new double[ny];
     }
-    Initialization(Y, u, v, nx, ny, dx, dy); 
-    computeBoundaries(Y, nx, ny);
+
+    // Initialize all species and velocity fields
+    for (int s = 0; s < nSpecies; s++)
+    {
+        Initialization(Y[s], u, v, nx, ny, dx, dy,s); 
+        computeBoundaries(Y[s], nx, ny); 
+
+    }
 
     auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Initialization took: %ld us\n", end_init);
@@ -51,35 +70,44 @@ int main()
     int count = 0;
 
     // == First output ==
-    writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++);
+    writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++, nSpecies);
 
     auto end_write_first_file = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Writing first file took: %ld us\n", end_write_first_file);
-
     for (int step = 1; step <= nSteps; step++)
     {
         auto start_eq = high_resolution_clock::now();
         // Solve species equation
-        solveSpeciesEquation(Y, u, v, dx, dy, D, nx, ny, dt);
+        for (int s = 0; s < nSpecies; s++)
+        {
+            solveSpeciesEquation(Y[s], u, v, dx, dy, D, nx, ny, dt);
+        }
         auto end_eq = duration_cast<microseconds>(high_resolution_clock::now() - start_eq).count();
         printf("[MAIN] Compute species eq took: %ld us\n", end_eq);
         // Write output every 100 iterations
         if (step % 100 == 0)
         {
             auto start_write = high_resolution_clock::now();
-            writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++);
+            writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++, nSpecies);
             auto end_write = duration_cast<microseconds>(high_resolution_clock::now() - start_write).count();
             printf("[MAIN] Write file %d took: %ld us\n", count, end_write);
         }
     }
     // Free memory
+     for (int s = 0; s < nSpecies; s++)
+    {
+        for (int i = 0; i < nx; i++)
+        {
+            delete[] Y[s][i];
+        }
+        delete[] Y[s];
+    }
+    delete[] Y;
     for (int i = 0; i < nx; i++)
     {
-        delete[] Y[i];
         delete[] u[i];
         delete[] v[i];
     }
-    delete[] Y;
     delete[] u;
     delete[] v;
 

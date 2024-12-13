@@ -34,7 +34,8 @@ bool isInsideCircle(const double x1, const double y1, const double radius, const
 }
 
 // Initialization of the temperature inside the domain
-void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy){
+void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int s){
+
 
    
     // ISC LOGO
@@ -51,32 +52,32 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
         for (int j = 0; j < ny; j++){
             double y = j*dy - ycenter;
 
-           if (isInsideCircle(0.0, 0.0, radius, x, y)){ // White
+           if (isInsideCircle(0.0, 0.0, radius, x, y) && s == 0){ // White
                 Y[i][j] = 1.0;
             } 
-            else if ( isInsideTriangle(0.0, -radius, 0.0, radius, size + radius, radius, x, y) or 
+            else if ( (isInsideTriangle(0.0, -radius, 0.0, radius, size + radius, radius, x, y) or 
                       isInsideTriangle(0.0, -radius, size + radius, -radius, size + radius, radius, x, y) or 
-                      isInsideCircle(size + radius, 0.0, radius, x, y) ){ // Green
+                      isInsideCircle(size + radius, 0.0, radius, x, y)) && s == 1 ){ // Green
                 Y[i][j] = 15.0;
             }
-            else if ( isInsideTriangle(size/2.0, -size/2.0, -size/2.0, size/2.0, radius, size + radius, x, y) or 
+            else if ( (isInsideTriangle(size/2.0, -size/2.0, -size/2.0, size/2.0, radius, size + radius, x, y) or 
                       isInsideTriangle(size/2.0, -size/2.0, size + radius, radius, radius, size + radius, x, y) or 
-                      isInsideCircle(size/2.0 + radius, size/2.0 + radius, radius, x, y) ){ // Pink
+                      isInsideCircle(size/2.0 + radius, size/2.0 + radius, radius, x, y)) && s ==2 ){ // Pink
                 Y[i][j] = -5.0;
             }
-            else if ( isInsideTriangle(radius, 0.0, -radius, 0.0, -radius, size + radius, x, y) or 
+            else if ( (isInsideTriangle(radius, 0.0, -radius, 0.0, -radius, size + radius, x, y) or 
                       isInsideTriangle(radius, 0.0, radius, size + radius, -radius, size + radius, x, y) or 
-                      isInsideCircle(0.0, size + radius, radius, x, y) ){ // Purple
+                      isInsideCircle(0.0, size + radius, radius, x, y)) && s == 3 ){ // Purple
                 Y[i][j] = 10.0;
             }
-            else if ( isInsideTriangle(-size/2.0, -size/2.0, size/2.0, size/2.0, -radius, size + radius, x, y) or 
+            else if ( (isInsideTriangle(-size/2.0, -size/2.0, size/2.0, size/2.0, -radius, size + radius, x, y) or 
                       isInsideTriangle(-size/2.0, -size/2.0, -size - radius, radius, -radius, size + radius, x, y) or 
-                      isInsideCircle(-size/2.0 - radius, size/2.0 + radius, radius, x, y) ){ // Blue
+                      isInsideCircle(-size/2.0 - radius, size/2.0 + radius, radius, x, y)) && s ==  4){ // Blue
                 Y[i][j] = 5.0;
             }
-            else if ( isInsideTriangle(0.0, -radius, 0.0, radius, -size - radius, radius, x, y) or 
+            else if ( (isInsideTriangle(0.0, -radius, 0.0, radius, -size - radius, radius, x, y) or 
                       isInsideTriangle(0.0, -radius, -size - radius, -radius, -size - radius, radius, x, y) or 
-                      isInsideCircle(-size - radius,0.0,radius, x, y) ){ // Yellow
+                      isInsideCircle(-size - radius,0.0,radius, x, y)) && s == 5){ // Yellow
                 Y[i][j] = -10.0;
           
             }
@@ -84,8 +85,11 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
                 Y[i][j] = 0.0;
             }
             // init of speeds
+            if(s==0){
             u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);
             v[i][j] = sin(2.0*M_PI*i*dx) * sin(M_PI*j*dy) * sin(M_PI*j*dy);
+            }
+         
 
         }
 

@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <iostream>
 
-// #include "tools.h"
 
 #include <chrono>
 using namespace std;
 using namespace chrono;
+
 void computeBoundaries(double **Y, const int nx, const int ny)
 {
     for (int i = 0; i < nx; i++)
@@ -28,12 +28,17 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     double **Y_n = new double *[nx]; // Previous Y
     double *x = new double[nx * ny];
     double **A = new double *[nx * ny];
-    double **A_inv = new double *[nx * nx];
     double *b_flatten = new double[nx * ny];
 
     for (int i = 0; i < nx * ny; ++i)
     {
         A[i] = new double[nx * ny];
+        x[i] = 0.0;
+         for (int j = 0; j < nx * ny; ++j)
+        {
+            A[i][j] = 0.0; // Initialize with zero
+        }
+    
     }
 
     for (int i = 0; i < nx; i++)
@@ -44,11 +49,6 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
         {
             Y_n[i][j] = Y[i][j];
         }
-    }
-    for (int i = 0; i < nx * ny; i++)
-    {
-        A_inv[i] = new double[ny * ny];
-        x[i] = 0.0;
     }
    
 
@@ -112,20 +112,19 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
     computeBoundaries(Y, nx, ny);
     // Free memory
-    for(int i = 0; i< nx*nx; i++){
-        delete[] A_inv[i];
-        delete[] A[i];
+    for (int i = 0; i < nx * ny; i++) {
+    delete[] A[i];
     }
-    for (int i = 0; i < nx; ++i)
-    {
-        delete[] Y_n[i];
-       
+    delete[] A;
+
+    for (int i = 0; i < nx; ++i) {
+    delete[] Y_n[i];
     }
     delete[] Y_n;
+
     delete[] x;
     delete[] b_flatten;
-    delete[] A;
-    delete[] A_inv;
+
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
 }
@@ -133,14 +132,6 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
 void fillMatrixA(double **A, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
 {
-    // Loop through all grid points
-    for (int i = 0; i < nx * ny; ++i)
-    {
-        for (int j = 0; j < nx * ny; ++j)
-        {
-            A[i][j] = 0.0; // Initialize with zero
-        }
-    }
 
     // Populate internal nodes
     for (int i = 1; i < nx - 1; ++i)
