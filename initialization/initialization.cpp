@@ -35,8 +35,6 @@ bool isInsideCircle(const double x1, const double y1, const double radius, const
 
 // Initialization of the temperature inside the domain
 void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int s){
-
-
    
     // ISC LOGO
 
@@ -46,6 +44,7 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
     double radius = 0.05; // Logo scale
     double size = sqrt(2)/2.0 * radius / 0.5;
 
+    double
     // == Colors -> temperature ==
     for (int i = 0; i < nx; i++){
         double x = i*dx - xcenter;    

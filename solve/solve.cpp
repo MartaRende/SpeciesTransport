@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 
+// #include "tools.h"
 
 #include <chrono>
 using namespace std;
@@ -23,27 +24,24 @@ void computeBoundaries(double **Y, const int nx, const int ny)
 }
 
 void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, const double dy, double D, const int nx, const int ny, const double dt)
-{   //arrays needed
+{   
     auto start_total_solve = high_resolution_clock::now();
-    double **Y_n = new double *[nx]; // Previous Y
-    double *x = new double[nx * ny];
-    double **A = new double *[nx * ny];
-    double *b_flatten = new double[nx * ny];
+    
+    // Allocate memory using malloc
+    double **Y_n = (double**)malloc(nx * sizeof(double*)); // Previous Y
+    double *x = (double*)malloc(nx * ny * sizeof(double));  // Flattened solution vector
+    double **A = (double**)malloc(nx * ny * sizeof(double*)); // Matrix A (flattened to 2D)
+    double *b_flatten = (double*)malloc(nx * ny * sizeof(double));  // Flattened b vector
 
     for (int i = 0; i < nx * ny; ++i)
     {
-        A[i] = new double[nx * ny];
-        x[i] = 0.0;
-         for (int j = 0; j < nx * ny; ++j)
-        {
-            A[i][j] = 0.0; // Initialize with zero
-        }
-    
+        A[i] = (double*)malloc(nx * ny * sizeof(double)); // Allocate memory for each row of A
+        x[i] = 0.0;  // Initialize x to 0
     }
 
     for (int i = 0; i < nx; i++)
     {
-        Y_n[i] = new double[ny];
+        Y_n[i] = (double*)malloc(ny * sizeof(double)); // Allocate memory for Y_n
 
         for (int j = 0; j < ny; j++)
         {
@@ -51,18 +49,17 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
         }
     }
    
-
     auto end_init_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Initialization took: %ld us\n", end_init_solve);
-    //Compute part Ax = b
-    //Fill A with right coeffs.
+
+    // Compute part Ax = b
+    // Fill A with right coefficients.
     auto start_fillMatrix = high_resolution_clock::now();
     fillMatrixA(A, dx, dy, D, dt, nx, ny);
     auto end_fillMatrix = duration_cast<microseconds>(high_resolution_clock::now() - start_fillMatrix).count();
     printf("[SOLVE] Fill Matrix A took: %ld us\n", end_fillMatrix);
 
-    //compute b part 
-
+    // Compute b part 
     auto start_fillb = high_resolution_clock::now();
     for (int i = 1; i < nx - 1; i++)
     {
@@ -93,15 +90,13 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
 
-    //Compute x with an iterative method 
-
+    // Compute x with an iterative method 
     auto start_computex = high_resolution_clock::now();
-    jacobiSolver(A, b_flatten, x, nx * ny,1000,1e-2);
+    jacobiSolver(A, b_flatten, x, nx * ny, 1000, 1e-2);
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
 
     // Update Yi
-
     for (int i = 1; i < nx - 1; i++)
     {
         for (int j = 1; j < ny - 1; j++)
@@ -111,27 +106,35 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     }
 
     computeBoundaries(Y, nx, ny);
-    // Free memory
+
+    // Free memory using free()
     for (int i = 0; i < nx * ny; i++) {
-    delete[] A[i];
+        free(A[i]); // Free each row of A
     }
-    delete[] A;
+    free(A); // Free the pointer to the array of rows
 
     for (int i = 0; i < nx; ++i) {
-    delete[] Y_n[i];
+        free(Y_n[i]); // Free each row of Y_n
     }
-    delete[] Y_n;
+    free(Y_n); // Free the pointer to the array of rows
 
-    delete[] x;
-    delete[] b_flatten;
+    free(x); // Free the flattened solution vector
+    free(b_flatten); // Free the flattened b vector
 
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
 }
 
-
 void fillMatrixA(double **A, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
 {
+    // Loop through all grid points
+    for (int i = 0; i < nx * ny; ++i)
+    {
+        for (int j = 0; j < nx * ny; ++j)
+        {
+            A[i][j] = 0.0; // Initialize with zero
+        }
+    }
 
     // Populate internal nodes
     for (int i = 1; i < nx - 1; ++i)

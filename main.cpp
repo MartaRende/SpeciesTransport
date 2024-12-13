@@ -17,54 +17,52 @@ int main()
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx =70; // in parallel 800
-    int ny = 70; // in parallel 800
+    int nx = 300; // in parallel 800
+    int ny = 300; // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
-    double dx = Lx/(nx-1); // in final version 0.0077
-    double dy =Ly/(ny-1);// in final version 0.0077
+    double dx = Lx / (nx - 1); // in final version 0.0077
+    double dy = Ly / (ny - 1); // in final version 0.0077
 
     // == Temporal ==
     double tFinal = 2.0;
     double dt = 0.0005;
     int nSteps = int(tFinal / dt);
 
-
     int nSpecies = 1; // Number of species
 
     // Array of pointers to 2D arrays for each species
-    double ***Y = new double **[nSpecies];
+    double ***Y = (double ***)malloc(nSpecies * sizeof(double **));
 
     // Allocate memory for each species' 2D array
     for (int s = 0; s < nSpecies; s++)
     {
-        Y[s] = new double *[nx];
+        Y[s] = (double **)malloc(nx * sizeof(double *));
         for (int i = 0; i < nx; i++)
         {
-            Y[s][i] = new double[ny];
+            Y[s][i] = (double *)malloc(ny * sizeof(double));
         }
     }
-     // Velocity fields
-    double **u = new double *[nx];
-    double **v = new double *[nx];
+
+    // Velocity fields
+    double **u = (double **)malloc(nx * sizeof(double *));
+    double **v = (double **)malloc(nx * sizeof(double *));
     for (int i = 0; i < nx; i++)
     {
-        u[i] = new double[ny];
-        v[i] = new double[ny];
+        u[i] = (double *)malloc(ny * sizeof(double));
+        v[i] = (double *)malloc(ny * sizeof(double));
     }
 
     // Initialize all species and velocity fields
     for (int s = 0; s < nSpecies; s++)
     {
-        Initialization(Y[s], u, v, nx, ny, dx, dy,s); 
-        computeBoundaries(Y[s], nx, ny); 
-
+        Initialization(Y[s], u, v, nx, ny, dx, dy, s);
+        computeBoundaries(Y[s], nx, ny);
     }
 
     auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Initialization took: %ld us\n", end_init);
 
-  
     // == Output ==
     string outputName = "output/speciesTransport_";
     int count = 0;
@@ -74,6 +72,7 @@ int main()
 
     auto end_write_first_file = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Writing first file took: %ld us\n", end_write_first_file);
+    
     for (int step = 1; step <= nSteps; step++)
     {
         auto start_eq = high_resolution_clock::now();
@@ -84,6 +83,7 @@ int main()
         }
         auto end_eq = duration_cast<microseconds>(high_resolution_clock::now() - start_eq).count();
         printf("[MAIN] Compute species eq took: %ld us\n", end_eq);
+        
         // Write output every 100 iterations
         if (step % 100 == 0)
         {
@@ -93,23 +93,25 @@ int main()
             printf("[MAIN] Write file %d took: %ld us\n", count, end_write);
         }
     }
-    // Free memory
-     for (int s = 0; s < nSpecies; s++)
+
+    // Free memory using free()
+    for (int s = 0; s < nSpecies; s++)
     {
         for (int i = 0; i < nx; i++)
         {
-            delete[] Y[s][i];
+            free(Y[s][i]); // Free each row of Y[s]
         }
-        delete[] Y[s];
+        free(Y[s]); // Free the pointer to the array of rows for each species
     }
-    delete[] Y;
+    free(Y); // Free the pointer to the array of species
+
     for (int i = 0; i < nx; i++)
     {
-        delete[] u[i];
-        delete[] v[i];
+        free(u[i]); // Free each row of u
+        free(v[i]); // Free each row of v
     }
-    delete[] u;
-    delete[] v;
+    free(u); // Free the pointer to the array of u rows
+    free(v); // Free the pointer to the array of v rows
 
     auto end_total = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Total time taken: %ld us\n", end_total);

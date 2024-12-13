@@ -6,7 +6,7 @@ using namespace std;
 
 
 void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations, double tolerance) {
-    double* x_new = new double[size]; // Allocate memory for the updated solution
+    double* x_new = (double*)malloc(size * sizeof(double));  // Allocate memory for the updated solution
 
     for (int i = 0; i < size; i++) {
         x_new[i] = 0.0; // Initialize new solution array
@@ -36,6 +36,6 @@ void jacobiSolver(double** A, double* b, double* x, int size, int maxIterations,
         }
     }
 
-    delete[] x_new; // Free memory for the temporary solution
+    free(x_new); // Free memory for the temporary solution
 }
 
