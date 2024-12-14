@@ -2,9 +2,7 @@
 #include <iostream>
 #include "solve.h"
 using namespace std;
-
-
-void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_iter, double tol)
+extern void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_iter, double tol)
 {
     double *x_new = new double[n];
     for (int iter = 0; iter < max_iter; ++iter)
@@ -14,7 +12,7 @@ void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_i
             x_new[i] = b[i];
 
         // Apply sparse matrix entries
-        for (size_t k = 0; k < A_sparse.value.size(); ++k)
+        for (int k = 0; k < A_sparse.nnz; ++k)
         {
             int i = A_sparse.row[k];
             int j = A_sparse.col[k];
@@ -39,4 +37,3 @@ void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_i
     }
     delete[] x_new;
 }
-

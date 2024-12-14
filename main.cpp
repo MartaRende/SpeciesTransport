@@ -14,7 +14,6 @@ using namespace chrono;
 int main()
 {
     auto start_total = high_resolution_clock::now();
-
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
     int nx = 50; // in parallel 800
