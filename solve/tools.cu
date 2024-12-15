@@ -1,22 +1,29 @@
-__global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int n, int nnz)
+#include <iostream>
+
+__global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int nx, int ny, int nnz)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n)
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+
+    int idx = i * ny + j;
+    if (idx < nx * ny)
     {
+       
         double sum = 0.0;
         double diag = 1.0;
-        int row_start = row[i];
-        int row_end = row[i + 1];
+        int row_start = row[idx];
+        int row_end = row[idx + 1];
 
         for (int k = row_start; k < row_end; ++k)
         {
-            if (col[k] != i)
+            if (col[k] != idx)
                 sum += value[k] * x[col[k]];
             else
                 diag = value[k];
         }
 
-        x_new[i] = (b[i] - sum) / diag;
+        x_new[idx] = (b[idx] - sum) / diag;
+   
     }
 }
 

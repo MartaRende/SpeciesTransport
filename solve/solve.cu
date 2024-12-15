@@ -108,8 +108,8 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     }
 
     // Allocate device memory
-    double *d_Yn, *d_x, *d_b_flatten, *d_u, *d_v;
-    double *d_values, *d_x_old, *d_x_new, *d_partial_diff, *d_diff;
+    double *d_Yn, *d_x, *d_u, *d_v;
+    double *d_values, *d_x_old, *d_x_new, *d_partial_diff, *d_diff, *d_b_flatten;
     int *d_column_indices, *d_row_offsets;
     CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_bytes));
@@ -128,8 +128,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     CHECK_ERROR(cudaMemcpy(d_u, u_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
     CHECK_ERROR(cudaMemcpy(d_v, v_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
     CHECK_ERROR(cudaMemset(d_diff, 0, nx*ny * sizeof(double)));
-CHECK_ERROR(cudaMemcpy(d_x, d_Yn, unidimensional_size_bytes, cudaMemcpyDeviceToDevice));
-cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
+    cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
 
 
     dim3 blockDim(10, 10);
@@ -153,40 +152,22 @@ cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
     computeB<<<gridDim, blockDim>>>(d_b_flatten, d_Yn, d_u, d_v, dx, dy, nx, ny, dt);
   
     cudaDeviceSynchronize();
-         double *h_b = new double[nx * ny];
-        cudaMemcpy(h_b, d_b_flatten, nx * ny * sizeof(double), cudaMemcpyDeviceToHost);
-for (int i = 0; i < nx * ny; ++i)
-        {
-           printf("%f\n",h_b[i]);
-        }
+
+    CHECK_ERROR(cudaMemcpy(b_flatten, d_b_flatten, unidimensional_size_bytes, cudaMemcpyDeviceToHost));
+
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
-    printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
     auto start_computex = high_resolution_clock::now();
 
     // Jacobi Solver
-    for (int iter = 0; iter < max_iter; ++iter)
+    for (int iter = 0; iter < 1000; ++iter)
     {
         // Launch Jacobi kernel
-        jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx * ny, 5 * nx * ny);
+        jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx, ny, 5 * nx * ny);
         cudaDeviceSynchronize();
-
         // Launch difference kernel
         diffKernel<<<gridDim, blockDim>>>(d_x, d_x_new, d_diff, nx * ny);
         cudaDeviceSynchronize();
-        cudaMemcpy(d_x, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
-
-        double *h_x_new = new double[nx * ny];
-        cudaMemcpy(h_x_new, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToHost);
-        double min_x = h_x_new[0], max_x = h_x_new[0];
-        for (int i = 0; i < nx * ny; ++i)
-        {
-            if (h_x_new[i] < min_x)
-                min_x = h_x_new[i];
-            if (h_x_new[i] > max_x)
-                max_x = h_x_new[i];
-        }
-        printf("Iteration %d, Min x_new: %e, Max x_new: %e\n", iter, min_x, max_x);
-        delete[] h_x_new;
+        //cudaMemcpy(d_x, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
 
         double *h_diff = new double[nx * ny];
         cudaMemcpy(h_diff, d_diff, nx * ny * sizeof(double), cudaMemcpyDeviceToHost);

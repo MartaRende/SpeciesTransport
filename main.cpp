@@ -30,6 +30,8 @@ int main()
 
     int nSpecies = 1; // Number of species
 
+    int unidimensional_size = nx * ny; 
+    int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
     // Array of pointers to 2D arrays for each species
     double ***Y = (double ***)malloc(nSpecies * sizeof(double **));
 
