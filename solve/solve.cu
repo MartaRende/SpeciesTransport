@@ -73,7 +73,7 @@ __global__ void computeB(double *b, double *Y_n, double *u, double *v,
     else
         b[idx] -= dt * (v[idx] * (Y_n[idx] - Y_n[left]) / dy);
 }
-void solveSpeciesEquation(double **Y, double **u, double **v,
+void solveSpeciesEquation(double *Y, double *u, double *v,
                           const double dx, const double dy, double D,
                           const int nx, const int ny, const double dt)
 {
@@ -88,8 +88,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     double *Y_n = (double *)malloc(unidimensional_size_bytes);
     double *x = (double *)malloc(unidimensional_size_bytes);
     double *b_flatten = (double *)malloc(unidimensional_size_bytes);
-    double *u_flatten = (double *)malloc(unidimensional_size_bytes);
-    double *v_flatten = (double *)malloc(unidimensional_size_bytes);
+    
 
     SparseMatrix A;
     A.row = (int *)malloc((nx * ny + 1) * sizeof(int));
@@ -97,14 +96,12 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     A.value = (double *)malloc(nnz_estimate * sizeof(double));
 
     // Flatten input arrays
-    for (int i = 0; i < nx; i++)
+    for (int i = 0; i < nx*ny; i++)
     {
-        for (int j = 0; j < ny; j++)
-        {
-            Y_n[i * ny + j] = Y[i][j];
-            u_flatten[i * ny + j] = u[i][j];
-            v_flatten[i * ny + j] = v[i][j];
-        }
+    
+            Y_n[i ] = Y[i];
+          
+        
     }
 
     // Allocate device memory
@@ -125,15 +122,15 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
 
     // Copy input data to device
     CHECK_ERROR(cudaMemcpy(d_Yn, Y_n, unidimensional_size_bytes, cudaMemcpyHostToDevice));
-    CHECK_ERROR(cudaMemcpy(d_u, u_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
-    CHECK_ERROR(cudaMemcpy(d_v, v_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_u, u, unidimensional_size_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_v, v, unidimensional_size_bytes, cudaMemcpyHostToDevice));
     CHECK_ERROR(cudaMemset(d_diff, 0, nx*ny * sizeof(double)));
     cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
 
 
     dim3 blockDim(10, 10);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
-    int threadsPerBlock = 256; // Common choice for CUDA blocks
+    int threadsPerBlock = 256; 
     int numBlocks = (nx * ny + threadsPerBlock - 1) / threadsPerBlock;
 
     double diff = 0.0;
@@ -165,7 +162,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
         jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx, ny, 5 * nx * ny);
         cudaDeviceSynchronize();
         // Launch difference kernel
-        diffKernel<<<gridDim, blockDim>>>(d_x, d_x_new, d_diff, nx * ny);
+        diffKernel<<<gridDim, blockDim>>>(d_x, d_x_new, d_diff, nx ,ny);
         cudaDeviceSynchronize();
         //cudaMemcpy(d_x, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
 
@@ -190,13 +187,13 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     CHECK_ERROR(cudaMemcpy(x, d_x_new, unidimensional_size_bytes, cudaMemcpyDeviceToHost));
   
     // Update Y
-    for (int i = 1; i < nx - 1; i++)
-    {
-        for (int j = 1; j < ny - 1; j++)
-        {
-            Y[i][j] = x[i * ny + j];
-        }
+for (int i = 1; i < nx - 1; i++) {
+    for (int j = 1; j < ny - 1; j++) {
+        int idx = i * ny + j; // Proper 1D index for (i, j)
+        Y[idx] = x[idx];
     }
+}
+
 
     computeBoundaries(Y, nx, ny);
 
@@ -215,8 +212,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     free(Y_n);
     free(x);
     free(b_flatten);
-    free(u_flatten);
-    free(v_flatten);
+
     free(A.row);
     free(A.col);
     free(A.value);
@@ -225,16 +221,16 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
 }
 
-void computeBoundaries(double **Y, const int nx, const int ny)
+void computeBoundaries(double *Y, const int nx, const int ny)
 {
     for (int i = 0; i < nx; i++)
     {
-        Y[i][ny - 1] = 0.0;
-        Y[i][0] = 0.0;
+        Y[i * ny + (ny - 1)] = 0.0; 
+        Y[i * ny + 0] = 0.0; 
     }
     for (int j = 0; j < ny; j++)
     {
-        Y[0][j] = 0.0;
-        Y[nx - 1][j] = 0.0;
+        Y[0*ny+j] = 0.0;
+        Y[(nx - 1)*ny+j] = 0.0;
     }
 }

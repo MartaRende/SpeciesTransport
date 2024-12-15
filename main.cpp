@@ -33,33 +33,27 @@ int main()
     int unidimensional_size = nx * ny; 
     int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
     // Array of pointers to 2D arrays for each species
-    double ***Y = (double ***)malloc(nSpecies * sizeof(double **));
+    double **Y = (double **)malloc(nSpecies * sizeof(double *));
 
     // Allocate memory for each species' 2D array
     for (int s = 0; s < nSpecies; s++)
     {
-        Y[s] = (double **)malloc(nx * sizeof(double *));
-        for (int i = 0; i < nx; i++)
-        {
-            Y[s][i] = (double *)malloc(ny * sizeof(double));
-        }
+        Y[s] = (double *)malloc(unidimensional_size_of_bytes);      
     }
 
     // Velocity fields
-    double **u = (double **)malloc(nx * sizeof(double *));
-    double **v = (double **)malloc(nx * sizeof(double *));
-    for (int i = 0; i < nx; i++)
-    {
-        u[i] = (double *)malloc(ny * sizeof(double));
-        v[i] = (double *)malloc(ny * sizeof(double));
-    }
+    double *u = (double *)malloc(unidimensional_size_of_bytes);
+    double *v = (double *)malloc(unidimensional_size_of_bytes);
+  
+
 
     // Initialize all species and velocity fields
     for (int s = 0; s < nSpecies; s++)
     {
-        Initialization(Y[s], u, v, nx, ny, dx, dy, s);
+        Initialization(Y[s],u,v,  nx, ny, dx, dy, s);
         computeBoundaries(Y[s], nx, ny);
     }
+   
 
     auto end_init = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Initialization took: %ld us\n", end_init);
@@ -98,19 +92,11 @@ int main()
     // Free memory using free()
     for (int s = 0; s < nSpecies; s++)
     {
-        for (int i = 0; i < nx; i++)
-        {
-            free(Y[s][i]); // Free each row of Y[s]
-        }
         free(Y[s]); // Free the pointer to the array of rows for each species
     }
     free(Y); // Free the pointer to the array of species
 
-    for (int i = 0; i < nx; i++)
-    {
-        free(u[i]); // Free each row of u
-        free(v[i]); // Free each row of v
-    }
+  
     free(u); // Free the pointer to the array of u rows
     free(v); // Free the pointer to the array of v rows
 

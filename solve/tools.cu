@@ -6,7 +6,7 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
     int j = blockIdx.y * blockDim.y + threadIdx.y;
 
     int idx = i * ny + j;
-    if (idx < nx * ny)
+    if (i < nx && j < ny)
     {
        
         double sum = 0.0;
@@ -28,10 +28,13 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
 }
 
 // CUDA kernel for computing difference
-__global__ void diffKernel(double *x, double *x_new, double *diff, int n)
+__global__ void diffKernel(double *x, double *x_new, double *diff, int nx, int ny)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n)
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+
+    //int idx = i*ny+j;
+    if (i < nx && j < ny)
     {
         diff[i] = fabs(x_new[i] - x[i]);
     }

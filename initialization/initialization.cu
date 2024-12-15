@@ -86,7 +86,7 @@ __global__ void initKernel(double* Y, double* u, double* v, int nx, int ny, doub
 
 
 // Initialization of the temperature inside the domain
-void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int s){
+void Initialization(double* Y,double* u, double* v,const int nx, const int ny, const double dx, const double dy, const int s){
    
 
     // ISC LOGO
@@ -102,17 +102,8 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
     double* d_v;
 
     
-    double* Y_flatten = (double*)malloc(unidimensional_size_bytes);
-    double* u_flatten = (double*)malloc(unidimensional_size_bytes);
-    double* v_flatten = (double*)malloc(unidimensional_size_bytes);
-    
-    for(int i = 0; i< nx-1; i++){
-        for(int j = 0; j < ny; j++){
-            Y_flatten[i*ny+j] = Y[i][j];
-            u_flatten[i*ny+j] = u[i][j];
-            v_flatten[i*ny+j] = Y[i][j];
-        }
-    }
+
+
     cudaMalloc((void**)&d_Y, unidimensional_size_bytes);
     cudaMalloc((void**)&d_u, unidimensional_size_bytes);
     cudaMalloc((void**)&d_v, unidimensional_size_bytes);
@@ -125,23 +116,11 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
     cudaDeviceSynchronize();
     
     // Copy results back to host
-    cudaMemcpy(Y_flatten, d_Y,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
-    cudaMemcpy(u_flatten, d_u,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
-    cudaMemcpy(v_flatten, d_v,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(Y, d_Y,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(u, d_u,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(v, d_v,  unidimensional_size_bytes, cudaMemcpyDeviceToHost);
     
-   for (int i = 0; i < nx; i++) {
-    for (int j = 0; j < ny; j++) {
-        Y[i][j] = Y_flatten[i * ny + j];
-        u[i][j] = u_flatten[i * ny + j];
-        v[i][j] = v_flatten[i * ny + j];
 
-    
-    }
-}
-
-    free(Y_flatten);
-    free(u_flatten);
-    free(v_flatten);
 
     cudaFree(d_Y);
     cudaFree(d_u);
