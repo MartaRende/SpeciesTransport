@@ -2,85 +2,117 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-
+#include <mpi.h>
 #include "write.h"
 
 using namespace std;
-
-// Write data to VTK file
-void writeDataVTK(const string filename, double **Y, double *u, double *v, const int nx, const int ny, const double dx, const double dy, const int step, const int nSpecies)
+string getString(double *data, long size, int world_rank)
 {
+    string toWrite = "";
+    for (int i = 0; i < size; i++)
+    {
+        toWrite += to_string(data[i]) + "\n";
+    }
+    return toWrite;
+}
+// Write data to VTK file
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <mpi.h>
 
-    // Create the filename
+using namespace std;
+void writeDataVTK(const string filename, string *Y_part, string u_part, string v_part, const int nx, const int ny, const double dx, const double dy, const int step, const int world_rank, const int world_size, const int nSpecies)
+{
+    MPI_File fh;
     string filename_all = "0000000" + to_string(step);
     reverse(filename_all.begin(), filename_all.end());
     filename_all.resize(7);
     reverse(filename_all.begin(), filename_all.end());
     filename_all = filename + filename_all + ".vtk";
 
-    // Inform user the output filename
-    cout << "Writing data into " << filename_all << "\n";
+    MPI_File_open(MPI_COMM_WORLD, filename_all.c_str(), MPI_MODE_CREATE | MPI_MODE_WRONLY, MPI_INFO_NULL, &fh);
 
-    // Setting open file using output file streaming
-    ofstream myfile;
-    myfile.open(filename_all);
-    if (!myfile.is_open())
+    MPI_Offset header_offset;
+    if (world_rank == 0)
     {
-        cerr << "Failed to open file: " << filename_all << endl;
-        // Handle the error appropriately
-        return;
-    }
-    // Write header of vtk file
-    myfile << "# vtk DataFile Version 3.0\nvtk output\nASCII\nDATASET RECTILINEAR_GRID\n";
+        string header = "# vtk DataFile Version 3.0\nvtk output\nASCII\nDATASET RECTILINEAR_GRID\n";
+        header += "DIMENSIONS " + to_string(nx) + " " + to_string(ny) + " 1\n";
+        header += "X_COORDINATES " + to_string(nx) + " float\n";
+        for (int j = 0; j < nx; j++)
+        {
+            header += to_string(j * dx) + "\n";
+        }
 
-    // Write domain dimensions (must be 3D)
-    myfile << "DIMENSIONS " << nx << " " << ny << " 1\n";
-    myfile << "X_COORDINATES " << nx << " float\n";
-    for (int j = 0; j < nx; j++)
-    {
-        myfile << j * dx << "\n";
-    }
+        header += "Y_COORDINATES " + to_string(ny) + " float\n";
+        for (int i = 0; i < ny; i++)
+        {
+            header += to_string(i * dy) + "\n";
+        }
 
-    myfile << "Y_COORDINATES " << ny << " float\n";
-    for (int i = 0; i < ny; i++)
-    {
-        myfile << i * dy << "\n";
+        header += "Z_COORDINATES 1 float\n0\nPOINT_DATA " + to_string(nx * ny) + "\n";
+        header += "SCALARS Y float 1\nLOOKUP_TABLE default\n";
+        MPI_File_write(fh, header.c_str(), header.size(), MPI_CHAR, MPI_STATUS_IGNORE);
+        header_offset = header.size() * sizeof(char);
     }
 
-    myfile << "Z_COORDINATES 1 float\n";
-    myfile << "0\n";
-    // Write number of cells
-    myfile << "POINT_DATA " << nx * ny << "\n";
+    MPI_Bcast(&header_offset, 1, MPI_OFFSET, 0, MPI_COMM_WORLD);
 
-    // Write the Y values (loop over ny then nx)
+    MPI_Offset Y_offset = header_offset;
+    MPI_Offset u_offset;
+    MPI_Offset v_offset;
+
+    // Write Y species data
     for (int s = 0; s < nSpecies; s++)
     {
-        myfile << "SCALARS Y" << s << " float 1\n";
-        myfile << "LOOKUP_TABLE default\n";
+        MPI_Offset speciesHeaderSize;
+        string speciesHeader = "\nSCALARS Y" + to_string(s) + " float 1\nLOOKUP_TABLE default\n";
 
-        for (int idx = 0; idx < nx * ny; idx++)
+        // Write header for the species if on rank 0
+        if (world_rank == 0)
         {
-            myfile << Y[s][idx] << "\n";
+            speciesHeaderSize = speciesHeader.size() * sizeof(char);
+            MPI_File_write_at(fh, Y_offset, speciesHeader.c_str(), speciesHeaderSize, MPI_CHAR, MPI_STATUS_IGNORE);
         }
-    }
-    // Write the x velocity values (loop over ny then nx)
-    myfile << "\nSCALARS u float 1\n";
-    myfile << "LOOKUP_TABLE default\n";
 
-    for (int idx = 0; idx < nx * ny; idx++)
+        // Broadcast species header size
+        MPI_Bcast(&speciesHeaderSize, 1, MPI_OFFSET, 0, MPI_COMM_WORLD);
+        MPI_Offset speciesOffset = Y_offset + speciesHeaderSize;
+        MPI_File_write_at(fh, speciesOffset, Y_part[s].c_str(), Y_part[s].size(), MPI_CHAR, MPI_STATUS_IGNORE);
+
+        // Update offset after writing the current species data
+        Y_offset = speciesOffset + Y_part[s].size();
+        MPI_Bcast(&Y_offset, 1, MPI_OFFSET, world_size - 1, MPI_COMM_WORLD);
+    }
+
+    // Now handle the scalar data u and v
+
+    // Handle the u scalar data
+    MPI_Offset uHeaderSize;
+    if (world_rank == 0)
     {
-        myfile << u[idx] << "\n";
+        string uHeader = "\nSCALARS u float 1\nLOOKUP_TABLE default\n";
+        uHeaderSize = uHeader.size() * sizeof(char);
+        MPI_File_write_at(fh, Y_offset, uHeader.c_str(), uHeaderSize, MPI_CHAR, MPI_STATUS_IGNORE);
     }
 
-    // Write the y velocity values (loop over ny then nx)
-    myfile << "\nSCALARS v float 1\n";
-    myfile << "LOOKUP_TABLE default\n";
+    MPI_Bcast(&uHeaderSize, 1, MPI_OFFSET, 0, MPI_COMM_WORLD);
+    u_offset = Y_offset + uHeaderSize;
+    MPI_File_write_at(fh, u_offset, u_part.c_str(), u_part.size(), MPI_CHAR, MPI_STATUS_IGNORE);
 
-    for (int idx = 0; idx < nx * ny; idx++)
+    // Handle the v scalar data
+    MPI_Offset vHeaderSize;
+    if (world_rank == 0)
     {
-        myfile << v[idx] << "\n";
+        string vHeader = "\nSCALARS v float 1\nLOOKUP_TABLE default\n";
+        vHeaderSize = vHeader.size() * sizeof(char);
+        MPI_File_write_at(fh, u_offset + u_part.size(), vHeader.c_str(), vHeaderSize, MPI_CHAR, MPI_STATUS_IGNORE);
     }
 
-    // Close file
-    myfile.close();
+    MPI_Bcast(&vHeaderSize, 1, MPI_OFFSET, 0, MPI_COMM_WORLD);
+    v_offset = u_offset + uHeaderSize + u_part.size() + vHeaderSize;
+    MPI_File_write_at(fh, v_offset, v_part.c_str(), v_part.size(), MPI_CHAR, MPI_STATUS_IGNORE);
+
+    MPI_File_close(&fh);
 }

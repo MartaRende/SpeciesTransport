@@ -46,3 +46,67 @@ __global__ void diffKernel( double *x,  double *x_new, double *diff, int nx,  in
         diff[idx] = fabs(x_new[idx] - x[idx]);
     }
 }
+
+__global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_offsets,
+                                  const double dx, const double dy, const double D,
+                                  const double dt, const int nx, const int ny)
+{
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (i >= ny || j >= nx || i == 0 || i == ny - 1 || j == 0 || j == nx - 1)
+        return;
+
+    int idx = i * nx + j;
+    int count = 0;
+
+    int row_start = row_offsets[idx];
+
+    // Diagonal
+    values[row_start + count] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
+    column_indices[row_start + count++] = idx;
+
+    // Left Neighbor
+    values[row_start + count] = -dt * D / (dx * dx);
+    column_indices[row_start + count++] = idx - ny;
+
+    // Right Neighbor
+    values[row_start + count] = -dt * D / (dx * dx);
+    column_indices[row_start + count++] = idx + ny;
+
+    // Top Neighbor
+    values[row_start + count] = -dt * D / (dy * dy);
+    column_indices[row_start + count++] = idx - 1;
+
+    // Bottom Neighbor
+    values[row_start + count] = -dt * D / (dy * dy);
+    column_indices[row_start + count++] = idx + 1;
+}
+
+__global__ void computeB(double *b, double *Y_n, double *u, double *v,
+                         const double dx, const double dy, const int nx, const int ny, const double dt)
+{
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (i == 0 || i == ny - 1 || j == 0 || j == nx - 1)
+        return;
+
+    int idx = i * nx + j;
+    int right = i * nx + (j + 1);
+    int left = i * nx + (j - 1);
+    int top = (i - 1) * nx + j;
+    int down = (i + 1) * nx + j;
+
+    b[idx] = Y_n[idx];
+
+    if (u[idx] < 0.0)
+        b[idx] -= dt * (u[idx] * (Y_n[down] - Y_n[idx]) / dx);
+    else
+        b[idx] -= dt * (u[idx] * (Y_n[idx] - Y_n[top]) / dx);
+
+    if (v[idx] < 0.0)
+        b[idx] -= dt * (v[idx] * (Y_n[right] - Y_n[idx]) / dy);
+    else
+        b[idx] -= dt * (v[idx] * (Y_n[idx] - Y_n[left]) / dy);
+}
