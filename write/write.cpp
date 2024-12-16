@@ -36,15 +36,15 @@ void writeDataVTK(const string filename, double **Y, double *u, double *v, const
     // Write domain dimensions (must be 3D)
     myfile << "DIMENSIONS " << nx << " " << ny << " 1\n";
     myfile << "X_COORDINATES " << nx << " float\n";
-    for (int i = 0; i < nx; i++)
+    for (int j = 0; j < nx; j++)
     {
-        myfile << i * dx << "\n";
+        myfile << j * dx << "\n";
     }
 
     myfile << "Y_COORDINATES " << ny << " float\n";
-    for (int j = 0; j < ny; j++)
+    for (int i = 0; i < ny; i++)
     {
-        myfile << j * dy << "\n";
+        myfile << i * dy << "\n";
     }
 
     myfile << "Z_COORDINATES 1 float\n";
@@ -58,37 +58,27 @@ void writeDataVTK(const string filename, double **Y, double *u, double *v, const
         myfile << "SCALARS Y" << s << " float 1\n";
         myfile << "LOOKUP_TABLE default\n";
 
-        for (int j = 0; j < ny; j++)
+        for (int idx = 0; idx < nx * ny; idx++)
         {
-            for (int i = 0; i < nx; i++)
-            {
-                
-                myfile << Y[s][i * ny + j] << "\n";
-            }
+            myfile << Y[s][idx] << "\n";
         }
     }
     // Write the x velocity values (loop over ny then nx)
     myfile << "\nSCALARS u float 1\n";
     myfile << "LOOKUP_TABLE default\n";
 
-    for (int j = 0; j < ny; j++)
+    for (int idx = 0; idx < nx * ny; idx++)
     {
-        for (int i = 0; i < nx; i++)
-        {
-            myfile << u[i * ny + j] << "\n";
-        }
+        myfile << u[idx] << "\n";
     }
 
     // Write the y velocity values (loop over ny then nx)
     myfile << "\nSCALARS v float 1\n";
     myfile << "LOOKUP_TABLE default\n";
 
-    for (int j = 0; j < ny; j++)
+    for (int idx = 0; idx < nx * ny; idx++)
     {
-        for (int i = 0; i < nx; i++)
-        {
-            myfile << v[i * ny + j] << "\n";
-        }
+        myfile << v[idx] << "\n";
     }
 
     // Close file

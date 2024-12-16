@@ -3,10 +3,12 @@
 #include <string>
 #include <sys/stat.h>
 
+#include "./common_includes.c"
+
 #include "solve/solve.h"
 #include "write/write.h"
 #include "initialization/init.h"
-
+#include <cuda.h>
 #include <chrono>
 using namespace std;
 using namespace chrono;
@@ -32,7 +34,8 @@ int main()
 
     int unidimensional_size = nx * ny; 
     int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
-    // Array of pointers to 2D arrays for each species
+       size_t nnz_estimate = nx * ny * 5;
+   // Array of pointers to 2D arrays for each species
     double **Y = (double **)malloc(nSpecies * sizeof(double *));
 
     // Allocate memory for each species' 2D array
@@ -44,14 +47,36 @@ int main()
     // Velocity fields
     double *u = (double *)malloc(unidimensional_size_of_bytes);
     double *v = (double *)malloc(unidimensional_size_of_bytes);
-  
+  //CUDA part
+
+    double *d_Y;
+    double *d_u;
+    double *d_v;
+
+    cudaMalloc((void **)&d_Y, unidimensional_size_of_bytes);
+    cudaMalloc((void **)&d_u, unidimensional_size_of_bytes);
+    cudaMalloc((void **)&d_v, unidimensional_size_of_bytes);
+
+        // Allocate device memory
+    double *d_Yn, *d_x;
+    double *d_values,  *d_x_new, *d_b_flatten;
+    int *d_column_indices, *d_row_offsets;
+    CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_x_new, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
+    CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
+    CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx * ny + 1) * sizeof(int)));
 
 
     // Initialize all species and velocity fields
     for (int s = 0; s < nSpecies; s++)
     {
-        Initialization(Y[s],u,v,  nx, ny, dx, dy, s);
+        Initialization(Y[s],u,v,  nx, ny, dx, dy, s, d_Y, d_u, d_v);
         computeBoundaries(Y[s], nx, ny);
+        cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
+
     }
    
 
@@ -61,7 +86,9 @@ int main()
     // == Output ==
     string outputName = "output/speciesTransport_";
     int count = 0;
-
+    
+    //cudaMemcpy(u, d_u, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
+    //cudaMemcpy(v, d_v, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
     // == First output ==
     writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++, nSpecies);
 
@@ -74,14 +101,14 @@ int main()
         // Solve species equation
         for (int s = 0; s < nSpecies; s++)
         {
-            solveSpeciesEquation(Y[s], u, v, dx, dy, D, nx, ny, dt);
+            solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u,d_v,d_Yn,d_x,d_x_new,d_b_flatten,d_values, d_column_indices,d_row_offsets );
         }
         auto end_eq = duration_cast<microseconds>(high_resolution_clock::now() - start_eq).count();
         printf("[MAIN] Compute species eq took: %ld us\n", end_eq);
         
         // Write output every 100 iterations
         if (step % 100 == 0)
-        {
+        {   
             auto start_write = high_resolution_clock::now();
             writeDataVTK(outputName, Y, u, v, nx, ny, dx, dy, count++, nSpecies);
             auto end_write = duration_cast<microseconds>(high_resolution_clock::now() - start_write).count();
@@ -99,7 +126,20 @@ int main()
   
     free(u); // Free the pointer to the array of u rows
     free(v); // Free the pointer to the array of v rows
+    
+    
+    cudaFree(d_Y);
+    cudaFree(d_u);
+    cudaFree(d_v);
 
+     // Free device memory
+    cudaFree(d_Yn);
+    cudaFree(d_x);
+    cudaFree(d_b_flatten);
+ 
+    cudaFree(d_values);
+    cudaFree(d_column_indices);
+    cudaFree(d_row_offsets);
     auto end_total = duration_cast<microseconds>(high_resolution_clock::now() - start_total).count();
     printf("[MAIN] Total time taken: %ld us\n", end_total);
 

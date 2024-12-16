@@ -131,15 +131,15 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
 {
     auto start_total_solve = high_resolution_clock::now();
 
-    size_t unidimensional_size_bytes = nx * ny * sizeof(double);
+    size_t unidimensional_size_of_bytes = nx * ny * sizeof(double);
     size_t nnz_estimate = nx * ny * 5;
 
     // Allocate host memory
-    double *Y_n = (double *)malloc(unidimensional_size_bytes);
-    double *x = (double *)malloc(unidimensional_size_bytes);
-    double *b_flatten = (double *)malloc(unidimensional_size_bytes);
-    double *u_flatten = (double *)malloc(unidimensional_size_bytes);
-    double *v_flatten = (double *)malloc(unidimensional_size_bytes);
+    double *Y_n = (double *)malloc(unidimensional_size_of_bytes);
+    double *x = (double *)malloc(unidimensional_size_of_bytes);
+    double *b_flatten = (double *)malloc(unidimensional_size_of_bytes);
+    double *u_flatten = (double *)malloc(unidimensional_size_of_bytes);
+    double *v_flatten = (double *)malloc(unidimensional_size_of_bytes);
 
     SparseMatrix A;
     A.row = (int *)malloc((nx * ny + 1) * sizeof(int)); // Allcate raw memory
@@ -163,19 +163,19 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     double *d_values;
     int *d_column_indices, *d_row_offsets;
 
-    CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_bytes));
-    CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_bytes));
-    CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_bytes));
-    CHECK_ERROR(cudaMalloc((void **)&d_u, unidimensional_size_bytes));
-    CHECK_ERROR(cudaMalloc((void **)&d_v, unidimensional_size_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_u, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_v, unidimensional_size_of_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
     CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
     CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx * ny + 1) * sizeof(int)));
 
     // Copy input data to device
-    CHECK_ERROR(cudaMemcpy(d_Yn, Y_n, unidimensional_size_bytes, cudaMemcpyHostToDevice));
-    CHECK_ERROR(cudaMemcpy(d_u, u_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
-    CHECK_ERROR(cudaMemcpy(d_v, v_flatten, unidimensional_size_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_Yn, Y_n, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_u, u_flatten, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_v, v_flatten, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
 
     dim3 blockDim(10, 10);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
@@ -197,7 +197,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     cudaDeviceSynchronize();
 
     // Copy results back to the host
-    CHECK_ERROR(cudaMemcpy(b_flatten, d_b_flatten, unidimensional_size_bytes, cudaMemcpyDeviceToHost));
+    CHECK_ERROR(cudaMemcpy(b_flatten, d_b_flatten, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
 
     //  Jacobi Solver
     

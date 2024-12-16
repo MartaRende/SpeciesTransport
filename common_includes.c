@@ -14,6 +14,7 @@ exit(err); \
 /**
  * Performance monitoring
  */
+/*
 #include <sys/time.h>
 long long timeInMilliseconds(void) {
     struct timeval tv;
@@ -34,6 +35,8 @@ printf("time taken %lld [msec]\n", time_taken); \
 /**
  * Debug helpers
  */
+
+/*
 void printBeginAndEnd(int nValues, float *values, int totalSize){	
 	for(int i = 0; i < nValues; i++)
 		printf("idx[%i] -> %f\n", i, values[i]);	
@@ -44,5 +47,5 @@ void printBeginAndEnd(int nValues, float *values, int totalSize){
 		int idx = totalSize - nValues + i;
 		printf("idx[%i] -> %f\n", idx, values[idx]);
 	}
-}
+}*/
 
