@@ -169,6 +169,7 @@ int main(int argc, char *argv[])
     for (int s = 0; s < nSpecies; s++)
     {
         WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
+
     }
     // Launching write funtion with each part of the data to write
     writeDataVTK(outputName, WriteY, WriteU, WriteV, nx, ny, dx, dy, count++, world_rank, world_size, nSpecies);
@@ -187,11 +188,16 @@ int main(int argc, char *argv[])
         {
             for (int s = 0; s < nSpecies; s++)
             {
+                if(step==1){
+                CHECK_ERROR(cudaMemcpy(d_Yn, Y[s], unidimensional_size_of_bytes, cudaMemcpyHostToDevice))
+
+                }
                 solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u, d_v, d_Yn, d_x, d_x_new, d_b_flatten, d_values, d_column_indices, d_row_offsets);
-               /*  if (step % 100 == 0)
+          if (step % 100 == 0)
                 {
                     CHECK_ERROR(cudaMemcpy(Y[s], d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
-                } */
+                }  
+  
             }
             for (int i = 1; i < world_size; i++)
             {

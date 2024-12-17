@@ -64,7 +64,7 @@ __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_
     int row_start = row_offsets[idx];
     // Diagonal
     values[row_start + count] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
-    column_indices[row_start + count++] = idx;
+    column_indices[row_start + count] = idx;
 
     // Left Neighbor
     values[row_start + count] = -dt * D / (dx * dx);
