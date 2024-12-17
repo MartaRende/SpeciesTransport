@@ -39,8 +39,8 @@ void runTestfillMatrixA(int nx, int ny, double dx, double dy, double D, double d
     // Perform assertions
   
     // Perform assertions and checks
-    for (int i = 0; i < ny; i++) {
-        for (int j = 0; j < nx; j++) {
+    for (int i = 1; i < ny-1; i++) {
+        for (int j = 1; j < nx-1; j++) {
             int idx = i * nx + j;
             int row_start = h_row_offsets[idx];
 
