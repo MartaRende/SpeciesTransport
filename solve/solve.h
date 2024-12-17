@@ -13,7 +13,6 @@ struct SparseMatrix {
 void solveSpeciesEquation(double *Y, 
                           const double dx, const double dy, double D,
                           const int nx, const int ny, const double dt,double * d_u, double * d_v, double * d_Yn, double * d_x, double * d_x_new, double * d_b_flatten, double * d_values, int * d_column_indices, int * d_row_offsets);
-void computeBoundaries(double* Y, const int nx, const int ny);
 //void fillMatrixA(SparseMatrix &A_sparse , const double dx, const double dy, const double D, const double dt, const int nx, const int ny);
 void jacobiSolverSparseMPI(SparseMatrix &A, double *b, double *x, int n, int max_iter, double tol);
 #endif // SOLVE_H

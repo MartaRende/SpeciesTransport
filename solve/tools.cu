@@ -1,4 +1,6 @@
 #include <iostream>
+#include "tools.h"
+
 __global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int nx, int ny, int nnz)
 {
     int j = blockIdx.x * blockDim.x + threadIdx.x;
@@ -16,7 +18,7 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
 
         x_new[idx] = b[idx];
 
-        for (int k = row_start; k < row_end; ++k)
+        for (int k = row_start; k < row_end; k++)
         {
             //printf("k=%d, col[k]=%d, idx=%d, value[k]=%f, x[col[k]]=%f\n", k, col[k], idx, value[k], x[col[k]]);
             
@@ -29,7 +31,7 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
                 //printf("Updated sum: %f\n", sum);
             }
         }
-
+//printf("%f\n", diag);
         x_new[idx] = (x_new[idx] - sum) / diag;
 
        // printf("Final result for (%d, %d): x_new=%f, sum=%f, diag=%f\n", i, j, x_new[idx], sum, diag);
@@ -46,7 +48,6 @@ __global__ void diffKernel( double *x,  double *x_new, double *diff, int nx,  in
         diff[idx] = fabs(x_new[idx] - x[idx]);
     }
 }
-
 __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_offsets,
                                   const double dx, const double dy, const double D,
                                   const double dt, const int nx, const int ny)
@@ -61,7 +62,6 @@ __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_
     int count = 0;
 
     int row_start = row_offsets[idx];
-
     // Diagonal
     values[row_start + count] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
     column_indices[row_start + count++] = idx;
@@ -82,6 +82,7 @@ __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_
     values[row_start + count] = -dt * D / (dy * dy);
     column_indices[row_start + count++] = idx + 1;
 }
+
 
 __global__ void computeB(double *b, double *Y_n, double *u, double *v,
                          const double dx, const double dy, const int nx, const int ny, const double dt)
@@ -109,4 +110,20 @@ __global__ void computeB(double *b, double *Y_n, double *u, double *v,
         b[idx] -= dt * (v[idx] * (Y_n[right] - Y_n[idx]) / dy);
     else
         b[idx] -= dt * (v[idx] * (Y_n[idx] - Y_n[left]) / dy);
+       // printf("%f\n", b[idx]);
 }
+__global__ void initializeRowOffsetsKernel(int *row_offsets, const int nx, const int ny) {
+    int j = blockIdx.x * blockDim.x + threadIdx.x; // Column index
+    int i = blockIdx.y * blockDim.y + threadIdx.y; // Row index
+
+    if (i >= ny || j >= nx) return; // Bounds check
+int idx = i*nx+j;
+    // Row offsets for sparse matrix. Each row will have exactly 5 elements.
+    // Row 0 starts at 0, Row 1 starts at 5, Row 2 starts at 10, etc.
+    row_offsets[idx] = idx * 5;
+
+    // Debug print (optional): To confirm correct row offsets
+  
+}
+
+

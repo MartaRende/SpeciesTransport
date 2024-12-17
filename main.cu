@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include <mpi.h>
 #include "solve/solve.h"
+#include "solve/tools.h"
+
 #include "write/write.h"
 #include "initialization/init.h"
 #include <cuda.h>
@@ -18,7 +20,6 @@ int main(int argc, char *argv[])
     // == MPI Initialization ==
     MPI_Status status;
     int world_size, world_rank;
-
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
@@ -44,7 +45,7 @@ int main(int argc, char *argv[])
     double dt = 0.0005;
     int nSteps = int(tFinal / dt);
 
-    int nSpecies = 6; // Number of species
+    int nSpecies = 1; // Number of species
 
     double **Y_splietted = (double **)malloc(nSpecies * sizeof(double *));
     double *u_splitted = new double[splittedLengthes[world_rank]];
@@ -83,7 +84,7 @@ int main(int argc, char *argv[])
         CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
         CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
-        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx * ny + 1) * sizeof(int)));
+        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (ny * nx + 1) * sizeof(int)));
     }
 
     if (world_rank == 0)
@@ -119,11 +120,12 @@ int main(int argc, char *argv[])
         {
             Y_splietted[s] = (double *)malloc(splittedLengthes[world_rank]);
             Initialization(Y[s], u, v, nx, ny, dx, dy, s, d_Y, d_u, d_v);
-            computeBoundaries(Y[s], nx, ny);
+            dim3 blockDim(16, 16);
+            dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
+            computeBoundariesKernel<<<gridDim, blockDim>>>(d_Y, nx, ny);
             cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
         }
     }
-
 
     // == Output ==
     string outputName = "output/speciesTransport_";
@@ -159,19 +161,21 @@ int main(int argc, char *argv[])
     string WriteU = getString(u_splitted, splittedLengthes[world_rank], world_rank);
     string WriteV = getString(v_splitted, splittedLengthes[world_rank], world_rank);
 
-   
-        string *WriteY = new string[nSpecies];
-        for (int s = 0; s < nSpecies; s++)
-        {
-            WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
-     
+    string *WriteY = new string[nSpecies];
+    /* for (int s = 0; s < nSpecies; s++)
+     {
+          CHECK_ERROR(cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+     } */
+    for (int s = 0; s < nSpecies; s++)
+    {
+        WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
     }
     // Launching write funtion with each part of the data to write
     writeDataVTK(outputName, WriteY, WriteU, WriteV, nx, ny, dx, dy, count++, world_rank, world_size, nSpecies);
-    auto end_init = high_resolution_clock::now() ;
+    auto end_init = high_resolution_clock::now();
 
-     auto initDuration = chrono::duration_cast<chrono::microseconds>(end_init - start_total).count(); // Calculate init duration
-printf("[MAIN] Initialization took: %ld us\n", initDuration);
+    auto initDuration = chrono::duration_cast<chrono::microseconds>(end_init - start_total).count(); // Calculate init duration
+    printf("[MAIN] Initialization took: %ld us\n", initDuration);
     auto start_loop = high_resolution_clock::now();
 
     for (int step = 1; step <= nSteps; step++)
@@ -184,6 +188,10 @@ printf("[MAIN] Initialization took: %ld us\n", initDuration);
             for (int s = 0; s < nSpecies; s++)
             {
                 solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u, d_v, d_Yn, d_x, d_x_new, d_b_flatten, d_values, d_column_indices, d_row_offsets);
+               /*  if (step % 100 == 0)
+                {
+                    CHECK_ERROR(cudaMemcpy(Y[s], d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+                } */
             }
             for (int i = 1; i < world_size; i++)
             {
@@ -203,16 +211,17 @@ printf("[MAIN] Initialization took: %ld us\n", initDuration);
             }
         }
 
-
         if (step % 100 == 0)
         {
             auto start_write = high_resolution_clock::now();
 
             string *WriteY = new string[nSpecies];
+
             for (int s = 0; s < nSpecies; s++)
             {
                 WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
             }
+
             writeDataVTK(outputName, WriteY, WriteU, WriteV, nx, ny, dx, dy, count++, world_rank, world_size, nSpecies);
             auto end_write = chrono::duration_cast<microseconds>(high_resolution_clock::now() - start_write).count();
             if (world_rank == 0)
@@ -220,7 +229,7 @@ printf("[MAIN] Initialization took: %ld us\n", initDuration);
         }
     }
     auto end_loop = high_resolution_clock::now();
-   auto loopDuration = duration_cast<microseconds>(end_loop - start_loop).count(); // Calculate loop duration
+    auto loopDuration = duration_cast<microseconds>(end_loop - start_loop).count(); // Calculate loop duration
     printf("[MAIN] Loop took : %ld us\n", loopDuration);
 
     // Free memory using free()
@@ -247,15 +256,11 @@ printf("[MAIN] Initialization took: %ld us\n", initDuration);
         cudaFree(d_v);
     }
 
-
     auto end_total = high_resolution_clock::now();
-   auto totalDuration = duration_cast<microseconds>(end_total - start_total).count(); // Calculate total duration
+    auto totalDuration = duration_cast<microseconds>(end_total - start_total).count(); // Calculate total duration
 
     printf("[MAIN] Total time taken: %ld us\n", totalDuration);
 
-
-MPI_Finalize();
-return 0;
-
-
+    MPI_Finalize();
+    return 0;
 }
