@@ -1,42 +1,51 @@
 #include <iostream>
 #include "tools.h"
 
-__global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int nx, int ny, int nnz)
+__global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int nx, int ny, int nnz, int max_iterations, double tolerance)
 {
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     int i = blockIdx.y * blockDim.y + threadIdx.y;
-
     int idx = i * nx + j;
+
     if (i < ny && j < nx)
     {
-        double sum = 0.0;
-        double diag = 1.0;
-        int row_start = row[i];
-        int row_end = row[i + 1];
-
-        //printf("Thread (%d, %d): row_start=%d, row_end=%d\n", i, j, row_start, row_end);
-
-        x_new[idx] = b[idx];
-
-        for (int k = row_start; k < row_end; k++)
+        for (int iter = 0; iter < max_iterations; ++iter)
         {
-            //printf("k=%d, col[k]=%d, idx=%d, value[k]=%f, x[col[k]]=%f\n", k, col[k], idx, value[k], x[col[k]]);
-            
-            if (col[k] == idx) {
-                //printf("Diagonal element found at k=%d\n", k);
-                diag = value[k];
-            }
-            else {
-                sum += value[k] * x[col[k]];
-                //printf("Updated sum: %f\n", sum);
-            }
-        }
-//printf("%f\n", diag);
-        x_new[idx] = (x_new[idx] - sum) / diag;
+            double sum = 0.0;
+            double diag = 1.0;
+            int row_start = row[i];
+            int row_end = row[i + 1];
 
-       // printf("Final result for (%d, %d): x_new=%f, sum=%f, diag=%f\n", i, j, x_new[idx], sum, diag);
+            for (int k = row_start; k < row_end; k++)
+            {
+                if (col[k] == idx) {
+                    diag = value[k];
+                }
+                else {
+                    sum += value[k] * x[col[k]];
+                }
+            }
+
+            double new_value = (b[idx] - sum) / diag;
+            x_new[idx] = new_value;
+
+            // Check for convergence
+            if (fabs(new_value - x[idx]) < tolerance)
+            {
+                break;
+            }
+
+            
+            // Synchronize threads before next iteration
+            __syncthreads();
+            
+           
+            
+        }
+      
     }
 }
+
 
 
 // CUDA kernel for computing difference

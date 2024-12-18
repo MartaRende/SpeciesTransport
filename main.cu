@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
                 solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u, d_v, d_Yn, d_x, d_x_new, d_b_flatten, d_values, d_column_indices, d_row_offsets);
           if (step % 100 == 0)
                 {
-                    CHECK_ERROR(cudaMemcpy(Y[s], d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+                    CHECK_ERROR(cudaMemcpy(Y[s], d_x_new, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
                 }  
   
             }

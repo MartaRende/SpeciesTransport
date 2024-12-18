@@ -4,7 +4,7 @@
 #include <cmath>
 #include "../solve/tools.h"
 #include "unitTest.h"
-#include <cmath>  // For std::fabs
+#include <cmath>  
 
 const double TOLERANCE = 1e-6;
 

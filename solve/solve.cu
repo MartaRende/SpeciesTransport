@@ -17,7 +17,7 @@ void solveSpeciesEquation(double *Y,
     auto start_total_solve = high_resolution_clock::now();
 
     int max_iter = 1;
-    double tol = 1e-3;
+    double tol = 1e-20;
     size_t unidimensional_size_of_bytes = nx * ny * sizeof(double);
     size_t nnz_estimate = nx * ny * 5;
 
@@ -29,8 +29,8 @@ void solveSpeciesEquation(double *Y,
     } */
 
     // Copy input data to device
- // CHECK_ERROR(cudaMemcpy(d_Yn, Y, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
-    CHECK_ERROR(cudaMemcpy(d_x, d_Yn, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice));
+   //CHECK_ERROR(cudaMemcpy(d_Yn, Y, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMemcpy(d_x_new, d_Yn, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice));
     cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
 
     dim3 blockDim(16, 16);
@@ -60,31 +60,26 @@ void solveSpeciesEquation(double *Y,
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
 
     auto start_computex = high_resolution_clock::now();
+        double *h_x_new = new double[nx*ny];
 
     // Jacobi Solver
-    for (int iter = 0; iter < 1; ++iter)
-    {
+  
         // Launch Jacobi kernel
-        jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_Yn, d_x_new, nx, ny, 5 * nx * ny);
-        // cudaDeviceSynchronize();
-        printf("here");
-        // Launch difference kernel
-        //     dim3 blockDim(256);  // Or any other suitable block size
-        // dim3 gridDim((nx * ny + blockDim.x - 1) / blockDim.x);
-        // diffKernel<<<gridDim, blockDim>>>(d_x, d_x_new, d_diff, nx, ny);
-
-     //cudaDeviceSynchronize();
-        cudaMemcpy(d_x, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
-    }
-
+    jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx, ny, 5 * nx * ny, max_iter,tol);
+    
+    
+    
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
 
-    computeBoundariesKernel<<<gridDim, blockDim>>>(d_x, nx, ny);
+    computeBoundariesKernel<<<gridDim, blockDim>>>(d_x_new, nx, ny);
+
+    cudaMemcpy(d_Yn, d_x_new, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice);
 
     // Copy results back to host
 
-     cudaMemcpy(d_Yn, d_x, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
+//cudaMemcpy(d_Yn, d_x_new, nx * ny * sizeof(double), cudaMemcpyDeviceToDevice);
+   //CHECK_ERROR(cudaMemcpy(Y, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
 
     // cudaDeviceSynchronize();
      //CHECK_ERROR(cudaMemcpy(Y, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
@@ -95,6 +90,7 @@ void solveSpeciesEquation(double *Y,
     // Free host memory
     free(x);
     free(b_flatten);
+delete[] h_x_new;
 
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
