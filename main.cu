@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
         CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
         CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
-        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (ny * nx + 1) * sizeof(int)));
+        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (ny * nx) * sizeof(int)));
     }
 
     if (world_rank == 0)

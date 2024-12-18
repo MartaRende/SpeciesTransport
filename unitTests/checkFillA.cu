@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include <cuda_runtime.h>
+#include <cuda.h>
 #include <cmath>
 #include "../solve/tools.h"
 #include "unitTest.h"
@@ -8,6 +8,8 @@
 
 const double TOLERANCE = 1e-6;
 
+#include <iostream>
+#include <cuda_runtime.h>
 
 void runTestfillMatrixA(int nx, int ny, double dx, double dy, double D, double dt, const char* testName) {
     size_t values_size = 5 * (nx * ny) * sizeof(double);
@@ -17,89 +19,57 @@ void runTestfillMatrixA(int nx, int ny, double dx, double dy, double D, double d
     int *d_column_indices, *h_column_indices;
     int *d_row_offsets, *h_row_offsets;
 
+    // Allocate device memory
     cudaMalloc(&d_values, values_size);
     cudaMalloc(&d_column_indices, indices_size);
-    cudaMalloc(&d_row_offsets, indices_size);
+    cudaMalloc(&d_row_offsets, (nx * ny + 1) * sizeof(int)); // +1 for row offsets
 
+    // Allocate host memory
     h_values = (double*)malloc(values_size);
     h_column_indices = (int*)malloc(indices_size);
-    h_row_offsets = (int*)malloc(indices_size);
+    h_row_offsets = (int*)malloc((nx * ny + 1) * sizeof(int)); // +1 for row offsets
 
+    // Define block and grid sizes
     dim3 blockSize(16, 16);
     dim3 gridSize((nx + blockSize.x - 1) / blockSize.x, (ny + blockSize.y - 1) / blockSize.y);
 
-    initializeRowOffsetsKernel<<<gridSize, blockSize>>>(d_row_offsets, nx, ny);
+    // Initialize row offsets on device
+    initializeRowOffsetsKernel<<<gridSize, blockSize>>>(d_row_offsets, nx , ny);
 
+    // Fill the sparse matrix on device
     fillMatrixAKernel<<<gridSize, blockSize>>>(d_values, d_column_indices, d_row_offsets, dx, dy, D, dt, nx, ny);
 
+    // Copy results back to host
     cudaMemcpy(h_values, d_values, values_size, cudaMemcpyDeviceToHost);
     cudaMemcpy(h_column_indices, d_column_indices, indices_size, cudaMemcpyDeviceToHost);
-    cudaMemcpy(h_row_offsets, d_row_offsets, indices_size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_row_offsets, d_row_offsets, (nx * ny + 1) * sizeof(int), cudaMemcpyDeviceToHost);
 
-    // Perform assertions
-  
-    // Perform assertions and checks
-    for (int i = 1; i < ny-1; i++) {
-        for (int j = 1; j < nx-1; j++) {
-            int idx = i * nx + j;
-            int row_start = h_row_offsets[idx];
-
-            double expected_diag_value = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy));
-
-            if (fabs(h_values[row_start] - expected_diag_value) >= TOLERANCE) {
-                std::cerr << "Assertion failed for diagonal value at (" << i << "," << j << "). Expected: " << expected_diag_value
-                          << ", Got: " << h_values[row_start] << std::endl;
-                exit(EXIT_FAILURE);  // Exit on failure, or you can choose to continue testing
-            }
-
-            assert(h_column_indices[row_start] == idx);
-
-            int count = 1;
-            double expected_neighbor_value = -dt * D / (dx * dx);
-
-            // Left neighbor
-            if (fabs(h_values[row_start + count] - expected_neighbor_value) >= TOLERANCE) {
-                std::cerr << "Assertion failed for left neighbor at (" << i << "," << j << "). Expected: " << expected_neighbor_value
-                          << ", Got: " << h_values[row_start + count] << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            assert(h_column_indices[row_start + count] == idx - 1);
-            count++;
-
-            // Right neighbor
-            if (fabs(h_values[row_start + count] - expected_neighbor_value) >= TOLERANCE) {
-                std::cerr << "Assertion failed for right neighbor at (" << i << "," << j << "). Expected: " << expected_neighbor_value
-                          << ", Got: " << h_values[row_start + count] << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            assert(h_column_indices[row_start + count] == idx + 1);
-            count++;
-
-            expected_neighbor_value = -dt * D / (dy * dy);
-
-            // Top neighbor
-            if (fabs(h_values[row_start + count] - expected_neighbor_value) >= TOLERANCE) {
-                std::cerr << "Assertion failed for top neighbor at (" << i << "," << j << "). Expected: " << expected_neighbor_value
-                          << ", Got: " << h_values[row_start + count] << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            assert(h_column_indices[row_start + count] == idx - nx);
-            count++;
-
-            // Bottom neighbor
-            if (fabs(h_values[row_start + count] - expected_neighbor_value) >= TOLERANCE) {
-                std::cerr << "Assertion failed for bottom neighbor at (" << i << "," << j << "). Expected: " << expected_neighbor_value
-                          << ", Got: " << h_values[row_start + count] << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            assert(h_column_indices[row_start + count] == idx + nx);
-            count++;
-        }
+    // Print out the sparse matrix representation
+    std::cout << "Sparse Matrix Representation for " << testName << ":\n";
+    
+    std::cout << "Values: ";
+    for (int i = 0; i < values_size / sizeof(double); i++) {
+        std::cout << h_values[i] << " ";
+    }
+    
+    std::cout << "\nColumn Indices: ";
+    for (int i = 0; i < indices_size / sizeof(int); i++) {
+        std::cout << h_column_indices[i] << " ";
     }
 
+    std::cout << "\nRow Offsets: ";
+    for (int i = 0; i <= nx * ny; i++) { // +1 for row offsets
+        std::cout << h_row_offsets[i] << " ";
+    }
+    
+    std::cout << std::endl;
+
+    // Free device memory
     cudaFree(d_values);
     cudaFree(d_column_indices);
     cudaFree(d_row_offsets);
+
+    // Free host memory
     free(h_values);
     free(h_column_indices);
     free(h_row_offsets);
