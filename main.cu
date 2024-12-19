@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     int unidimensional_size = nx * ny;
     int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
-    size_t nnz_estimate = nx * ny * 5;
+    size_t nnz_estimate = 6+8+((nx-2) * (ny-2) * 5);
     // Array of pointers to 2D arrays for each species
     double **Y = (double **)malloc(nSpecies * sizeof(double *));
 

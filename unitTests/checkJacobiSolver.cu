@@ -13,19 +13,20 @@ void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * va
     int *d_row, *d_col;
     double *d_values, *d_b, *d_x, *d_x_new;
     cudaMalloc(&d_row,( nx+1) * sizeof(int));
-    cudaMalloc(&d_col, nx * ny* sizeof(int));
-    cudaMalloc(&d_values, nx*ny * sizeof(double));
+    cudaMalloc(&d_col, nnz* sizeof(int));
+    cudaMalloc(&d_values,nnz * sizeof(double));
     cudaMalloc(&d_b, ny * sizeof(double));
     cudaMalloc(&d_x, ny * sizeof(double));
     cudaMalloc(&d_x_new, ny * sizeof(double));
 
     // Copy data to device
     cudaMemcpy(d_row, row, ( nx+1)* sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_col, col,nx * ny* sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_values, values,nx * ny* sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_col, col,nnz* sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_values, values,nnz* sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_b, b, ny * sizeof(double), cudaMemcpyHostToDevice);
-   // cudaMemcpy(d_x, x, ny * sizeof(double), cudaMemcpyHostToDevice);
+   cudaMemcpy(d_x, x_new, ny * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_x_new, x_new, ny * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemset(d_x_new, 0, ny * sizeof(double));
 
     // Launch kernel
    dim3 blockDim(16, 16);
@@ -39,7 +40,8 @@ void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * va
     for(int i = 0; i<ny;i++){
      printf("hold %f\n", x[i]);
      printf("new %f\n", x_new[i]);
-    //assert(fabs(x_new[i] - x[i]) < );
+    
+    assert(fabs(x_new[i] - x[i]) < 0.5);
 
     }
 
