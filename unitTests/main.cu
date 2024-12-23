@@ -4,40 +4,40 @@ int main()
 {
     printf("Starting Tests to check offset row\n");
     // 1. Small Grid Test (3x3)
-    int  row_offset1 []= {0,3,7,12,16,19};
-    //runTestRowOffset(3, 3, "Small Grid Test (3x3)");
+     int  row_offset1 []= {0,3,7,12,16,19};
+//     runTestRowOffset(3, 3, "Small Grid Test (3x3)");
 
     // 2. Large Grid Test (5x5)
-    runTestRowOffset(row_offset1,5, 5, "Large Grid Test (5x5)");
-/* 
-    // 3. Boundary-Only Grid Test (2x2)
-    runTestRowOffset(2, 2, "Boundary-Only Grid Test (2x2)");
+     runTestRowOffset(row_offset1,50, 50, "Large Grid Test (5x5)");
+    /*
+        // 3. Boundary-Only Grid Test (2x2)
+        runTestRowOffset(2, 2, "Boundary-Only Grid Test (2x2)");
 
-    // 4. Single Cell Grid Test (1x1)
-    runTestRowOffset(1, 1, "Single Cell Grid Test (1x1)");
+        // 4. Single Cell Grid Test (1x1)
+        runTestRowOffset(1, 1, "Single Cell Grid Test (1x1)");
 
-    // 5. Boundary-Only Grid Test (1x5)
-    runTestRowOffset(1, 5, "Boundary-Only Grid Test (1x5)");
+        // 5. Boundary-Only Grid Test (1x5)
+        runTestRowOffset(1, 5, "Boundary-Only Grid Test (1x5)");
 
-    // 6. Empty Grid Test (0x0)
-    runTestRowOffset(0, 0, "Empty Grid Test (0x0)");
+        // 6. Empty Grid Test (0x0)
+        runTestRowOffset(0, 0, "Empty Grid Test (0x0)");
 
-    // 7. Rectangular Grid Test (6x4)
-    runTestRowOffset(6, 4, "Rectangular Grid Test (6x4)");
+        // 7. Rectangular Grid Test (6x4)
+        runTestRowOffset(6, 4, "Rectangular Grid Test (6x4)");
 
-    // 8. Rectangular Grid Test (4x6)
-    runTestRowOffset(4, 6, "Rectangular Grid Test (4x6)");
+        // 8. Rectangular Grid Test (4x6)
+        runTestRowOffset(4, 6, "Rectangular Grid Test (4x6)");
 
-    // 9. Large Square Grid Test (100x100)
-    runTestRowOffset(100, 100, "Large Square Grid Test (100x100)");
+        // 9. Large Square Grid Test (100x100)
+        runTestRowOffset(100, 100, "Large Square Grid Test (100x100)");
 
-    // 10. Very Large Rectangular Grid Test (1000x500)
-    runTestRowOffset(1000, 500, "Very Large Rectangular Grid Test (1000x500)");
- */
-    std::cout << "All tests completed successfully." << std::endl;
+        // 10. Very Large Rectangular Grid Test (1000x500)
+        runTestRowOffset(1000, 500, "Very Large Rectangular Grid Test (1000x500)");
+     */
+    // std::cout << "All tests completed successfully." << std::endl;
     printf("All test passed for checking the offset of rows in matrix A\n");
     // 1. Basic Functionality Test
-    // runTestfillMatrixA(5, 5, 0.1, 0.1, 1.0, 0.01, "Basic Functionality Test");
+     runTestfillMatrixA(5, 5, 0.1, 0.1, 1.0, 0.01, "Basic Functionality Test");
 
     // 2. Boundary Condition Test
     // runTestfillMatrixA(3, 3, 0.1, 0.1, 1.0, 0.01, "Boundary Condition Test");
@@ -120,13 +120,13 @@ int main()
     double x_new_asymm1[] = {0.0, 0.0, 0.0, 0.0};
     testJacobiSolver(4, 4, 12, row_asymm1, col_asymm1, value_asymm1, b_asymm1, x_asymm1, x_new_asymm1);
     // Zero Matrix
-    /* int row_edge1[] = {0, 0, 0, 0};
+    int row_edge1[] = {0, 0, 0, 0};
     int col_edge1[] = {};
     double value_edge1[] = {};
     double b_edge1[] = {0.0, 0.0, 0.0};
     double x_edge1[] = {1.0, 1.0, 1.0};
     double x_new_edge1[] = {0.0, 0.0, 0.0};
-    testJacobiSolver(3, 3, 0, row_edge1, col_edge1, value_edge1, b_edge1, x_edge1, x_new_edge1); */
+    testJacobiSolver(3, 3, 0, row_edge1, col_edge1, value_edge1, b_edge1, x_edge1, x_new_edge1);
 
     // Identity Matrix
     int row_edge2[] = {0, 1, 2, 3};
@@ -141,11 +141,20 @@ int main()
     int col_asymm2[] = {0, 1, 2, 0, 1, 0, 1, 2};
     double value_asymm2[] = {3, -1, 2, 1, 4, 2, 1, 5};
     double b_asymm2[] = {10.0, 15.0, 20.0};
-    double x_asymm2[] = {2.84, 3.0, 2.25};     // Initial guess
+    double x_asymm2[] = {2.84, 3.0, 2.25};   // Initial guess
     double x_new_asymm2[] = {0.0, 0.0, 0.0}; // Solution vector (output)
 
     // Call the Jacobi solver test
     testJacobiSolver(3, 3, 8, row_asymm2, col_asymm2, value_asymm2, b_asymm2, x_asymm2, x_new_asymm2);
+
+    double u1[] = {-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
+    double v1[] = {1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
+    double Yn1[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+    double b_exp1[] = {1.0, 4.0, 5.0, 2.0, 1.0, 2.0, 1.0, 1.0, 5.0}; // Expected output (example)
+    double new_b[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+    // Call the kernel with 3x3 matrix dimensions (ny=3, nx=3)
+    testFillb(3, 3, 0.1, 0.1, 0.1, u1, v1, Yn1, b_exp1, new_b);
 
     return 0;
 }

@@ -32,7 +32,6 @@ void solveSpeciesEquation(double *Y,
    //CHECK_ERROR(cudaMemcpy(d_Yn, Y, unidimensional_size_of_bytes, cudaMemcpyHostToDevice));
     CHECK_ERROR(cudaMemcpy(d_x, d_Yn, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice));
     cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
-
     dim3 blockDim(16, 16);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
 
@@ -47,7 +46,8 @@ void solveSpeciesEquation(double *Y,
     fillMatrixAKernel<<<gridDim, blockDim>>>(d_values, d_column_indices, d_row_offsets, dx, dy, D, dt, nx, ny);
     auto end_fillMatrix = duration_cast<microseconds>(high_resolution_clock::now() - start_fillMatrix).count();
     printf("[SOLVE] Fill Matrix A took: %ld us\n", end_fillMatrix);
-    // cudaDeviceSynchronize();
+ cudaDeviceSynchronize();
+ 
 
     // Compute b
     auto start_fillb = high_resolution_clock::now();
@@ -60,13 +60,14 @@ void solveSpeciesEquation(double *Y,
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
 
     auto start_computex = high_resolution_clock::now();
+     double *h_values=(double *)malloc(nx * ny * 5* sizeof(double));
+   CHECK_ERROR(cudaMemcpy(h_values, d_values,nx * ny * 5* sizeof(double), cudaMemcpyDeviceToHost));
+  /* for(int i = 0; i< nx * ny * 5;i++){
+        printf("%d %f\n",i,h_values[i]);
+    }  */
 
     // Jacobi Solver
- /*  double *h_values=(double *)malloc(unidimensional_size_of_bytes);
-   CHECK_ERROR(cudaMemcpy(h_values, d_values, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
-  for(int i = 0; i<nx*ny;i++){
-        printf("%f\n",h_values[i]);
-    }  */
+ 
     jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx, ny, 5 * nx * ny, max_iter,tol);
     
     
@@ -84,15 +85,16 @@ void solveSpeciesEquation(double *Y,
    //CHECK_ERROR(cudaMemcpy(Y, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
 
     // cudaDeviceSynchronize();
-     //CHECK_ERROR(cudaMemcpy(Y, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
- /*   for(int i = 0; i<nx*ny;i++){
+ /*     CHECK_ERROR(cudaMemcpy(Y, d_x_new, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+   for(int i = 0; i<nx*ny;i++){
+    if(Y[i]!=0.0)
         printf("%f\n",Y[i]);
-    } */
-
+    }
+ */
     // Free host memory
     free(x);
     free(b_flatten);
-
+    free(h_values);
 
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);

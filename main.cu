@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     int unidimensional_size = nx * ny;
     int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
-    size_t nnz_estimate = 6+8+((nx-2) * (ny-2) * 5);
+    size_t nnz_estimate = 5 * nx *ny;
     // Array of pointers to 2D arrays for each species
     double **Y = (double **)malloc(nSpecies * sizeof(double *));
 
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
         CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
         CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
-        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (ny * nx) * sizeof(int)));
+        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx*ny +1) * sizeof(int)));
     }
 
     if (world_rank == 0)
