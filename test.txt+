@@ -1,6 +1,0 @@
-Copying directory
-here1
-Makefile
-            498 100%    0.00kB/s    0:00:00              498 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=0/1)
-Starting compilation
-nvcc -c main.cu initialization/initialization.cu solve/solve.cu solve/tools.cu solve/jacobi.cpp write/write.cpp  -I/usr/lib/x86_64-linux-gnu/openmpi/include

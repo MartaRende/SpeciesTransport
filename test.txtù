@@ -1,3 +1,0 @@
-Copying directory
-Starting compilation
-nvcc -c main.cu initialization/initialization.cu solve/solve.cu solve/tools.cu solve/jacobi.cpp write/write.cpp  -I/usr/lib/x86_64-linux-gnu/openmpi/include
