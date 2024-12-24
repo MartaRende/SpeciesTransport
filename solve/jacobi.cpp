@@ -1,4 +1,4 @@
-#include <mpi.h>
+/* #include <mpi.h>
 #include "solve.h"
 void jacobiSolverSparseMPI(SparseMatrix &A, double *b, double *x, int n, int max_iter, double tol)
 {
@@ -93,4 +93,4 @@ void jacobiSolverSparseMPI(SparseMatrix &A, double *b, double *x, int n, int max
     delete[] local_x;
     delete[] local_x_new;
     delete[] local_b;
-}
+} */

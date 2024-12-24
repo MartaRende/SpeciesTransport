@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     MPI_Status status;
     int world_size, world_rank;
 
+
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -33,8 +34,8 @@ int main(int argc, char *argv[])
 
     // default parameters
     double D = 0.005; // possible values from 0.001 to 0.025
-    int nx = 50;      // in parallel 800
-    int ny = 50;      // in parallel 800
+    int nx = 200;      // in parallel 800
+    int ny = 200;      // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx / (nx - 1); // in final version 0.0077
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
     double dt = 0.0005;
     int nSteps = int(tFinal / dt);
 
-    int nSpecies = 1; // Number of species
+    int nSpecies = 6; // Number of species
 
     double **Y_splietted = (double **)malloc(nSpecies * sizeof(double *));
     double *u_splitted = new double[splittedLengthes[world_rank]];
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
 
     int unidimensional_size = nx * ny;
     int unidimensional_size_of_bytes = unidimensional_size * sizeof(double);
-    size_t nnz_estimate = 5 * nx *ny;
+    size_t nnz_estimate = nx * ny * 5;
     // Array of pointers to 2D arrays for each species
     double **Y = (double **)malloc(nSpecies * sizeof(double *));
 
@@ -78,13 +79,13 @@ int main(int argc, char *argv[])
         cudaMalloc((void **)&d_u, unidimensional_size_of_bytes);
         cudaMalloc((void **)&d_v, unidimensional_size_of_bytes);
 
-        CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_of_bytes));
+        CHECK_ERROR(cudaMalloc((void **)&d_Yn,nSpecies*nx * ny * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_of_bytes));
-        CHECK_ERROR(cudaMalloc((void **)&d_x_new, unidimensional_size_of_bytes));
+        cudaMalloc((void**)&d_x_new, nSpecies*nx * ny * sizeof(double));
         CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
         CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
-        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx*ny +1) * sizeof(int)));
+        CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx * ny + 1) * sizeof(int)));
     }
 
     if (world_rank == 0)
@@ -127,6 +128,7 @@ int main(int argc, char *argv[])
         }
     }
 
+
     // == Output ==
     string outputName = "output/speciesTransport_";
     int count = 0;
@@ -161,25 +163,30 @@ int main(int argc, char *argv[])
     string WriteU = getString(u_splitted, splittedLengthes[world_rank], world_rank);
     string WriteV = getString(v_splitted, splittedLengthes[world_rank], world_rank);
 
+   
     string *WriteY = new string[nSpecies];
     /* for (int s = 0; s < nSpecies; s++)
      {
           CHECK_ERROR(cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
      } */
-    for (int s = 0; s < nSpecies; s++)
-    {
-        WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
-
+    /* for (int s = 0; s < nSpecies; s++)
+     {
+          CHECK_ERROR(cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+     } */
+        for (int s = 0; s < nSpecies; s++)
+        {
+            WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
+     
     }
     // Launching write funtion with each part of the data to write
     writeDataVTK(outputName, WriteY, WriteU, WriteV, nx, ny, dx, dy, count++, world_rank, world_size, nSpecies);
-    auto end_init = high_resolution_clock::now();
+    auto end_init = high_resolution_clock::now() ;
 
-    auto initDuration = chrono::duration_cast<chrono::microseconds>(end_init - start_total).count(); // Calculate init duration
-    printf("[MAIN] Initialization took: %ld us\n", initDuration);
+     auto initDuration = chrono::duration_cast<chrono::microseconds>(end_init - start_total).count(); // Calculate init duration
+printf("[MAIN] Initialization took: %ld us\n", initDuration);
     auto start_loop = high_resolution_clock::now();
 
-    for (int step = 1; step <= nSteps; step++)
+   for (int step = 1; step <= nSteps; step++)
     {
         double max = 0;
         double total_length = 0;
@@ -189,13 +196,14 @@ int main(int argc, char *argv[])
             for (int s = 0; s < nSpecies; s++)
             {
                 if(step==1){
-                CHECK_ERROR(cudaMemcpy(d_Yn, Y[s], unidimensional_size_of_bytes, cudaMemcpyHostToDevice))
+                CHECK_ERROR(cudaMemcpy( &d_Yn[s * nx * ny], Y[s], unidimensional_size_of_bytes, cudaMemcpyHostToDevice))
 
                 }
-                solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u, d_v, d_Yn, d_x, d_x_new, d_b_flatten, d_values, d_column_indices, d_row_offsets);
+                solveSpeciesEquation(Y[s], dx, dy, D, nx, ny, dt, d_u, d_v, &d_Yn[s * nx * ny], d_x, &d_x_new[s * nx * ny], d_b_flatten, d_values, d_column_indices, d_row_offsets);
           if (step % 100 == 0)
-                {
-                    CHECK_ERROR(cudaMemcpy(Y[s], d_x_new, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+                {   printf("s %d", s);
+                                CHECK_ERROR(cudaMemcpy(Y[s], &d_x_new[s * nx * ny], unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+
                 }  
   
             }
@@ -204,7 +212,7 @@ int main(int argc, char *argv[])
                 // Sending results part to each core
                 for (int s = 0; s < nSpecies; s++)
                 {
-                    MPI_Send(Y + arrStart[i], splittedLengthes[i], MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
+                    MPI_Send(Y[s] + arrStart[i], splittedLengthes[i], MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
                 }
             }
             Y_splietted = Y;
@@ -213,7 +221,7 @@ int main(int argc, char *argv[])
         {
             for (int s = 0; s < nSpecies; s++)
             {
-                MPI_Recv(Y_splietted, splittedLengthes[world_rank], MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
+                MPI_Recv(Y_splietted[s], splittedLengthes[world_rank], MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
             }
         }
 
@@ -225,6 +233,7 @@ int main(int argc, char *argv[])
 
             for (int s = 0; s < nSpecies; s++)
             {
+
                 WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
             }
 
@@ -235,7 +244,7 @@ int main(int argc, char *argv[])
         }
     }
     auto end_loop = high_resolution_clock::now();
-    auto loopDuration = duration_cast<microseconds>(end_loop - start_loop).count(); // Calculate loop duration
+   auto loopDuration = duration_cast<microseconds>(end_loop - start_loop).count(); // Calculate loop duration
     printf("[MAIN] Loop took : %ld us\n", loopDuration);
 
     // Free memory using free()
@@ -262,11 +271,15 @@ int main(int argc, char *argv[])
         cudaFree(d_v);
     }
 
+
     auto end_total = high_resolution_clock::now();
-    auto totalDuration = duration_cast<microseconds>(end_total - start_total).count(); // Calculate total duration
+   auto totalDuration = duration_cast<microseconds>(end_total - start_total).count(); // Calculate total duration
 
     printf("[MAIN] Total time taken: %ld us\n", totalDuration);
 
-    MPI_Finalize();
-    return 0;
+
+MPI_Finalize();
+return 0;
+
+
 }
