@@ -95,7 +95,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     //Compute x with an iterative method 
 
     auto start_computex = high_resolution_clock::now();
-    jacobiSolver(A, b_flatten, x, nx * ny,1000,1e-2);
+    jacobiSolver(A, b_flatten, x, nx * ny,1000,1e-20);
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
 
@@ -104,7 +104,8 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     for (int i = 1; i < nx - 1; i++)
     {
         for (int j = 1; j < ny - 1; j++)
-        {
+        {    
+
             Y[i][j] = x[i * ny + j];
         }
     }
@@ -162,33 +163,5 @@ void fillMatrixA(SparseMatrix &A_sparse, const double dx, const double dy, const
         }
     }
 
-    // Boundary conditions (Dirichlet: Y = 0)
-    for (int i = 0; i < nx; ++i)
-    {
-        // Bottom boundary
-        int idx = i * ny;
-        A_sparse.row.push_back(idx);
-        A_sparse.col.push_back(idx);
-        A_sparse.value.push_back(1.0);
-
-        // Top boundary
-        idx = i * ny + (ny - 1);
-        A_sparse.row.push_back(idx);
-        A_sparse.col.push_back(idx);
-        A_sparse.value.push_back(1.0);
-    }
-    for (int j = 0; j < ny; ++j)
-    {
-        // Left boundary
-        int idx = j;
-        A_sparse.row.push_back(idx);
-        A_sparse.col.push_back(idx);
-        A_sparse.value.push_back(1.0);
-
-        // Right boundary
-        idx = (nx - 1) * ny + j;
-        A_sparse.row.push_back(idx);
-        A_sparse.col.push_back(idx);
-        A_sparse.value.push_back(1.0);
-    }
+   
 }
