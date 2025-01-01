@@ -31,7 +31,7 @@ void jacobiSolver(SparseMatrix &A_sparse, double *b, double *x, int n, int max_i
             diff += abs(x_new[i] - x[i]);
 
         if (diff < tol)
-       { printf("%d\n",iter);
+       {
             break;
        }
         // Update x
