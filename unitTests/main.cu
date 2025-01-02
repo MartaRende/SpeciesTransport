@@ -4,14 +4,16 @@ int main()
 {
     printf("Starting Tests to check offset row\n");
     // 1. Small Grid Test (3x3)
-     int  row_offset1 []= {0,3,7,12,16,19};
-//     runTestRowOffset(3, 3, "Small Grid Test (3x3)");
+    int row_offset[] = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60};
+    //     runTestRowOffset(3, 3, "Small Grid Test (3x3)");
+    runTestRowOffset(row_offset, 5, 5, "Large Grid Test (5x5)");
+    runTestRowOffset(row_offset, 0, 0, "Empty Grid Test (0x0)");
+    runTestRowOffset(row_offset, 6, 4, "Rectangular Grid Test (6x4)");
+    runTestRowOffset(row_offset, 4, 6, "Rectangular Grid Test (4x6)");
+    runTestRowOffset(row_offset, 2, 2, "Boundary-Only Grid Test (2x2)");
 
-    // 2. Large Grid Test (5x5)
-     runTestRowOffset(row_offset1,50, 50, "Large Grid Test (5x5)");
     /*
         // 3. Boundary-Only Grid Test (2x2)
-        runTestRowOffset(2, 2, "Boundary-Only Grid Test (2x2)");
 
         // 4. Single Cell Grid Test (1x1)
         runTestRowOffset(1, 1, "Single Cell Grid Test (1x1)");
@@ -36,11 +38,32 @@ int main()
      */
     // std::cout << "All tests completed successfully." << std::endl;
     printf("All test passed for checking the offset of rows in matrix A\n");
-    // 1. Basic Functionality Test
-     runTestfillMatrixA(5, 5, 0.1, 0.1, 1.0, 0.01, "Basic Functionality Test");
+    int row_offsets_A1[] = {0, 5, 10, 15, 20, 25};
+    double values_exp1[] = {5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1};
 
-    // 2. Boundary Condition Test
-    // runTestfillMatrixA(3, 3, 0.1, 0.1, 1.0, 0.01, "Boundary Condition Test");
+    // 1. Basic Functionality Test
+    runTestfillMatrixA(row_offsets_A1,values_exp1, 5, 5, 0.1, 0.1, 1.0, 0.01, "Basic Functionality Test");
+
+    int row_offsets_A3[] = {0, 5, 10, 15, 20, 25};
+    double values_exp2[] = {3.88889, -1, -1, -0.444444, -0.444444, 3.88889, -1, -1, -0.444444, -0.444444, 3.88889, -1, -1, -0.444444, -0.444444, 3.88889, -1, -1, -0.444444, -0.444444, 3.88889, -1, -1, -0.444444, -0.444444};
+
+    runTestfillMatrixA(row_offsets_A3, values_exp2, 8, 5, 0.1, 0.15, 1.0, 0.01, "Non-Square Grid Test");
+    
+    
+   /*   int row_offsets_A4[] = {0, 5, 10, 15, 20, 25, 30, 35, 40};
+   
+   runTestfillMatrixA(row_offsets_A4, values_exp2,5, 8, 0.1, 0.15, 1.0, 0.01, "Non-Square Grid Test 2"); */
+double values_exp3[] = {1.04, -0.01, -0.01, -0.01, -0.01, 1.04, -0.01, -0.01, -0.01, -0.01, 1.04, -0.01, -0.01, -0.01, -0.01, 1.04, -0.01, -0.01, -0.01, -0.01, 1.04, -0.01, -0.01, -0.01, -0.01};
+    runTestfillMatrixA(row_offsets_A1,values_exp2, 5, 5, 0.1, 0.1, 1.0, 0.0001, "Precision Test");
+
+    /*  try {
+            runTestfillMatrixA(row_offsets_A1,5, 5, 0, 0.1, -1.0, 0.01, "Zero and Negative Parameter Test");
+        } catch (...) {
+            std::cout << "Zero and Negative Parameter Test caught exception as expected: " ;
+        } 
+    int row_offsets_A5[] = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
+
+    runTestfillMatrixA(row_offsets_A5, 10, 10, 0.1, 0.1, 1.0, 0.01, "Different Grid Size Test"); */
 
     /*  // 3. Different Grid Size Test
      runTestfillMatrixA(10, 10, 0.1, 0.1, 1.0, 0.01, "Different Grid Size Test");
@@ -146,7 +169,17 @@ int main()
 
     // Call the Jacobi solver test
     testJacobiSolver(3, 3, 8, row_asymm2, col_asymm2, value_asymm2, b_asymm2, x_asymm2, x_new_asymm2);
+    
+    int row_rect[] = {0, 2, 5, 8,10,11};
+    int col_rect[] = {0, 1, 0, 1,2, 1, 2,3,2,3,3};
+    double value_rect[] = {4,-1,-1-4,-1,-1,4,-1,-1,4,-1};
+    double b_rect[] = {1.0, 2.0, 3.0, 4.0,5.0};
+    double x_rect[] = {1.00, 1.99, 2.99, 3.99,4.99};   // Initial guess
+    double x_new_rect[] = {0.0, 0.0, 0.0,0.0,0.0}; // Solution vector (output)
 
+    // Call the Jacobi solver test
+    testJacobiSolver(4, 5, 11, row_rect, col_rect, value_rect, b_rect, x_rect, x_new_rect);
+    
     double u1[] = {-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
     double v1[] = {1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
     double Yn1[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
