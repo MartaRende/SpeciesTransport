@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
 
     // == Spatial parameters ==
     double D[nSpecies] = {0.005, 0.002, 0.010, 0.005, 0.015, 0.020}; // possible values from 0.001 to 0.025, each specie has its own diffusion coefficient
-    int nx = 200;                                                     // in parallel 800
-    int ny = 200;                                                     // in parallel 800
+    int nx = 36;                                                     // in parallel 800
+    int ny = 36;                                                     // in parallel 800
     double Lx = 1.0;
     double Ly = 1.0;
     double dx = Lx / (nx - 1); // in final version 0.0077
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     double **Y = (double **)malloc(nSpecies * sizeof(double *)); // Y is a 2d array because in y will be the divided results of the 6 species to be calculated
     for (int s = 0; s < nSpecies; s++)
     {
-        Y[s] = (double *)malloc(unidimensional_size_of_bytes); 
+        Y[s] = (double *)malloc(unidimensional_size_of_bytes);
     }
 
     double *u = (double *)malloc(unidimensional_size_of_bytes);
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
     int *arrEnd = new int[world_size];
     int *splittedLengthes = new int[world_size];
 
-    // == Compute array ==
+    // == Calculate how to split the array for the mpi part ==
     if (world_rank == 0)
     {
         long int rest = unidimensional_size % world_size;
@@ -110,16 +110,10 @@ int main(int argc, char *argv[])
 
     if (world_rank == 0)
     {
-        cudaMalloc((void **)&d_Y, unidimensional_size_of_bytes);
-        cudaMalloc((void **)&d_u, unidimensional_size_of_bytes);
-        cudaMalloc((void **)&d_v, unidimensional_size_of_bytes);
-        if (cudaMalloc((void **)&d_Y, unidimensional_size_of_bytes) != cudaSuccess)
-        {
-            printf("CUDA memory allocation failed for d_Y\n");
-            exit(EXIT_FAILURE);
-        }
-
-        CHECK_ERROR(cudaMalloc((void **)&d_Yn, nSpecies * nx * ny * sizeof(double)));
+        cudaMalloc((void **)&d_Y, unidimensional_size_of_bytes); // for initialisation part d_yn could have been used
+        cudaMalloc((void **)&d_u, unidimensional_size_of_bytes); // velocity field u
+        cudaMalloc((void **)&d_v, unidimensional_size_of_bytes);// velocity field v 
+        CHECK_ERROR(cudaMalloc((void **)&d_Yn, nSpecies * unidimensional_size_of_bytes)); //
         CHECK_ERROR(cudaMalloc((void **)&d_x, nSpecies * unidimensional_size_of_bytes));
         CHECK_ERROR(cudaMalloc((void **)&d_x_new, nSpecies * nx * ny * sizeof(double)));
         CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
@@ -127,21 +121,22 @@ int main(int argc, char *argv[])
         CHECK_ERROR(cudaMalloc((void **)&d_column_indices, nnz_estimate * sizeof(int)));
         CHECK_ERROR(cudaMalloc((void **)&d_row_offsets, (nx * ny + 1) * sizeof(int)));
     }
-
+    // == initialisation of the simulation ==
     if (world_rank == 0)
     {
         for (int s = 0; s < nSpecies; s++)
         {
             Initialization(Y[s], u, v, nx, ny, dx, dy, s, d_Y, d_u, d_v);
-            dim3 blockDim(16, 16);
+            dim3 blockDim(16, 16); // kernel size 2d
             dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
             computeBoundariesKernel<<<gridDim, blockDim>>>(d_Y, nx, ny);
-            cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
+            // copy into the host variables results obtained from initialisation
+            cudaMemcpy(Y[s], d_Y, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost); 
             cudaMemcpy(u, d_u, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
             cudaMemcpy(v, d_v, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost);
         }
     }
-
+// == proc 0 send variables to be writed into files and the other processes receive the variables
     if (world_rank == 0)
     {
 
@@ -167,7 +162,7 @@ int main(int argc, char *argv[])
         MPI_Recv(u_splitted, splittedLengthes[world_rank], MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
         MPI_Recv(v_splitted, splittedLengthes[world_rank], MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
     }
-
+// == conversions needed to write the different parts of the variables correctly into the files ==
     string WriteU = getString(u_splitted, splittedLengthes[world_rank], world_rank);
     string WriteV = getString(v_splitted, splittedLengthes[world_rank], world_rank);
 
@@ -177,21 +172,20 @@ int main(int argc, char *argv[])
     {
         WriteY[s] = getString(Y_splietted[s], splittedLengthes[world_rank], world_rank);
     }
-    // Launching write funtion with each part of the data to write
+    // == write initialisation vtk file ==
     writeDataVTK(outputName, WriteY, WriteU, WriteV, nx, ny, dx, dy, count++, world_rank, world_size, nSpecies);
     auto end_init = high_resolution_clock::now();
 
     auto initDuration = chrono::duration_cast<chrono::microseconds>(end_init - start_total).count(); // Calculate init duration
     auto start_loop = high_resolution_clock::now();
-
+    // == Part to solve species equation ==
     for (int step = 1; step <= nSteps; step++)
     {
-
-        // Solve species equation
         if (world_rank == 0)
         {
             for (int s = 0; s < nSpecies; s++)
             {
+                // == copy the results of Y obtained from the initialization into d_Yn == 
                 if (step == 1)
                 {
                     CHECK_ERROR(cudaMemcpy(&d_Yn[s * nx * ny], Y[s], unidimensional_size_of_bytes, cudaMemcpyHostToDevice))
@@ -274,7 +268,7 @@ int main(int argc, char *argv[])
 
         printf("[MAIN] Loop took : %ld us\n", loopDuration);
 
-        printf("[MAIN] Mean of file Writing %f \n", meanFileWriting);
+        printf("[MAIN] Mean of file Writing %f us \n", meanFileWriting);
         printf("[MAIN] Total time taken: %ld us\n", totalDuration);
     }
 
