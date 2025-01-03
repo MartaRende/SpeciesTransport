@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <cuda.h>
 using namespace std;
+
+
 __device__ double sign(const double x1, const double y1, const double x2, const double y2, const double x3, const double y3)
 {
     return (x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3);
@@ -84,7 +86,7 @@ __global__ void initKernel(double *Y, double *u, double *v, int nx, int ny, doub
             Y[idx] = 0.0;
         }
         // init of speeds
-        if (s == 0)
+        if (s == 0) // Done only the first time because the velocity values are the same for all species 
         {
             u[idx] = sin(2.0 * M_PI * j * dy) * sin(M_PI * i * dx) * sin(M_PI * i * dx);
             v[idx] = -sin(2.0 * M_PI * i * dx) * sin(M_PI * j * dy) * sin(M_PI * j * dy);
@@ -96,24 +98,22 @@ __global__ void initKernel(double *Y, double *u, double *v, int nx, int ny, doub
 void Initialization(double *Y, double *u, double *v, const int nx, const int ny, const double dx, const double dy, const int s, double * d_Y, double * d_u,double* d_v)
 {
 
-    // ISC LOGO
-    size_t unidimensional_size_of_bytes = nx * ny * sizeof(double);
-    // == Logo parameters ==
+    // == ISC Logo parameters ==
     double xcenter = 0.6;  // Logo position x
     double ycenter = 0.65; // Logo position y
     double radius = 0.05;  // Logo scale
     double size = sqrt(2) / 2.0 * radius / 0.5;
 
-
-
-    dim3 blockDim(10, 10);
+    // == 2d kernel size ==
+    dim3 blockDim(16, 16);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
 
+
+    // == Functions in the kernel were taken from the code already done in the energy diffusion lab it was just added the variable s to divide the calculation of species ==
     initKernel<<<gridDim, blockDim>>>(d_Y, d_u, d_v, nx, ny, dx, dy, ycenter, xcenter, radius, size, s);
 
-    cudaDeviceSynchronize();
+    cudaDeviceSynchronize(); //make sure that initialization is finished before copying the results
 
-    // Copy results back to host
 
 
 }

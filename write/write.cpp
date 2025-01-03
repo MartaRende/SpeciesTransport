@@ -6,6 +6,8 @@
 #include "write.h"
 
 using namespace std;
+
+// == cast data ==
 string getString(double *data,  long size, int world_rank)
 {
     string toWrite = "";
@@ -15,16 +17,12 @@ string getString(double *data,  long size, int world_rank)
     }
     return toWrite;
 }
-// Write data to VTK file
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <mpi.h>
+// == Write data to VTK file ==
 
 using namespace std;
 void writeDataVTK(const string filename, string *Y_part, string u_part, string v_part, const int nx, const int ny, const double dx, const double dy, const int step, const int world_rank, const int world_size, const int nSpecies)
 {
+    // == Create and open file with mpi ==
     MPI_File fh;
     string filename_all = "0000000" + to_string(step);
     reverse(filename_all.begin(), filename_all.end());
@@ -35,6 +33,7 @@ void writeDataVTK(const string filename, string *Y_part, string u_part, string v
     MPI_File_open(MPI_COMM_WORLD, filename_all.c_str(), MPI_MODE_CREATE | MPI_MODE_WRONLY, MPI_INFO_NULL, &fh);
 
     MPI_Offset header_offset;
+    // == rank 0 writes header ==
     if (world_rank == 0)
     {
         string header = "# vtk DataFile Version 3.0\nvtk output\nASCII\nDATASET RECTILINEAR_GRID\n";
@@ -56,7 +55,7 @@ void writeDataVTK(const string filename, string *Y_part, string u_part, string v
         MPI_File_write(fh, header.c_str(), header.size(), MPI_CHAR, MPI_STATUS_IGNORE);
         header_offset = header.size() * sizeof(char);
     }
-
+    // share header offset with all process 
     MPI_Bcast(&header_offset, 1, MPI_OFFSET, 0, MPI_COMM_WORLD);
 
     MPI_Offset Y_offset = header_offset;
@@ -85,8 +84,6 @@ void writeDataVTK(const string filename, string *Y_part, string u_part, string v
         Y_offset = speciesOffset + Y_part[s].size();
         MPI_Bcast(&Y_offset, 1, MPI_OFFSET, world_size - 1, MPI_COMM_WORLD);
     }
-
-    // Now handle the scalar data u and v
 
     // Handle the u scalar data
     MPI_Offset uHeaderSize;

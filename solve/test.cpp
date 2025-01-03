@@ -159,13 +159,13 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     }
 
     // Allocate device memory
-    double *d_Yn, *d_x, *d_b_flatten, *d_u, *d_v;
+    double *d_Yn, *d_x, *d_b, *d_u, *d_v;
     double *d_values;
     int *d_column_indices, *d_row_offsets;
 
     CHECK_ERROR(cudaMalloc((void **)&d_Yn, unidimensional_size_of_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_x, unidimensional_size_of_bytes));
-    CHECK_ERROR(cudaMalloc((void **)&d_b_flatten, unidimensional_size_of_bytes));
+    CHECK_ERROR(cudaMalloc((void **)&d_b, unidimensional_size_of_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_u, unidimensional_size_of_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_v, unidimensional_size_of_bytes));
     CHECK_ERROR(cudaMalloc((void **)&d_values, nnz_estimate * sizeof(double)));
@@ -191,13 +191,13 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     // Compute b
     auto start_fillb = high_resolution_clock::now();
 
-    computeB<<<gridDim, blockDim>>>(d_b_flatten, d_Yn, d_u, d_v, dx, dy, nx, ny, dt);
+    computeB<<<gridDim, blockDim>>>(d_b, d_Yn, d_u, d_v, dx, dy, nx, ny, dt);
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
     cudaDeviceSynchronize();
 
     // Copy results back to the host
-    CHECK_ERROR(cudaMemcpy(b_flatten, d_b_flatten, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+    CHECK_ERROR(cudaMemcpy(b_flatten, d_b, unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
 
     //  Jacobi Solver
     
@@ -225,7 +225,7 @@ void solveSpeciesEquation(double **Y, double **u, double **v,
     // Free device memory
     cudaFree(d_Yn);
     cudaFree(d_x);
-    cudaFree(d_b_flatten);
+    cudaFree(d_b);
     cudaFree(d_u);
     cudaFree(d_v);
     cudaFree(d_values);

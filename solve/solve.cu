@@ -11,9 +11,9 @@ using namespace chrono;
 #include "tools.h"
 #include <cstdlib> // Per std::exit
 
-void solveSpeciesEquation(double *Y,
+void solveSpeciesEquation(
                           const double dx, const double dy, double D,
-                          const int nx, const int ny, const double dt, double *d_u, double *d_v, double *d_Yn, double *d_x, double *d_x_new, double *d_b_flatten, double *d_values, int *d_column_indices, int *d_row_offsets, int world_rank)
+                          const int nx, const int ny, const double dt, double *d_u, double *d_v, double *d_Yn, double *d_x, double *d_x_new, double *d_b, double *d_values, int *d_column_indices, int *d_row_offsets, int world_rank)
 {
 
     /*It's important to ensure that dx and dy are positive because otherwise
@@ -25,49 +25,58 @@ void solveSpeciesEquation(double *Y,
         std::exit(-1);
     }
 
-    // start solve part
+    // == Start solve part ==
     auto start_total_solve = high_resolution_clock::now();
 
+    // == Paramenters to solve jacobi iteration method ==
     int max_iter = 100;
-    double tol = 1e-20;
+    double tol = 1e-20; // the smaller it is the more accurate it will be 
+
     size_t unidimensional_size_of_bytes = nx * ny * sizeof(double);
-    size_t nnz_estimate = nx * ny * 5;
 
     cudaMemset(d_x_new, 0, nx * ny * sizeof(double));
+
+    //== all kernel are 2d and they have the same size ==
     dim3 blockDim(16, 16);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
 
     auto end_init_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     auto start_fillMatrix = high_resolution_clock::now();
 
-    // Fill A
-    initializeRowOffsetsKernel<<<gridDim, blockDim>>>(d_row_offsets, nx, ny);
-    cudaDeviceSynchronize();
+    // == Part to fill matrix A --> diffusion part  ==
 
-    fillMatrixAKernel<<<gridDim, blockDim>>>(d_values, d_column_indices, d_row_offsets, dx, dy, D, dt, nx, ny);
+    initializeRowOffsetsKernel<<<gridDim, blockDim>>>(d_row_offsets, nx, ny); // row offset calculation
+
+    fillMatrixAKernel<<<gridDim, blockDim>>>(d_values, d_column_indices, d_row_offsets, dx, dy, D, dt, nx, ny); // Calculate the non-zero values and column indices of A 
+
     auto end_fillMatrix = duration_cast<microseconds>(high_resolution_clock::now() - start_fillMatrix).count();
 
-    // Compute b
-    auto start_fillb = high_resolution_clock::now();
-    computeB<<<gridDim, blockDim>>>(d_b_flatten, d_Yn, d_u, d_v, dx, dy, nx, ny, dt);
+    // == Compute b part --> advection part ==
 
-    // cudaDeviceSynchronize();
+    auto start_fillb = high_resolution_clock::now();
+    computeB<<<gridDim, blockDim>>>(d_b, d_Yn, d_u, d_v, dx, dy, nx, ny, dt);
+
+
+    cudaDeviceSynchronize(); // this is necessary to be sure that the values of A and b are finished to be calculated because if not, we may have errors in the calculation of the system Ax = b
 
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
 
+    // == beginning of the calculation of x using jacobi's iterative method ==
     auto start_computex = high_resolution_clock::now();
 
-    jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b_flatten, d_x, d_x_new, nx, ny, 5 * nx * ny, max_iter, tol);
+    jacobiKernel<<<gridDim, blockDim>>>(d_row_offsets, d_column_indices, d_values, d_b, d_x, d_x_new, nx, ny, 5 * nx * ny, max_iter, tol);
 
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
 
-    computeBoundariesKernel<<<gridDim, blockDim>>>(d_x, nx, ny);
+    computeBoundariesKernel<<<gridDim, blockDim>>>(d_x, nx, ny); 
 
-    cudaMemcpy(d_Yn, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice);
+    cudaDeviceSynchronize(); // wait until the iterative method has finished before copying the values 
 
-    // Copy results back to host
+    // == copy de actual value of my species d_x into d_Yn for the next iteration
+    cudaMemcpy(d_Yn, d_x, unidimensional_size_of_bytes, cudaMemcpyDeviceToDevice); // less expensive to make a copy from device to device than from device to host
 
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
+    // print the time taken by each part
     if (world_rank == 0)
     {
         printf("[SOLVE] Initialization took: %ld us\n", end_init_solve);
@@ -81,16 +90,4 @@ void solveSpeciesEquation(double *Y,
         printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
     }
 }
-__global__ void computeBoundariesKernel(double *Y, const int nx, const int ny)
-{
-    int i = blockIdx.y * blockDim.y + threadIdx.y;
-    int j = blockIdx.x * blockDim.x + threadIdx.x;
-    int idx = i * nx + j;
-    if (i < ny && j < nx)
-    {
-        if (j == 0 || j == nx - 1 || i == 0 || i == ny - 1)
-        {
-            Y[idx] = 0.0;
-        }
-    }
-}
+
