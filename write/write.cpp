@@ -17,21 +17,15 @@ void writeDataVTK(const string filename, double*** Y, double** u, double** v, co
     reverse(filename_all.begin(), filename_all.end());
     filename_all = filename + filename_all + ".vtk";
 
-    // Inform user the output filename
     cout << "Writing data into " << filename_all << "\n";
 
-    // Setting open file using output file streaming 
+    // Setting open file 
     ofstream myfile;
     myfile.open(filename_all);
-    if (!myfile.is_open()) {
-    cerr << "Failed to open file: " << filename_all << endl;
-    // Handle the error appropriately
-    return;
-}
+    
     // Write header of vtk file 
     myfile << "# vtk DataFile Version 3.0\nvtk output\nASCII\nDATASET RECTILINEAR_GRID\n";
 
-    // Write domain dimensions (must be 3D)
     myfile << "DIMENSIONS " << nx << " " << ny << " 1\n";
     myfile << "X_COORDINATES " << nx << " float\n";
     for (int i = 0; i < nx; i++){myfile << i*dx << "\n";}
@@ -41,10 +35,9 @@ void writeDataVTK(const string filename, double*** Y, double** u, double** v, co
 
     myfile << "Z_COORDINATES 1 float\n";
     myfile << "0\n";
-    // Write number of cells
     myfile << "POINT_DATA " << nx*ny << "\n";
 
-    // Write the Y values (loop over ny then nx)
+    // Write the Y values, one variable for each species
     for( int s = 0; s < nSpecies ; s++){
     myfile << "SCALARS Y"<< s <<" float 1\n";
     myfile << "LOOKUP_TABLE default\n";
@@ -55,7 +48,7 @@ void writeDataVTK(const string filename, double*** Y, double** u, double** v, co
         }
     }
 }
-    // Write the x velocity values (loop over ny then nx)
+    // Write the x velocity values 
     myfile << "\nSCALARS u float 1\n";
     myfile << "LOOKUP_TABLE default\n";
 
@@ -65,7 +58,7 @@ void writeDataVTK(const string filename, double*** Y, double** u, double** v, co
         }
     }
 
-    // Write the y velocity values (loop over ny then nx)
+    // Write the y velocity values
     myfile << "\nSCALARS v float 1\n";
     myfile << "LOOKUP_TABLE default\n";
 

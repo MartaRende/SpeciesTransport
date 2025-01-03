@@ -9,31 +9,17 @@ using namespace chrono;
 #include <vector>
 
 
-
-
-void computeBoundaries(double **Y, const int nx, const int ny)
-{
-    for (int i = 0; i < nx; i++)
-    {
-        Y[i][ny - 1] = 0.0;
-        Y[i][0] = 0.0;
-    }
-
-    for (int j = 0; j < ny; j++)
-    {
-        Y[0][j] = 0.0;
-        Y[nx - 1][j] = 0.0;
-    }
-}
-
 void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, const double dy, double D, const int nx, const int ny, const double dt)
-{   //arrays needed
+{  
     auto start_total_solve = high_resolution_clock::now();
+
+     // == arrays needed ==
     double **Y_n = new double *[nx]; // Previous Y
     double *x = new double[nx * ny];
     SparseMatrix A;
     double *b_flatten = new double[nx * ny];
-
+    
+    // == array initialisation
     for (int i = 0; i < nx * ny; ++i)
     {
         x[i] = 0.0;
@@ -46,21 +32,21 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
         for (int j = 0; j < ny; j++)
         {
-            Y_n[i][j] = Y[i][j];
+            Y_n[i][j] = Y[i][j]; // save Y in Y_n to save previous results
         }
     }
    
 
     auto end_init_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Initialization took: %ld us\n", end_init_solve);
-    //Compute part Ax = b
+    // == Compute part Ax = b ==
     //Fill A with right coeffs.
     auto start_fillMatrix = high_resolution_clock::now();
     fillMatrixA(A, dx, dy, D, dt, nx, ny);
     auto end_fillMatrix = duration_cast<microseconds>(high_resolution_clock::now() - start_fillMatrix).count();
     printf("[SOLVE] Fill Matrix A took: %ld us\n", end_fillMatrix);
 
-    //compute b part 
+    //== Compute b part == 
 
     auto start_fillb = high_resolution_clock::now();
     for (int i = 1; i < nx - 1; i++)
@@ -92,14 +78,14 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
     auto end_fillb = duration_cast<microseconds>(high_resolution_clock::now() - start_fillb).count();
     printf("[SOLVE] Fill b took: %ld us\n", end_fillb);
 
-    //Compute x with an iterative method 
+    // == Compute x with an iterative method ==
 
     auto start_computex = high_resolution_clock::now();
     jacobiSolver(A, b_flatten, x, nx * ny,1000,1e-20);
     auto end_computex = duration_cast<microseconds>(high_resolution_clock::now() - start_computex).count();
     printf("[SOLVE] Fill x took: %ld us\n", end_computex);
 
-    // Update Yi
+    // Update Y
 
     for (int i = 1; i < nx - 1; i++)
     {
@@ -109,11 +95,11 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
             Y[i][j] = x[i * ny + j];
         }
     }
+    // == Compute boundaries ==  
 
-    computeBoundaries(Y, nx, ny);
-    // Free memory
+    computeBoundaries(Y, nx, ny); 
 
-
+    // == Free memory ==
     for (int i = 0; i < nx; ++i) {
     delete[] Y_n[i];
     }
@@ -124,44 +110,4 @@ void solveSpeciesEquation(double **Y, double **u, double **v, const double dx, c
 
     auto end_total_solve = duration_cast<microseconds>(high_resolution_clock::now() - start_total_solve).count();
     printf("[SOLVE] Total time taken: %ld us\n", end_total_solve);
-}
-
-
-void fillMatrixA(SparseMatrix &A_sparse, const double dx, const double dy, const double D, const double dt, const int nx, const int ny)
-{
-    // Internal nodes
-    for (int i = 1; i < nx - 1; ++i)
-    {
-        for (int j = 1; j < ny - 1; ++j)
-        {
-            int idx = i * ny + j;
-
-            // Diagonal (central node)
-            A_sparse.row.push_back(idx);
-            A_sparse.col.push_back(idx);
-            A_sparse.value.push_back(1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy)));
-
-            // Left neighbor
-            A_sparse.row.push_back(idx);
-            A_sparse.col.push_back(idx - 1);
-            A_sparse.value.push_back(-dt * D / (dx * dx));
-
-            // Right neighbor
-            A_sparse.row.push_back(idx);
-            A_sparse.col.push_back(idx + 1);
-            A_sparse.value.push_back(-dt * D / (dx * dx));
-
-            // Top neighbor
-            A_sparse.row.push_back(idx);
-            A_sparse.col.push_back((i - 1) * ny + j);
-            A_sparse.value.push_back(-dt * D / (dy * dy));
-
-            // Bottom neighbor
-            A_sparse.row.push_back(idx);
-            A_sparse.col.push_back((i + 1) * ny + j);
-            A_sparse.value.push_back(-dt * D / (dy * dy));
-        }
-    }
-
-   
 }

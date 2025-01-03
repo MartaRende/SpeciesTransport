@@ -35,11 +35,8 @@ bool isInsideCircle(const double x1, const double y1, const double radius, const
 
 // Initialization of the temperature inside the domain
 void Initialization(double** Y,double** u, double** v, const int nx, const int ny, const double dx, const double dy, const int s){
-
-
-   
+   // == Initailisation is the same of the lab of energy diffusion but each part of the logo ISC is a different Y
     // ISC LOGO
-
     // == Logo parameters ==
     double xcenter = 0.6; // Logo position x
     double ycenter = 0.65; // Logo position y
@@ -84,7 +81,7 @@ void Initialization(double** Y,double** u, double** v, const int nx, const int n
             else { 
                 Y[i][j] = 0.0;
             }
-            // init of speeds
+            // init of speeds only for the first species beacuse velocity are always the same
             if(s==0){
             u[i][j] = -sin(2.0*M_PI*j*dy) * sin(M_PI*i*dx) * sin(M_PI*i*dx);
             v[i][j] = sin(2.0*M_PI*i*dx) * sin(M_PI*j*dy) * sin(M_PI*j*dy);
