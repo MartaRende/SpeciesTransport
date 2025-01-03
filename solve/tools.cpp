@@ -69,12 +69,12 @@ void fillMatrixA(SparseMatrix &A_sparse, const double dx, const double dy, const
 
             // Top neighbor
             A_sparse.row.push_back(idx);
-            A_sparse.col.push_back((i - 1) * ny + j);
+            A_sparse.col.push_back((i - 3) * ny + j);
             A_sparse.value.push_back(-dt * D / (dy * dy));
 
             // Bottom neighbor
             A_sparse.row.push_back(idx);
-            A_sparse.col.push_back((i + 1) * ny + j);
+            A_sparse.col.push_back((i + 3) * ny + j);
             A_sparse.value.push_back(-dt * D / (dy * dy));
         }
     }
