@@ -19,25 +19,26 @@ __global__ void computeBoundariesKernel(double *Y, const int nx, const int ny)
 __global__ void jacobiKernel(int *row, int *col, double *value, double *b, double *x, double *x_new, int nx, int ny, int nnz, int max_iterations, double tolerance)
 {
     // 2D block and grid dimensions
-    int j = blockIdx.x * blockDim.x + threadIdx.x; 
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
     int i = blockIdx.y * blockDim.y + threadIdx.y;
+            int idx = i * nx + j; // 2D index flattened to 1D
 
-    if (i < ny && j < nx && i > 0 && j > 0) // make sure to be in the domain
+    if (i < ny && j < nx && idx < nx  && idx <ny) // make sure to be in the domain
     {
-        
+
         for (int iter = 0; iter < max_iterations; ++iter)
         {
-            int idx = i * nx + j; // 2D index flattened to 1D
             double sum = 0.0;
             double diag = 1.0;
             int row_start = row[idx];   // Starting index for this row in the sparse matrix
             int row_end = row[idx + 1]; // Ending index for this row
 
-            // Calculate jacobi formula 
+            // Calculate jacobi formula
             for (int k = row_start; k < row_end; k++)
             {
-                if (col[k] == idx)
+                if (col[k] == idx){
                     diag = value[k]; // save value of diagonals
+                }
                 else
                     sum += value[k] * x[col[k]]; // calculate sum part
             }
@@ -49,7 +50,7 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
             if (fabs(new_value - x[idx]) < tolerance)
                 break;
 
-            x[idx] = x_new[idx]; // save the new value of x 
+            x[idx] = x_new[idx]; // save the new value of x
         }
     }
 }
@@ -64,25 +65,24 @@ __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_
 
     int idx = i * nx + j;
 
-    if (i < ny && j < nx && j > 0 && i > 0) // make sure to be in the domain
+    if (i < ny && j < nx) // make sure to be in the domain
     {
 
-        int row_start = row_offsets[idx]; // offset is necessary to fill each row correctly , All rows will then be filled with 5 values 
-
+        int row_start = row_offsets[idx];                                 // offset is necessary to fill each row correctly , All rows will then be filled with 5 values
         values[row_start] = 1 + dt * D * (2 / (dx * dx) + 2 / (dy * dy)); // diagonal value
         column_indices[row_start] = idx;
 
-        values[row_start + 1] = -dt * D / (dx * dx); // first neighbor value
+        values[row_start + 1] = -dt * D / (dx * dx); // first neighbor value ,value before diag
         column_indices[row_start + 1] = idx - 1;
 
-        values[row_start + 2] = -dt * D / (dx * dx); // second neighbor value
+        values[row_start + 2] = -dt * D / (dx * dx); // second neighbor value, value after diag
         column_indices[row_start + 2] = idx + 1;
 
         values[row_start + 3] = -dt * D / (dy * dy);
-        column_indices[row_start + 3] = ((i - 1) * ny + j); // third neighbor value
+        column_indices[row_start + 3] = ((i - 3) * ny + j); // third neighbor value,distance of 3 values form diag
 
         values[row_start + 4] = -dt * D / (dy * dy);
-        column_indices[row_start + 4] = ((i + 1) * ny + j); // fourth neighbor value
+        column_indices[row_start + 4] = ((i + 3) * ny + j); // fourth neighbor value,distance of 3 values form diag
     }
 }
 
@@ -94,7 +94,7 @@ __global__ void computeB(double *b, double *Y_n, double *u, double *v,
     int i = blockIdx.y * blockDim.y + threadIdx.y;
     int idx = i * nx + j;
 
-    if (i < ny && j < nx && j > 0 && i > 0) // make sure to be in the domain
+    if (i < ny && j < nx ) // make sure to be in the domain
     {
         int right = i * nx + (j + 1);
         int left = i * nx + (j - 1);
@@ -117,10 +117,10 @@ __global__ void computeB(double *b, double *Y_n, double *u, double *v,
 // == kernel to initialise row offset of A  ==
 __global__ void initializeRowOffsetsKernel(int *row_offsets, const int nx, const int ny)
 {
-    int j = blockIdx.x * blockDim.x + threadIdx.x; 
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
     int i = blockIdx.y * blockDim.y + threadIdx.y;
 
-    if (i < ny && j < nx && i > 0 && j > 0) // make sure to be in the domain
+    if (i < ny && j < nx) // make sure to be in the domain
     {
         int idx = i * nx + j;
         row_offsets[idx] = idx * 5; // offset is 0,5,10,... for semplicity

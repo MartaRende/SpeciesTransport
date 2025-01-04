@@ -62,7 +62,7 @@ void writeDataVTK(const string filename, string *Y_part, string u_part, string v
     MPI_Offset u_offset;
     MPI_Offset v_offset;
 
-    // Write Y species data
+    // Write Y species data, one variable for each species
     for (int s = 0; s < nSpecies; s++)
     {
         MPI_Offset speciesHeaderSize;

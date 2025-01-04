@@ -19,7 +19,7 @@ void solveSpeciesEquation(
     /*It's important to ensure that dx and dy are positive because otherwise
     we would generate calculations with divisions by zero  */
 
-    if (dx < 0 || dy < 0)
+    if (dx <= 0 || dy <= 0)
     {
         std::cerr << "dx and dy must be positive " << std::endl;
         std::exit(-1);

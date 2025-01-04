@@ -4,40 +4,39 @@
 #include <cmath>
 #include "../solve/tools.h"
 #include "unitTest.h"
-#include <cmath>  
+#include <cmath>
 
-const double TOLERANCE = 1e-6;
 
-#include <iostream>
-#include <cuda_runtime.h>
+void runTestfillMatrixA(int* row_offset,double* exp_values,int nx, int ny, double dx, double dy, double D, double dt, const char *testName)
+{
+    //Chcking invalid cases
+    if (dx <= 0 || dy <= 0)
+    {
+throw std::invalid_argument("dx and dy must be positive.");    }
 
-void runTestfillMatrixA(int nx, int ny, double dx, double dy, double D, double dt, const char* testName) {
-    size_t values_size = 5 * (nx) * sizeof(double);
-    size_t indices_size = 5 * (nx) * sizeof(int);
+    size_t values_size = 5 * (ny) * sizeof(double);
+    size_t indices_size = 5 * (ny) * sizeof(int);
 
     double *d_values, *h_values;
     int *d_column_indices, *h_column_indices;
     int *d_row_offsets;
-int h_row_offsets[] = {0, 5, 10, 15, 20, 25};
 
-cudaMalloc(&d_row_offsets, 6 * sizeof(int));
-cudaMemcpy(d_row_offsets, h_row_offsets, 6 * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMalloc(&d_row_offsets, (ny+1) * sizeof(int));
+    cudaMemcpy(d_row_offsets, row_offset, (ny+1) * sizeof(int), cudaMemcpyHostToDevice);
 
     // Allocate device memory
     cudaMalloc(&d_values, values_size);
     cudaMalloc(&d_column_indices, indices_size);
 
     // Allocate host memory
-    h_values = (double*)malloc(values_size);
-    h_column_indices = (int*)malloc(indices_size);
-   // h_row_offsets = (int*)malloc((nx * ny + 1) * sizeof(int)); // +1 for row offsets
+    h_values = (double *)malloc(values_size);
+    h_column_indices = (int *)malloc(indices_size);
+    // h_row_offsets = (int*)malloc((nx * ny + 1) * sizeof(int)); // +1 for row offsets
 
     // Define block and grid sizes
     dim3 blockSize(16, 16);
     dim3 gridSize((nx + blockSize.x - 1) / blockSize.x, (ny + blockSize.y - 1) / blockSize.y);
 
-    // Initialize row offsets on device
-//int    d_row_offsets[] ={0,5,10,15,20,25};
 
 
     // Fill the sparse matrix on device
@@ -46,25 +45,16 @@ cudaMemcpy(d_row_offsets, h_row_offsets, 6 * sizeof(int), cudaMemcpyHostToDevice
     // Copy results back to host
     cudaMemcpy(h_values, d_values, values_size, cudaMemcpyDeviceToHost);
     cudaMemcpy(h_column_indices, d_column_indices, indices_size, cudaMemcpyDeviceToHost);
-    cudaMemcpy(h_row_offsets, d_row_offsets, 6 * sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(row_offset, d_row_offsets, (ny+1) * sizeof(int), cudaMemcpyDeviceToHost);
 
-    // Print out the sparse matrix representation
-    std::cout << "Sparse Matrix Representation for " << testName << ":\n";
-    
-    std::cout << "Values: ";
-    for (int i = 0; i < values_size / sizeof(double); i++) {
-        std::cout << h_values[i] << " ";
-    }
-    
-    std::cout << "\nColumn Indices: ";
-    for (int i = 0; i < indices_size / sizeof(int); i++) {
-        std::cout << h_column_indices[i] << " ";
+    double tolerance = 0.0001;  // tolerence for double values
+
+    for (int i = 0; i < values_size / sizeof(double); i++)
+    {
+        assert(fabs(h_values[i] - exp_values[i]) < tolerance);
+
     }
 
-    std::cout << "\nRow Offsets: ";
-    for (int i = 0; i < 6; i++) { // +1 for row offsets
-        std::cout << h_row_offsets[i] << " ";
-    }
     
     std::cout << std::endl;
 
@@ -76,7 +66,6 @@ cudaMemcpy(d_row_offsets, h_row_offsets, 6 * sizeof(int), cudaMemcpyHostToDevice
     // Free host memory
     free(h_values);
     free(h_column_indices);
-    free(h_row_offsets);
 
     std::cout << testName << " passed successfully." << std::endl;
 }

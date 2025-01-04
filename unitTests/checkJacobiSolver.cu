@@ -12,7 +12,7 @@ void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * va
     // Allocate device memory
     int *d_row, *d_col;
     double *d_values, *d_b, *d_x, *d_x_new;
-    cudaMalloc(&d_row,( nx+1) * sizeof(int));
+    cudaMalloc(&d_row,( ny+1) * sizeof(int));
     cudaMalloc(&d_col, nnz* sizeof(int));
     cudaMalloc(&d_values,nnz * sizeof(double));
     cudaMalloc(&d_b, ny * sizeof(double));
@@ -20,13 +20,13 @@ void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * va
     cudaMalloc(&d_x_new, ny * sizeof(double));
 
     // Copy data to device
-    cudaMemcpy(d_row, row, ( nx+1)* sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_row, row, ( ny+1)* sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_col, col,nnz* sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_values, values,nnz* sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_b, b, ny * sizeof(double), cudaMemcpyHostToDevice);
    cudaMemcpy(d_x, x_new, ny * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_x_new, x_new, ny * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemset(d_x_new, 0, ny * sizeof(double));
+    cudaMemset(d_x, 0, ny * sizeof(double));
 
     // Launch kernel
    dim3 blockDim(16, 16);
@@ -34,15 +34,14 @@ void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * va
     jacobiKernel<<<gridDim, blockDim>>>(d_row, d_col, d_values, d_b, d_x, d_x_new, nx, ny, nnz, 100, 1e-6);
 
     // Copy result back to host
-    cudaMemcpy(x_new, d_x_new, ny * sizeof(double), cudaMemcpyDeviceToHost);
-
+    cudaMemcpy(x_new, d_x, ny * sizeof(double), cudaMemcpyDeviceToHost);
+cudaDeviceSynchronize();
     // Check result
     for(int i = 0; i<ny;i++){
-     printf("hold %f\n", x[i]);
-     printf("new %f\n", x_new[i]);
-    
-//    assert(fabs(x_new[i] - x[i]) < 0.5);
-
+   
+ if (fabs(x_new[i] - x[i]) >= 0.5) {
+            throw std::runtime_error("Assertion failed: Values are not within tolerance!");
+        }
     }
 
     // Free device memory
