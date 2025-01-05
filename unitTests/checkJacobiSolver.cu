@@ -7,7 +7,7 @@
 #include <cmath>  
 
 
-void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * values, double * b, double* x, double *x_new) {
+void testJacobiSolver(int nx, int ny, int nnz,int * row, int * col , double * values, double * b, double* x, double *x_new, const char *testName) {
 
     // Allocate device memory
     int *d_row, *d_col;
@@ -52,5 +52,6 @@ cudaDeviceSynchronize();
     cudaFree(d_x);
     cudaFree(d_x_new);
 
-    printf("Invertible matrix test passed!\n");
+    std::cout << testName << " passed successfully." << std::endl;
+
 }

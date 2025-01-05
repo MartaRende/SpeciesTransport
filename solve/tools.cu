@@ -1,6 +1,8 @@
 #include <iostream>
 #include "tools.h"
 
+//== for a problem with size > 500 it's important to check also the lower edges of the domain ==
+// == if it is not done this could lead to illegal access memory ==
 // == kernel to compute boundaries ==
 __global__ void computeBoundariesKernel(double *Y, const int nx, const int ny)
 {
@@ -23,7 +25,7 @@ __global__ void jacobiKernel(int *row, int *col, double *value, double *b, doubl
     int i = blockIdx.y * blockDim.y + threadIdx.y;
             int idx = i * nx + j; // 2D index flattened to 1D
 
-    if (i < ny && j < nx && idx < nx  && idx <ny) // make sure to be in the domain
+    if (i < ny && j < nx ) // make sure to be in the domain
     {
 
         for (int iter = 0; iter < max_iterations; ++iter)
@@ -79,11 +81,11 @@ __global__ void fillMatrixAKernel(double *values, int *column_indices, int *row_
         column_indices[row_start + 2] = idx + 1;
 
         values[row_start + 3] = -dt * D / (dy * dy);
-        column_indices[row_start + 3] = ((i - 3) * ny + j); // third neighbor value,distance of 3 values form diag
+        column_indices[row_start + 3] = ((i - 1) * ny + j); // third neighbor value
 
         values[row_start + 4] = -dt * D / (dy * dy);
-        column_indices[row_start + 4] = ((i + 3) * ny + j); // fourth neighbor value,distance of 3 values form diag
-    }
+        column_indices[row_start + 4] = ((i + 1) * ny + j); // fourth neighbor value
+}
 }
 
 // == kernel to computer advection part ==

@@ -16,14 +16,6 @@ void solveSpeciesEquation(
                           const int nx, const int ny, const double dt, double *d_u, double *d_v, double *d_Yn, double *d_x, double *d_x_new, double *d_b, double *d_values, int *d_column_indices, int *d_row_offsets, int world_rank)
 {
 
-    /*It's important to ensure that dx and dy are positive because otherwise
-    we would generate calculations with divisions by zero  */
-
-    if (dx <= 0 || dy <= 0)
-    {
-        std::cerr << "dx and dy must be positive " << std::endl;
-        std::exit(-1);
-    }
 
     // == Start solve part ==
     auto start_total_solve = high_resolution_clock::now();

@@ -2,12 +2,6 @@
 #define SOLVE_H
 
 
-struct SparseMatrix {
-     int* row;     // Row indices (COO format)
-     int* col;     // Column indices (COO format)
-    double* value; // Non-zero values
-     int nnz;       // Number of non-zero elements
-};
 
 
 void solveSpeciesEquation(

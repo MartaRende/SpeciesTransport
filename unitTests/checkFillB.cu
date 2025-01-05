@@ -5,7 +5,7 @@
 #include "../solve/tools.h"
 #include "unitTest.h"
 #include <cmath>
-void testFillb(int nx, int ny, double dt, double dx, double dy, double *u, double *v, double *Yn, double *b_expeted, double *b)
+void testFillb(int nx, int ny, double dt, double dx, double dy, double *u, double *v, double *Yn, double *b_expeted, double *b, const char *testName)
 {
     // check if dx and dy are  positive
     if (dx <= 0 || dy <= 0)
@@ -38,9 +38,11 @@ void testFillb(int nx, int ny, double dt, double dx, double dy, double *u, doubl
             assert(fabs(b_expeted[idx] - b[idx]) < 0.2); // for double values is necessary a tolerance
         }
     }
-    //== Free CUDA memory
+    //== Free CUDA memory ==
     cudaFree(d_b);
     cudaFree(d_u);
     cudaFree(d_v);
     cudaFree(d_Yn);
+    std::cout << testName << " passed successfully." << std::endl;
+
 }

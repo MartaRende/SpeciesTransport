@@ -12,7 +12,7 @@ int main()
     runTestRowOffset(row_offset, 2, 2, "Boundary-Only Grid Test (2x2)");
 
     printf("All test passed for checking the offset of rows in matrix A\n");
-    // == test fill of A values
+    // == test fill of A values ==
 
     int row_offsets_A1[] = {0, 5, 10, 15, 20, 25};
     double values_exp1[] = {5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1, 5, -1, -1, -1, -1};
@@ -53,44 +53,39 @@ int main()
     printf("All test passed to check filling of matrix A\n");
 
     // Test case: 3x3 matrix, 9 non-zero elements
-    int row[] = {0, 3, 6, 9};                           // Row pointers (nx + 1)
-    int col[] = {0, 1, 2, 0, 1, 2, 0, 1, 2};            // Column indices for non-zero elements (nnz)
-    double value[] = {4, -1, -1, -1, 4, -1, -1, -1, 4}; // Non-zero values of the matrix (nnz)
-    double b[] = {3.0, 7.0, 2.0};                       // Right-hand side vector
-    double x[] = {9.0 / 5, 13.0 / 5, 8.0 / 5};          // Initial guess
-    double x_new[] = {0, 0, 0};                         // Solution vector (output)
+    int row[] = {0, 3, 6, 9};                           
+    int col[] = {0, 1, 2, 0, 1, 2, 0, 1, 2};            
+    double value[] = {4, -1, -1, -1, 4, -1, -1, -1, 4}; 
+    double b[] = {3.0, 7.0, 2.0};                  
+    double x[] = {9.0 / 5, 13.0 / 5, 8.0 / 5};          
+    double x_new[] = {0, 0, 0};                        
 
-    // Call the Jacobi solver test
-    testJacobiSolver(3, 3, 9, row, col, value, b, x, x_new);
+    testJacobiSolver(3, 3, 9, row, col, value, b, x, x_new, " 3x3 matrix, 9 non-zero elements");
     // Test case: 3x3 matrix, 9 non-zero elements
-    int row2[] = {0, 3, 6, 9};                            // Row pointers (nx + 1)
-    int col2[] = {0, 1, 2, 0, 1, 2, 0, 1, 2};             // Column indices for non-zero elements (nnz)
-    double value2[] = {10, -1, 2, -1, 11, -1, 2, -1, 10}; // Non-zero values of the matrix (nnz)
-    double b2[] = {6.0, 25.0, -11.0};                     // Right-hand side vector
-    double x2[] = {1.0, 2.0, -1.0};                       // Initial guess
-    double x_new2[] = {0.0, 0.0, 0.0};                    // Solution vector (output)
+    int row2[] = {0, 3, 6, 9};                          
+    int col2[] = {0, 1, 2, 0, 1, 2, 0, 1, 2};           
+    double value2[] = {10, -1, 2, -1, 11, -1, 2, -1, 10}; 
+    double b2[] = {6.0, 25.0, -11.0};                   
+    double x2[] = {1.0, 2.0, -1.0};                 
+    double x_new2[] = {0.0, 0.0, 0.0};                  
 
-    // Call the Jacobi solver test
-    testJacobiSolver(3, 3, 9, row2, col2, value2, b2, x2, x_new2);
-    int row3[] = {0, 3, 6, 9, 12, 15};                                           // Row pointers (nx + 1)
-    int col3[] = {0, 1, 2, 0, 1, 2, 1, 2, 3, 2, 3, 4, 0, 3, 4};                  // Column indices for non-zero elements (nnz)
-    double value3[] = {10, -2, 1, -2, 10, -3, -1, 10, -1, 1, 10, -1, 2, -1, 10}; // Non-zero values of the matrix (nnz)
-    double b3[] = {6.0, 25.0, -11.0, 15.0, 6.0};                                 // Right-hand side vector
-    double x3[] = {1.1, 2.5, -0.6, 1.6, 0.5};                                    // Initial guess
-    double x_new3[] = {0.0, 0.0, 0.0, 0.0, 0.0};                                 // Solution vector (output)
+    testJacobiSolver(3, 3, 9, row2, col2, value2, b2, x2, x_new2, "3x3 matrix, 9 non-zero elements 2");
+    int row3[] = {0, 3, 6, 9, 12, 15};                                           
+    int col3[] = {0, 1, 2, 0, 1, 2, 1, 2, 3, 2, 3, 4, 0, 3, 4};                  
+    double value3[] = {10, -2, 1, -2, 10, -3, -1, 10, -1, 1, 10, -1, 2, -1, 10}; 
+    double b3[] = {6.0, 25.0, -11.0, 15.0, 6.0};                               
+    double x3[] = {1.1, 2.5, -0.6, 1.6, 0.5};                                 
+    double x_new3[] = {0.0, 0.0, 0.0, 0.0, 0.0};                             
 
-    // Call the Jacobi solver test
-    testJacobiSolver(5, 5, 15, row3, col3, value3, b3, x3, x_new3);
+    testJacobiSolver(5, 5, 15, row3, col3, value3, b3, x3, x_new3, " 5x5 matrix, 15 non-zero elements");
     // Test case: 4x4 matrix, 10 non-zero elements
-    int row4[] = {0, 3, 5, 8, 10};                      // Row pointers (nx + 1)
-    int col4[] = {0, 1, 3, 1, 2, 0, 2, 3, 1, 3};        // Column indices for non-zero elements (nnz)
-    double value4[] = {8, -1, 2, 7, 1, 1, 5, -3, 2, 6}; // Non-zero values of the matrix (nnz)
-    double b4[] = {9.0, 8.0, 3.0, 12.0};                // Right-hand side vector
-    double x4[] = {0.8, 0.9, 1.5, 1.6};                 // Solution vector (output)
+    int row4[] = {0, 3, 5, 8, 10};                     
+    int col4[] = {0, 1, 3, 1, 2, 0, 2, 3, 1, 3};        
+    double value4[] = {8, -1, 2, 7, 1, 1, 5, -3, 2, 6}; 
+    double b4[] = {9.0, 8.0, 3.0, 12.0};             
+    double x4[] = {0.8, 0.9, 1.5, 1.6};                
     double x_new4[] = {0.0, 0.0, 0.0, 0.0};
-
-    // Call the Jacobi solver test
-    testJacobiSolver(4, 4, 10, row4, col4, value4, b4, x4, x_new4);
+    testJacobiSolver(4, 4, 10, row4, col4, value4, b4, x4, x_new4, "4x4 matrix, 10 non-zero elements");
 
     // Asymmetric 4x4 Matrix
     int row_asymm1[] = {0, 3, 5, 8, 12};
@@ -99,7 +94,7 @@ int main()
     double b_asymm1[] = {9.0, 8.0, 3.0, 12.0};
     double x_asymm1[] = {0.4, 0.97, 1.86, 2.27};
     double x_new_asymm1[] = {0.0, 0.0, 0.0, 0.0};
-    testJacobiSolver(4, 4, 12, row_asymm1, col_asymm1, value_asymm1, b_asymm1, x_asymm1, x_new_asymm1);
+    testJacobiSolver(4, 4, 12, row_asymm1, col_asymm1, value_asymm1, b_asymm1, x_asymm1, x_new_asymm1, " Asymmetric 4x4 Matrix");
     // Zero Matrix
     int row_edge1[] = {0, 0, 0, 0};
     int col_edge1[] = {};
@@ -109,63 +104,60 @@ int main()
     double x_new_edge1[] = {0.0, 0.0, 0.0};
     try
     {
-        testJacobiSolver(3, 3, 0, row_edge1, col_edge1, value_edge1, b_edge1, x_edge1, x_new_edge1);
+        testJacobiSolver(3, 3, 0, row_edge1, col_edge1, value_edge1, b_edge1, x_edge1, x_new_edge1 ," Zero Matrix");
     }
     catch (const std::runtime_error &e)
     {
         printf("Impossible to compute Jacobi method\n");
     }
 
-    // Identity Matrix
+    // 3x3  Identity Matrix
     int row_edge2[] = {0, 1, 2, 3};
     int col_edge2[] = {0, 1, 2};
     double value_edge2[] = {1.0, 1.0, 1.0};
     double b_edge2[] = {5.0, 7.0, 9.0};
     double x_edge2[] = {5.0, 7.0, 9.0};
     double x_new_edge2[] = {0.0, 0.0, 0.0};
-    testJacobiSolver(3, 3, 3, row_edge2, col_edge2, value_edge2, b_edge2, x_edge2, x_new_edge2);
-    // 3x3 Non-symmetric Matrix Example
+    testJacobiSolver(3, 3, 3, row_edge2, col_edge2, value_edge2, b_edge2, x_edge2, x_new_edge2, " 3x3  Identity Matrix");
+    // 3x3 Non-symmetric Matrix
     int row_asymm2[] = {0, 3, 5, 8};
     int col_asymm2[] = {0, 1, 2, 0, 1, 0, 1, 2};
     double value_asymm2[] = {3, -1, 2, 1, 4, 2, 1, 5};
     double b_asymm2[] = {10.0, 15.0, 20.0};
-    double x_asymm2[] = {2.84, 3.0, 2.25};   // Initial guess
-    double x_new_asymm2[] = {0.0, 0.0, 0.0}; // Solution vector (output)
+    double x_asymm2[] = {2.84, 3.0, 2.25};   
+    double x_new_asymm2[] = {0.0, 0.0, 0.0}; 
 
-    testJacobiSolver(3, 3, 8, row_asymm2, col_asymm2, value_asymm2, b_asymm2, x_asymm2, x_new_asymm2);
-
+    testJacobiSolver(3, 3, 8, row_asymm2, col_asymm2, value_asymm2, b_asymm2, x_asymm2, x_new_asymm2, "3x3 Non-symmetric Matrix");
+    // 3x3 rectangular matix 
     int row_rect[] = {0, 2, 5, 8, 10, 11};
     int col_rect[] = {0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 3};
     double value_rect[] = {4, -1, -1 - 4, -1, -1, 4, -1, -1, 4, -1};
     double b_rect[] = {1.0, 2.0, 3.0, 4.0, 5.0};
-    double x_rect[] = {1.00, 1.99, 2.99, 3.99, 4.99}; // Initial guess
-    double x_new_rect[] = {0.0, 0.0, 0.0, 0.0, 0.0};  // Solution vector (output)
+    double x_rect[] = {1.00, 1.99, 2.99, 3.99, 4.99}; 
+    double x_new_rect[] = {0.0, 0.0, 0.0, 0.0, 0.0};  
 
-    // Call the Jacobi solver test
     // testJacobiSolver(4, 5, 11, row_rect, col_rect, value_rect, b_rect, x_rect, x_new_rect); // there ia an issue with rectangular matrix in jacobi kernel
-    printf("All  test are apssed succesfully for jacobi method\n");
+    printf("All  test are passed succesfully for jacobi method\n");
 
     double u1[] = {-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
     double v1[] = {1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
     double Yn1[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
-    double b_exp1[] = {3.0, 4.0, 5.0, 2.0, 1.0, 2.0, 1.0, 1.0, 5.0}; // Expected output (example)
+    double b_exp1[] = {3.0, 4.0, 5.0, 2.0, 1.0, 2.0, 1.0, 1.0, 5.0}; 
     double new_b[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
     // Call the kernel with 3x3 matrix dimensions (ny=3, nx=3)
-    testFillb(3, 3, 0.1, 0.1, 0.1, u1, v1, Yn1, b_exp1, new_b);
+    testFillb(3, 3, 0.1, 0.1, 0.1, u1, v1, Yn1, b_exp1, new_b,"Fill b for 3x3 matrix dimensions");
     double u2[] = {-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0};
     double v2[] = {1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, 1.0};
     double Yn2[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0, 23.0, 24.0, 25.0};
-    double b_exp2[] = {5.0, 6.0, 7.0, 1.0, -1.0, 0.0, 13.0, 14.0, 3.0, 6.0, 15.0, 16.0, 9.0, 8.0, 19.0, 22.0, 13.0, 12.0, 25.0, 24.0, 15.0, 18.0, -1.0, 1.0, 19.0}; // Expected output (example)
-    double new_b2[25] = {0.0};                                                                                                                                      // Array for new results
-                                                                                                                                                                    // Call the kernel with 5x5 matrix dimensions (ny=5, nx=5)
-    testFillb(5, 5, 0.1, 0.1, 0.1, u2, v2, Yn2, b_exp2, new_b2);
+    double b_exp2[] = {5.0, 6.0, 7.0, 1.0, -1.0, 0.0, 13.0, 14.0, 3.0, 6.0, 15.0, 16.0, 9.0, 8.0, 19.0, 22.0, 13.0, 12.0, 25.0, 24.0, 15.0, 18.0, -1.0, 1.0, 19.0};
+    double new_b2[25] = {0.0};                                                                                                                                    
 
     // Call the kernel with 5x5 matrix dimensions (ny=5, nx=5) with neg param
-    testFillb(5, 5, 0.1, 0.1, 0.1, u2, v2, Yn2, b_exp2, new_b2);
+    testFillb(5, 5, 0.1, 0.1, 0.1, u2, v2, Yn2, b_exp2, new_b2, "Fill b for  5x5 matrix dimensions ");
     try
     {
-        testFillb(5, 5, 0.1, -0.1, 0.1, u2, v2, Yn2, b_exp2, new_b2);
+        testFillb(5, 5, 0.1, -0.1, 0.1, u2, v2, Yn2, b_exp2, new_b2, "Fill b for  5x5 matrix dimensions ");
     }
     catch (...)
     {

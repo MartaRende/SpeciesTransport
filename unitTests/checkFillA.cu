@@ -7,7 +7,7 @@
 #include <cmath>
 
 
-void runTestfillMatrixA(int* row_offset,double* exp_values,int nx, int ny, double dx, double dy, double D, double dt, const char *testName)
+void runTestfillMatrixA(int* row_offset,double* exp_values,int nx, int ny, double dx, double dy, double D, double dt, const char *testName )
 {
     //Chcking invalid cases
     if (dx <= 0 || dy <= 0)

@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     auto start_total = high_resolution_clock::now();
 
     //  == Number of species to be calculated ==
-    int nSpecies = 1;
+    int nSpecies = 6;
 
     // == Output ==
     string outputName = "output/speciesTransport_";
@@ -36,12 +36,12 @@ int main(int argc, char *argv[])
 
     // == Spatial parameters ==
     double D[nSpecies] = {0.002, 0.002, 0.010, 0.005, 0.015, 0.020}; // possible values from 0.001 to 0.025, each specie has its own diffusion coefficient
-    int nx = 4;                                                    // in parallel 800
-    int ny = 4;                                                     // in parallel 800
+    int nx = 50;                                                    
+    int ny = 50;                                                     
     double Lx = 1.0;
     double Ly = 1.0;
-    double dx = Lx / (nx - 1); // in final version 0.0077
-    double dy = Ly / (ny - 1); // in final version 0.0077
+    double dx = Lx / (nx - 1); 
+    double dy = Ly / (ny - 1); 
 
     // == Temporal ==
     double tFinal = 2.0;
@@ -52,6 +52,16 @@ int main(int argc, char *argv[])
     double meanFileWriting = 0;
     int totFileWrited = 40;
 
+
+
+    /*It's important to ensure that dx and dy are positive because otherwise
+    we would generate calculations with divisions by zero and it'also important to check that nx and ny are >= 1   */
+
+    if (dx <= 0 || dy <= 0 || nx<=0 || ny <=0)
+    {
+        std::cerr << "dx, dy, nx and ny must be positive " << std::endl;
+        std::exit(-1);
+    }
     // == Host variables ==
 
     int unidimensional_size = nx * ny; // size of flattened arrays
@@ -199,7 +209,7 @@ int main(int argc, char *argv[])
                 solveSpeciesEquation(dx, dy, D[s], nx, ny, dt, d_u, d_v, &d_Yn[s * nx * ny], d_x, &d_x_new[s * nx * ny], d_b, d_values, d_column_indices, d_row_offsets, world_rank);
                 if (step % 100 == 0)
                 {
-                    CHECK_ERROR(cudaMemcpy(Y[s], &d_x[s * nx * ny], unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
+                    CHECK_ERROR(cudaMemcpy(Y[s], &d_x_new[s * nx * ny], unidimensional_size_of_bytes, cudaMemcpyDeviceToHost));
                 }
                 // == same process as before for writing files with the help of mpi ==
                 for (int i = 1; i < world_size; i++)
