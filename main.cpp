@@ -35,6 +35,16 @@ int main()
     double meanFileWriting = 0;
     int totFileWrited = 40;
 
+    
+    /*It's important to ensure that dx and dy are positive because otherwise
+    we would generate calculations with divisions by zero and it'also important to check that nx and ny are >= 1   */
+
+    if (dx <= 0 || dy <= 0 || nx<=0 || ny <=0)
+    {
+        std::cerr << "dx, dy, nx and ny must be positive " << std::endl;
+        std::exit(-1);
+    }
+
     // == Variables initialisation ==
     // Array of pointers to 2D arrays for each species
     double ***Y = new double **[nSpecies];
