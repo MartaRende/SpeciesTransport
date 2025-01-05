@@ -2,7 +2,6 @@
 #include <cuda.h>
 #include <cassert>
 #include <iostream>
-#include <cuda_runtime.h>
 #include <cassert>
 
 // == test row kernel ==
