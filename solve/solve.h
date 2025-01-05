@@ -10,8 +10,9 @@ struct SparseMatrix {
 };
 
 
-void solveSpeciesEquation(double** Y,double** u,double** v, const double dx,const double dy,double D,const int nx,const int ny, const double dt);
-void computeBoundaries(double** Y, const int nx, const int ny);
-void fillMatrixA(SparseMatrix &A_sparse , const double dx, const double dy, const double D, const double dt, const int nx, const int ny);
-void jacobiSolver(SparseMatrix &A_sparse, double* b, double* x, int size, int maxIterations, double tolerance);
+
+void solveSpeciesEquation(
+                          const double dx, const double dy, double D,
+                          const  int nx, const  int ny, const double dt,double * d_u, double * d_v, double * d_Yn, double * d_x, double * d_x_new, double * d_b, double * d_values,  int * d_column_indices,  int * d_row_offsets, int world_rank);
+
 #endif // SOLVE_H
